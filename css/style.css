@@ -5156,6 +5156,10 @@ table table {
   content: "\e64b";
 }
 
+.icon-bilibili:before {
+  content: "\e62a";
+}
+
 .icon-segmentfault:before {
   content: "\e610";
 }
@@ -5214,6 +5218,10 @@ table table {
 
 .icon-tencent-weibo:before {
   content: "\e602";
+}
+
+.icon-bilibili:before {
+  content: "\e62a";
 }
 
 .icon-book:before {
