@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.chaguake.com/2021/03/15/GC_mark_sweep_algorithm/</loc>
+    
+    <lastmod>2021-03-15</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.chaguake.com/2021/03/14/virtual_function_or_table_of_polymorphism/</loc>
     
     <lastmod>2021-03-14</lastmod>
@@ -60,7 +67,7 @@
 
   <url>
     <loc>https://www.chaguake.com/</loc>
-    <lastmod>2021-03-14</lastmod>
+    <lastmod>2021-03-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -68,7 +75,14 @@
   
   <url>
     <loc>https://www.chaguake.com/tags/C-%E5%A4%9A%E6%80%81/</loc>
-    <lastmod>2021-03-14</lastmod>
+    <lastmod>2021-03-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chaguake.com/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2021-03-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -77,7 +91,14 @@
   
   <url>
     <loc>https://www.chaguake.com/categories/C-C/</loc>
-    <lastmod>2021-03-14</lastmod>
+    <lastmod>2021-03-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.chaguake.com/categories/%E4%B9%A6%E7%B1%8D/</loc>
+    <lastmod>2021-03-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
