@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.chaguake.com/2021/04/02/fisher-yates-shuffle-alg/</loc>
+    <lastmod>2021-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://www.chaguake.com/2021/04/02/interview-knowledge-C-base/</loc>
+    <lastmod>2021-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://www.chaguake.com/2021/03/31/OpenGL-introduction-03/</loc>
+    <lastmod>2021-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/</loc>
+    <lastmod>2021-03-31</lastmod>
+  </url>
+  <url>
+    <loc>https://www.chaguake.com/2021/03/31/OpenGL-introduction-02/</loc>
+    <lastmod>2021-03-31</lastmod>
+  </url>
+  <url>
+    <loc>https://www.chaguake.com/2021/03/24/lua-base-knowledge/</loc>
+    <lastmod>2021-03-31</lastmod>
+  </url>
+  <url>
     <loc>https://www.chaguake.com/2021/03/23/c-usage-of-time-and-date/</loc>
     <lastmod>2021-03-23</lastmod>
   </url>

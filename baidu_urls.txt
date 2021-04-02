@@ -1,3 +1,5 @@
-https://www.chaguake.com/2021/03/23/c-usage-of-time-and-date/
-https://www.chaguake.com/2021/03/15/GC_mark_sweep_algorithm/
-https://www.chaguake.com/2021/03/14/virtual_function_or_table_of_polymorphism/
+https://www.chaguake.com/2021/04/02/fisher-yates-shuffle-alg/
+https://www.chaguake.com/2021/04/02/interview-knowledge-C-base/
+https://www.chaguake.com/2021/03/31/OpenGL-introduction-03/
+https://www.chaguake.com/2021/03/31/OpenGL-introduction-02/
+https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/

@@ -17,18 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>404 Not Found：该页无法显示 | 茶瓜客</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="404 Not Found：该页无法显示">
-<meta property="og:url" content="https://www.chaguake.com/404.html">
+  <title>OpenGL入门（二）——Hello Window小节笔记 | 茶瓜客</title>
+  <meta name="description" content="英文原文地址 中文翻译地址 整个小节看这一份完整的源码就可以了。这里。 总结初始化GLFW。 1glfwInit();  调用glfwWindowHint函数配置GLFW。 123glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);glfwWindowHint(GLF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenGL入门（二）——Hello Window小节笔记">
+<meta property="og:url" content="https://www.chaguake.com/2021/03/31/OpenGL-introduction-02/index.html">
 <meta property="og:site_name" content="茶瓜客">
+<meta property="og:description" content="英文原文地址 中文翻译地址 整个小节看这一份完整的源码就可以了。这里。 总结初始化GLFW。 1glfwInit();  调用glfwWindowHint函数配置GLFW。 123glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);glfwWindowHint(GLF">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-09T07:38:35.984Z">
-<meta property="article:modified_time" content="2021-03-09T05:57:02.612Z">
+<meta property="article:published_time" content="2021-03-31T06:59:55.000Z">
+<meta property="article:modified_time" content="2021-03-31T10:53:13.460Z">
 <meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="OpenGL入门">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/404.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/03/31/OpenGL-introduction-02/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -337,14 +340,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="page-" class="article article-type-page" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-OpenGL-introduction-02" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      404 Not Found：该页无法显示
+      OpenGL入门（二）——Hello Window小节笔记
     </h1>
   
 
@@ -352,12 +355,22 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/404.html" class="article-date">
-	  <time datetime="2021-03-09T07:38:35.984Z" itemprop="datePublished">2021-03-09</time>
+	<a href="/2021/03/31/OpenGL-introduction-02/" class="article-date">
+	  <time datetime="2021-03-31T06:59:55.000Z" itemprop="datePublished">2021-03-31</time>
 	</a>
 </span>
         
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
+  </span>
+
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a>
+  </span>
+
 
         
 	<span class="article-read hidden-xs">
@@ -368,13 +381,39 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/404.html#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/31/OpenGL-introduction-02/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <script type="text/javascript" src="//www.qq.com/404/search_children.js" charset="utf-8" homePageUrl="<%- config.url %>" homePageName="回到我的主页"></script>
+        <p><a target="_blank" rel="noopener" href="http://learnopengl.com/#!Getting-started/Hello-Window">英文原文地址</a> <a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/01%20Getting%20started/03%20Hello%20Window/">中文翻译地址</a></p>
+<p>整个小节看这一份完整的源码就可以了。<a target="_blank" rel="noopener" href="https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/1.2.hello_window_clear/hello_window_clear.cpp">这里</a>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>初始化GLFW。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glfwInit();</span><br></pre></td></tr></table></figure>
+
+<p>调用<code>glfwWindowHint</code>函数配置GLFW。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);</span><br><span class="line">glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);</span><br><span class="line">glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);</span><br></pre></td></tr></table></figure>
+
+<p>调用<code>glfwCreateWindow</code>函数创建窗口对象，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GLFWwindow* window &#x3D; glfwCreateWindow(800, 600, &quot;LearnOpenGL&quot;, NULL, NULL);</span><br></pre></td></tr></table></figure>
+
+<p>把窗口的上下文设置为当前线程的上下文。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glfwMakeContextCurrent(window);</span><br></pre></td></tr></table></figure>
+
+<p>传递OpenGL函数指针给GLAD。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))</span><br><span class="line">&#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;Failed to initialize GLAD&quot; &lt;&lt; std::endl;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>传递窗口大小给OpenGL，由于窗口大小会变化，所以通过注册函数来实现动态更新。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void framebuffer_size_callback(GLFWwindow* window, int width, int height)</span><br><span class="line">&#123;</span><br><span class="line">    glViewport(0, 0, width, height);</span><br><span class="line">&#125;</span><br><span class="line">glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);</span><br></pre></td></tr></table></figure>
+
+<p>循环渲染，直到窗口退出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">void processInput(GLFWwindow *window)</span><br><span class="line">&#123;</span><br><span class="line">    if(glfwGetKey(window, GLFW_KEY_ESCAPE) &#x3D;&#x3D; GLFW_PRESS)</span><br><span class="line">        glfwSetWindowShouldClose(window, true);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">while(!glfwWindowShouldClose(window))</span><br><span class="line">&#123;</span><br><span class="line">    processInput(window);&#x2F;&#x2F;捕捉用户输入。</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;渲染指令</span><br><span class="line">    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);</span><br><span class="line">    glClear(GL_COLOR_BUFFER_BIT);</span><br><span class="line"></span><br><span class="line">    glfwSwapBuffers(window);&#x2F;&#x2F;交换颜色缓冲。</span><br><span class="line">    glfwPollEvents();&#x2F;&#x2F;检测事件。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>退出时释放资源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glfwTerminate();</span><br></pre></td></tr></table></figure>
+
+
 
       
     </div>
@@ -384,7 +423,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/404.html" title="404 Not Found：该页无法显示" target="_blank" rel="external">https://www.chaguake.com/404.html</a>
+      <a href="https://www.chaguake.com/2021/03/31/OpenGL-introduction-02/" title="OpenGL入门（二）——Hello Window小节笔记" target="_blank" rel="external">https://www.chaguake.com/2021/03/31/OpenGL-introduction-02/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -415,12 +454,34 @@
   </article>
   
     
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
 
   
 </div>
 
   <nav class="bar bar-footer clearfix" data-stick-bottom>
   <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/31/OpenGL-introduction-03/" title="OpenGL入门（三）——生成三角形小结笔记"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/31/OpenGL-introduction-01/" title="OpenGL入门（一）——GLFW库与GLAD库"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
   
   <!-- Button trigger modal -->
@@ -535,6 +596,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 

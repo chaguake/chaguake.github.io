@@ -17,18 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>404 Not Found：该页无法显示 | 茶瓜客</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="404 Not Found：该页无法显示">
-<meta property="og:url" content="https://www.chaguake.com/404.html">
+  <title>Fisher Yates 洗牌算法 | 茶瓜客</title>
+  <meta name="description" content="不加权模式Fisher Yates洗牌算法凭借着O(1)空间、O(n)时间复杂度，实现了“在n个不同的数中随机取出m个数”一类的问题。 实现大致是将从未抽取集合中随机抽中的数x与未抽取集合中的最后一个数交换，未抽取集合个数-1。不断重复，直至未抽取集合个数为0。 实现细节：  已知原始数组长度为n，将原始数组分为未抽取数组（长度为n）和取出数组（长度为0）。  在未抽取数组中，随机（算法依赖这个’">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fisher Yates 洗牌算法">
+<meta property="og:url" content="https://www.chaguake.com/2021/04/02/fisher-yates-shuffle-alg/index.html">
 <meta property="og:site_name" content="茶瓜客">
+<meta property="og:description" content="不加权模式Fisher Yates洗牌算法凭借着O(1)空间、O(n)时间复杂度，实现了“在n个不同的数中随机取出m个数”一类的问题。 实现大致是将从未抽取集合中随机抽中的数x与未抽取集合中的最后一个数交换，未抽取集合个数-1。不断重复，直至未抽取集合个数为0。 实现细节：  已知原始数组长度为n，将原始数组分为未抽取数组（长度为n）和取出数组（长度为0）。  在未抽取数组中，随机（算法依赖这个’">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-09T07:38:35.984Z">
-<meta property="article:modified_time" content="2021-03-09T05:57:02.612Z">
+<meta property="article:published_time" content="2021-04-02T06:29:14.000Z">
+<meta property="article:modified_time" content="2021-04-02T09:17:20.320Z">
 <meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="洗牌算法">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/404.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/04/02/fisher-yates-shuffle-alg/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -38,6 +41,8 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
   
   
   
@@ -337,14 +342,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="page-" class="article article-type-page" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-fisher-yates-shuffle-alg" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      404 Not Found：该页无法显示
+      Fisher Yates 洗牌算法
     </h1>
   
 
@@ -352,12 +357,22 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/404.html" class="article-date">
-	  <time datetime="2021-03-09T07:38:35.984Z" itemprop="datePublished">2021-03-09</time>
+	<a href="/2021/04/02/fisher-yates-shuffle-alg/" class="article-date">
+	  <time datetime="2021-04-02T06:29:14.000Z" itemprop="datePublished">2021-04-02</time>
 	</a>
 </span>
         
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </span>
+
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" rel="tag">洗牌算法</a>
+  </span>
+
 
         
 	<span class="article-read hidden-xs">
@@ -368,13 +383,68 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/404.html#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/02/fisher-yates-shuffle-alg/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <script type="text/javascript" src="//www.qq.com/404/search_children.js" charset="utf-8" homePageUrl="<%- config.url %>" homePageName="回到我的主页"></script>
+        <h1 id="不加权模式"><a href="#不加权模式" class="headerlink" title="不加权模式"></a>不加权模式</h1><p>Fisher Yates洗牌算法凭借着O(1)空间、O(n)时间复杂度，实现了“在n个不同的数中随机取出m个数”一类的问题。</p>
+<p>实现大致是将从未抽取集合中随机抽中的数x与未抽取集合中的最后一个数交换，未抽取集合个数-1。不断重复，直至未抽取集合个数为0。</p>
+<p>实现细节：</p>
+<ul>
+<li><p>已知原始数组长度为n，将原始数组分为未抽取数组（长度为n）和取出数组（长度为0）。</p>
+</li>
+<li><p>在未抽取数组中，<strong>随机</strong>（算法依赖这个’随机‘是否够随机）选中一个数p，将数p的位置与原始数组最后一位（首位也行）交换。</p>
+</li>
+<li><p>重复上一个步骤，直到未抽取数组的个数为0。</p>
+</li>
+</ul>
+<p><em>有点像选择排序，差异在于每次在’未排序‘区中找的不是最小（或最大）的，而是随机选一个。</em></p>
+<p>实现代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void shuffle(int *arr,int nLen)</span><br><span class="line">&#123;</span><br><span class="line">    for (size_t i &#x3D; nLen - 1; i &gt; 0; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        int num &#x3D; rand() % i;</span><br><span class="line">        std::swap(arr[i], arr[num]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>算法脱离数学是不讲武德的，下面就证明：集合set有n个不同的数字，第i次抽取到的数字p的概率是否是都是1/n 。</p>
+<ul>
+<li><p>第i次才抽中数字p，那么前i-1次都是没抽到数字p的。</p>
+</li>
+<li><p>第一次抽取，没抽到数字p的概率是(n-1)/n。</p>
+</li>
+<li><p>第二次抽取，没抽到数字p的概率是((n-1)/n)*((n-2)/(n-1))。</p>
+</li>
+</ul>
+<p>……</p>
+<ul>
+<li><p>第i-1次抽取，没抽到数字p的概率是((n-1)/n)*((n-2)/(n-1))<em>···</em>((n-i)/(n-i+1))。</p>
+</li>
+<li><p>第i次抽取，抽到数字p的概率是((n-1)/n)<em>((n-2)/(n-1))<em>···</em>((n-i)/(n-i+1))</em>(1/(n-i)) = 1/n。</p>
+</li>
+</ul>
+<p>Fisher Yates洗牌算法有两个随机因子，一个是每一次从未抽取集合抽取的元素，另一个是每一次未抽取集合最后一个元素，但最关键是第一个随机因子。</p>
+<p>假如为每个元素加上权重，使得每个元素本身被抽中的优先度不一样，又如何用Fisher Yates洗牌算法来实现呢？</p>
+<h1 id="加权模式"><a href="#加权模式" class="headerlink" title="加权模式"></a>加权模式</h1><p>一个比较笨重的办法,将元素按照其权重展开:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;a:2,b:3,c:1&#125;</span><br><span class="line">&#123;a,a,b,b,b,c&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（但显然不是好办法。=_=）</p>
+<p>因为有了权重作为附加条件，再按照上面”从未抽取集合中随机抽取一个元素“的方式是不满足条件的，必须将权重参与到运算中（随机抽取）。</p>
+<p>那么，可以将所有权重值加起来，得到一个权重总数sum，然后在0到sum的范围内随机产生一个数num，再将num与未抽取集合中每一个元素作某种比较，最后输出随机数。</p>
+<p>步骤如下：</p>
+<ul>
+<li><p>统计出所有元素的权重和sum。</p>
+</li>
+<li><p>在0到sum之间随机产生一个随机数num，遍历未抽取集合。</p>
+</li>
+<li><p>用随机数num和当前迭代元素n比较。假如num小于n，结束迭代，返回元素n（与最后一位元素交换），sum-=n，重复第二步；假如num大于n，则num-=n，继续迭代。</p>
+</li>
+<li><p>遍历到未抽取集合的最后一个元素时，如果num大于n，则输出最后一个元素，sum-=n。</p>
+</li>
+<li><p>重复第二步。</p>
+</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void shuffle2(int *arr, int nLen)</span><br><span class="line">&#123;</span><br><span class="line">    int sum &#x3D; 0;</span><br><span class="line">    for (size_t i &#x3D; 0; i &lt; nLen; i++)&#123;</span><br><span class="line">	sum +&#x3D; arr[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (size_t i &#x3D; nLen - 1; i &gt; 0; i--) &#123;</span><br><span class="line">	int num &#x3D; rand() % sum;</span><br><span class="line">	size_t j &#x3D; 0;</span><br><span class="line">	for (; j &lt; i; j++)&#123;</span><br><span class="line">	    if (num &gt; arr[j]) &#123;</span><br><span class="line">		num -&#x3D; arr[j];</span><br><span class="line">	    &#125;</span><br><span class="line">	    else &#123;</span><br><span class="line">		break;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	sum -&#x3D; arr[j];</span><br><span class="line">	std::swap(arr[i], arr[j]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>空间复杂度还是O(1)，但时间复杂度是O(n+n*n)。</p>
 
       
     </div>
@@ -384,7 +454,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/404.html" title="404 Not Found：该页无法显示" target="_blank" rel="external">https://www.chaguake.com/404.html</a>
+      <a href="https://www.chaguake.com/2021/04/02/fisher-yates-shuffle-alg/" title="Fisher Yates 洗牌算法" target="_blank" rel="external">https://www.chaguake.com/2021/04/02/fisher-yates-shuffle-alg/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -415,12 +485,30 @@
   </article>
   
     
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
 
   
 </div>
 
   <nav class="bar bar-footer clearfix" data-stick-bottom>
   <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/04/02/interview-knowledge-C-base/" title="面试知识点——C/C++基础知识"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
   
   <!-- Button trigger modal -->
@@ -535,6 +623,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 

@@ -17,18 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>404 Not Found：该页无法显示 | 茶瓜客</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="404 Not Found：该页无法显示">
-<meta property="og:url" content="https://www.chaguake.com/404.html">
+  <title>面试知识点——C/C++基础知识 | 茶瓜客</title>
+  <meta name="description" content="一、extern关键字的使用1、外部变量声明，使得全局变量可跨文件使用。 不同.cpp文件在编译时是独立的，需要添加extern关键字声明该变量是在外部（其他.cpp文件）定义。 2、函数声明。 可以使用extern void fun();来代替引用#include *.h的方式，去声明外部函数。 这里有个问题，网络上说单方面修改extern函数原型时编译器不会报错，但博主在VS2008和VS20">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试知识点——C&#x2F;C++基础知识">
+<meta property="og:url" content="https://www.chaguake.com/2021/04/02/interview-knowledge-C-base/index.html">
 <meta property="og:site_name" content="茶瓜客">
+<meta property="og:description" content="一、extern关键字的使用1、外部变量声明，使得全局变量可跨文件使用。 不同.cpp文件在编译时是独立的，需要添加extern关键字声明该变量是在外部（其他.cpp文件）定义。 2、函数声明。 可以使用extern void fun();来代替引用#include *.h的方式，去声明外部函数。 这里有个问题，网络上说单方面修改extern函数原型时编译器不会报错，但博主在VS2008和VS20">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-09T07:38:35.984Z">
-<meta property="article:modified_time" content="2021-03-09T05:57:02.612Z">
+<meta property="article:published_time" content="2021-04-02T01:52:14.000Z">
+<meta property="article:modified_time" content="2021-04-02T08:00:13.180Z">
 <meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="C&#x2F;C++知识">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/404.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/04/02/interview-knowledge-C-base/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -337,14 +340,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="page-" class="article article-type-page" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-interview-knowledge-C-base" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      404 Not Found：该页无法显示
+      面试知识点——C/C++基础知识
     </h1>
   
 
@@ -352,12 +355,22 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/404.html" class="article-date">
-	  <time datetime="2021-03-09T07:38:35.984Z" itemprop="datePublished">2021-03-09</time>
+	<a href="/2021/04/02/interview-knowledge-C-base/" class="article-date">
+	  <time datetime="2021-04-02T01:52:14.000Z" itemprop="datePublished">2021-04-02</time>
 	</a>
 </span>
         
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+  </span>
+
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/C-C-%E7%9F%A5%E8%AF%86/" rel="tag">C/C++知识</a>
+  </span>
+
 
         
 	<span class="article-read hidden-xs">
@@ -368,13 +381,27 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/404.html#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/02/interview-knowledge-C-base/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <script type="text/javascript" src="//www.qq.com/404/search_children.js" charset="utf-8" homePageUrl="<%- config.url %>" homePageName="回到我的主页"></script>
+        <h1 id="一、extern关键字的使用"><a href="#一、extern关键字的使用" class="headerlink" title="一、extern关键字的使用"></a>一、extern关键字的使用</h1><p><strong>1、外部变量声明，使得全局变量可跨文件使用。</strong></p>
+<p>不同.cpp文件在编译时是独立的，需要添加<code>extern</code>关键字声明该变量是在外部（其他.cpp文件）定义。</p>
+<p><strong>2、函数声明。</strong></p>
+<p>可以使用<code>extern void fun();</code>来代替引用<code>#include *.h</code>的方式，去声明外部函数。</p>
+<p><em>这里有个问题，网络上说单方面修改extern函数原型时编译器不会报错，但博主在VS2008和VS2017上是会报错的（编译成功，链接失败）。</em></p>
+<p><strong>3、链接规范（extern “C”）。</strong></p>
+<p>链接规范的用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extern &quot;C&quot; void fun();</span><br><span class="line"></span><br><span class="line">extern &quot;C&quot;</span><br><span class="line">&#123;</span><br><span class="line">    void fun1();</span><br><span class="line">    void fun2();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>C++由于支持函数重载，在C++编译器工作时，会生成一个用于链接的中间函数名。</p>
+<p>而C不支持函数重载，所以在C编译器工作时，生成的中间函数名只是简单的在函数名前加上一个下划线<code>_</code>。</p>
+<p>在C++使用C函数时，会将C函数生成一个C++规则的中间函数名。这样子，在进行链接时，C编译生成的目标文件和C++编译生成的目标文件中的中间函数名就会不一样，导致链接失败。</p>
+<p>所以，C++调用C的函数时，需要添加extern “C”来声明，按照C的规则编译C的函数。</p>
+<p>而C调用C++的函数，除了使用extern “C”之外，还需要做一层包装函数（添加extern “C”为了生成C风格的中间函数名，添加包装函数为了支持重载）。</p>
+<p><em>值得注意的是，不应该把头文件放在extern “C”的范围里，因为有可能会导致符号嵌套。</em></p>
 
       
     </div>
@@ -384,7 +411,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/404.html" title="404 Not Found：该页无法显示" target="_blank" rel="external">https://www.chaguake.com/404.html</a>
+      <a href="https://www.chaguake.com/2021/04/02/interview-knowledge-C-base/" title="面试知识点——C/C++基础知识" target="_blank" rel="external">https://www.chaguake.com/2021/04/02/interview-knowledge-C-base/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -415,12 +442,34 @@
   </article>
   
     
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
 
   
 </div>
 
   <nav class="bar bar-footer clearfix" data-stick-bottom>
   <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/04/02/fisher-yates-shuffle-alg/" title="Fisher Yates 洗牌算法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/31/OpenGL-introduction-03/" title="OpenGL入门（三）——生成三角形小结笔记"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
   
   <!-- Button trigger modal -->
@@ -535,6 +584,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 

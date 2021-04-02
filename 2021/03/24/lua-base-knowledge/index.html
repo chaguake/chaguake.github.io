@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>lua 基础知识 | 茶瓜客</title>
+  <meta name="description" content="注释单行注释 两个连续减号。 1--我是注释  多行注释 结构类似多行字符串。 1234--[[第一行注释第二行注释]]--  数据类型lua的变量不需要声明数据类型，并且变量的数据类型是不确定的，前一秒可以赋值数值，下一秒可以赋值字符串。    数据类型 描述    nil 只有值nil属于该类型，表示一个无效值   boolean 包含两个值：true和false   number 表示双精度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lua 基础知识">
+<meta property="og:url" content="https://www.chaguake.com/2021/03/24/lua-base-knowledge/index.html">
+<meta property="og:site_name" content="茶瓜客">
+<meta property="og:description" content="注释单行注释 两个连续减号。 1--我是注释  多行注释 结构类似多行字符串。 1234--[[第一行注释第二行注释]]--  数据类型lua的变量不需要声明数据类型，并且变量的数据类型是不确定的，前一秒可以赋值数值，下一秒可以赋值字符串。    数据类型 描述    nil 只有值nil属于该类型，表示一个无效值   boolean 包含两个值：true和false   number 表示双精度">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-24T11:35:05.000Z">
+<meta property="article:modified_time" content="2021-03-31T01:50:42.780Z">
+<meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://www.chaguake.com/2021/03/24/lua-base-knowledge/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon1.svg" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chaguake" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">茶瓜客</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">码农 | 打工人</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> GuangZhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>解衣又作茶瓜客，倚槛同看烟雨峰。<br/>一个不仅仅是记录代码的博客……</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenGL/">OpenGL</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lua/">lua</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B9%A6%E7%B1%8D/">书籍</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-%E5%A4%9A%E6%80%81/" rel="tag">C++多态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C-%E7%9F%A5%E8%AF%86/" rel="tag">C/C++知识</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/" rel="tag">垃圾回收的算法与实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" rel="tag">洗牌算法</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C-%E5%A4%9A%E6%80%81/" style="font-size: 13px;">C++多态</a> <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" style="font-size: 13.5px;">C/C++知识</a> <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" style="font-size: 14px;">OpenGL入门</a> <a href="/tags/lua/" style="font-size: 13px;">lua</a> <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/" style="font-size: 13px;">垃圾回收的算法与实现</a> <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" style="font-size: 13px;">洗牌算法</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/02/fisher-yates-shuffle-alg/" class="title">Fisher Yates 洗牌算法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-02T06:29:14.000Z" itemprop="datePublished">2021-04-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/02/interview-knowledge-C-base/" class="title">面试知识点——C/C++基础知识</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-02T01:52:14.000Z" itemprop="datePublished">2021-04-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/31/OpenGL-introduction-03/" class="title">OpenGL入门（三）——生成三角形小结笔记</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-31T10:50:43.000Z" itemprop="datePublished">2021-03-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/31/OpenGL-introduction-02/" class="title">OpenGL入门（二）——Hello Window小节笔记</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-31T06:59:55.000Z" itemprop="datePublished">2021-03-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/31/OpenGL-introduction-01/" class="title">OpenGL入门（一）——GLFW库与GLAD库</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-31T06:22:54.000Z" itemprop="datePublished">2021-03-31</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-lua-base-knowledge" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      lua 基础知识
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/24/lua-base-knowledge/" class="article-date">
+	  <time datetime="2021-03-24T11:35:05.000Z" itemprop="datePublished">2021-03-24</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/lua/">lua</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/lua/" rel="tag">lua</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/24/lua-base-knowledge/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p><strong>单行注释</strong></p>
+<p>两个连续减号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--我是注释</span><br></pre></td></tr></table></figure>
+
+<p><strong>多行注释</strong></p>
+<p>结构类似多行字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--[[</span><br><span class="line">第一行注释</span><br><span class="line">第二行注释</span><br><span class="line">]]--</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>lua的变量不需要声明数据类型，并且变量的数据类型是不确定的，前一秒可以赋值数值，下一秒可以赋值字符串。</p>
+<table>
+<thead>
+<tr>
+<th align="center">数据类型</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">nil</td>
+<td align="center">只有值nil属于该类型，表示一个无效值</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">包含两个值：true和false</td>
+</tr>
+<tr>
+<td align="center">number</td>
+<td align="center">表示双精度类型的实浮点数</td>
+</tr>
+<tr>
+<td align="center">string</td>
+<td align="center">由单引号或者双引号表示的字符串</td>
+</tr>
+<tr>
+<td align="center">function</td>
+<td align="center">由C或Lua编写的函数</td>
+</tr>
+<tr>
+<td align="center">userdata</td>
+<td align="center">表示任意存储在变量中的C数据结构</td>
+</tr>
+<tr>
+<td align="center">thread</td>
+<td align="center">表示执行的独立线路，用于执行协同程序</td>
+</tr>
+<tr>
+<td align="center">table</td>
+<td align="center">Lua 中的表（table）其实是一个”关联数组”（associative arrays），数组的索引可以是数字、字符串或表类型。在 Lua 里，table 的创建是通过”构造表达式”来完成，最简单构造表达式是{}，用来创建一个空表。</td>
+</tr>
+</tbody></table>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>变量的作用域默认是全局的，哪怕是在函数里定义的。</p>
+<p>想要删除一个变量，把它赋值为<code>nil</code>。</p>
+<p>局部变量需要在变量前加上<code>local</code>关键字。</p>
+<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>lua的迭代器函数有两个：<code>pairs</code>和<code>ipairs</code>。前者遇到nil不会结束迭代，而是将nil过滤；后者遇到nil会结束迭代，直接返回。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">array &#x3D; &#123;&quot;Hello&quot;, &quot;World&quot;, nil, &quot;!&quot;&#125;</span><br><span class="line"></span><br><span class="line">for key,value in ipairs(array)</span><br><span class="line">do</span><br><span class="line">   print(key, value)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">Hello</span><br><span class="line">World</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br><span class="line">array &#x3D; &#123;&quot;Hello&quot;, &quot;World&quot;, nil, &quot;!&quot;&#125;</span><br><span class="line"></span><br><span class="line">for key,value in pairs(array)</span><br><span class="line">do</span><br><span class="line">   print(key, value)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">Hello</span><br><span class="line">World</span><br><span class="line">!</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>迭代器函数每次调用会返回下一组元素，根据返回的元素组是否包含迭代状态的元素来区分是无状态的迭代器还是多状态的迭代器。</p>
+<p><strong>无状态的迭代器</strong></p>
+<p>它返回每次迭代的状态元素，并且接受上一次迭代元素，例如<code>ipairs</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function iter (a, i)</span><br><span class="line">    i &#x3D; i + 1</span><br><span class="line">    local v &#x3D; a[i]</span><br><span class="line">    if v then</span><br><span class="line">       return i, v</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"> </span><br><span class="line">function ipairs (a)</span><br><span class="line">    return iter, a, 0</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">t &#x3D; &#123;1,2,3,4,5&#125;</span><br><span class="line"></span><br><span class="line">for k,v in ipairs(t)</span><br><span class="line">do</span><br><span class="line">    print(k ,v)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p><strong>多状态的迭代器</strong></p>
+<p>如果迭代器需要维护不止一个状态元素，那可以使用闭包来实现将状态信息存放。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">array &#x3D; &#123;&quot;Hello&quot;, &quot;World&quot;&#125;</span><br><span class="line"></span><br><span class="line">function elementIterator (collection)</span><br><span class="line">   local index &#x3D; 0</span><br><span class="line">   local count &#x3D; #collection</span><br><span class="line">   -- 闭包函数</span><br><span class="line">   return function ()</span><br><span class="line">      index &#x3D; index + 1</span><br><span class="line">      if index &lt;&#x3D; count</span><br><span class="line">      then</span><br><span class="line">         --  返回迭代器的当前元素</span><br><span class="line">         return collection[index]</span><br><span class="line">      end</span><br><span class="line">   end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">for element in elementIterator(array)</span><br><span class="line">do</span><br><span class="line">   print(element)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h2 id="模块与包"><a href="#模块与包" class="headerlink" title="模块与包"></a>模块与包</h2><p>从Lua5.1开始，Lua加入了标准的模块管理机制。</p>
+<p>自定义模块module.lua代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">-- 文件名为 module.lua</span><br><span class="line">-- 定义一个名为 module 的模块</span><br><span class="line">module &#x3D; &#123;&#125;</span><br><span class="line"> </span><br><span class="line">-- 定义一个常量</span><br><span class="line">module.constant &#x3D; &quot;这是一个常量&quot;</span><br><span class="line"> </span><br><span class="line">-- 定义一个函数</span><br><span class="line">function module.func1()</span><br><span class="line">    io.write(&quot;这是一个公有函数！\n&quot;)</span><br><span class="line">end</span><br><span class="line"> </span><br><span class="line">local function func2()</span><br><span class="line">    print(&quot;这是一个私有函数！&quot;)</span><br><span class="line">end</span><br><span class="line"> </span><br><span class="line">function module.func3()</span><br><span class="line">    func2()</span><br><span class="line">end</span><br><span class="line"> </span><br><span class="line">return module</span><br></pre></td></tr></table></figure>
+
+<p>加载模块示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-- test_module.lua 文件</span><br><span class="line">-- module 模块为上文提到到 module.lua</span><br><span class="line">require(&quot;module&quot;)</span><br><span class="line"> </span><br><span class="line">print(module.constant)</span><br><span class="line"> </span><br><span class="line">module.func3()</span><br></pre></td></tr></table></figure>
+
+<p>模块别名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- test_module2.lua 文件</span><br><span class="line">-- module 模块为上文提到到 module.lua</span><br><span class="line">-- 别名变量 m</span><br><span class="line">local m &#x3D; require(&quot;module&quot;)</span><br><span class="line"> </span><br><span class="line">print(m.constant)</span><br><span class="line"> </span><br><span class="line">m.func3()</span><br></pre></td></tr></table></figure>
+
+<p><strong>C包</strong></p>
+<p>Lua可以引用C的库.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">local path &#x3D; &quot;&#x2F;usr&#x2F;local&#x2F;lua&#x2F;lib&#x2F;libluasocket.so&quot;</span><br><span class="line">-- 或者 path &#x3D; &quot;C:\\windows\\luasocket.dll&quot;，这是 Window 平台下</span><br><span class="line">local f &#x3D; assert(loadlib(path, &quot;luaopen_socket&quot;))</span><br><span class="line">f()  -- 真正打开库</span><br></pre></td></tr></table></figure>
+
+<h2 id="元表"><a href="#元表" class="headerlink" title="元表"></a>元表</h2><p>元表提供了对<code>table</code>的扩展操作，通过元方法，可以对<code>table</code>做对应的关联行为。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setmetatable(table,metatable)</span><br><span class="line">getmetatable(table)</span><br></pre></td></tr></table></figure>
+
+<p><strong>__index元方法</strong></p>
+<p>提供了当使用在<code>table</code>中不存在的键访问<code>table</code>时的控制操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mytable &#x3D; setmetatable(&#123;key1 &#x3D; &quot;value1&quot;&#125;, &#123;</span><br><span class="line">  __index &#x3D; function(mytable, key)</span><br><span class="line">    if key &#x3D;&#x3D; &quot;key2&quot; then</span><br><span class="line">      return &quot;metatablevalue&quot;</span><br><span class="line">    else</span><br><span class="line">      return nil</span><br><span class="line">    end</span><br><span class="line">  end</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">print(mytable.key1,mytable.key2)</span><br><span class="line">&#x2F;*</span><br><span class="line">value1    metatablevalue</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码也可以写成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mytable &#x3D; setmetatable(&#123;key1 &#x3D; &quot;value1&quot;&#125;, &#123; __index &#x3D; &#123; key2 &#x3D; &quot;metatablevalue&quot; &#125; &#125;)</span><br><span class="line">print(mytable.key1,mytable.key2)</span><br></pre></td></tr></table></figure>
+
+<p><strong>__newindex元方法</strong></p>
+<p>当给<code>table</code>做一个不存在的键赋值时，就会触发<code>__newindex元方法</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mymetatable &#x3D; &#123;&#125;</span><br><span class="line">mytable &#x3D; setmetatable(&#123;key1 &#x3D; &quot;value1&quot;&#125;, &#123; __newindex &#x3D; mymetatable &#125;)</span><br><span class="line"></span><br><span class="line">print(mytable.key1)</span><br><span class="line"></span><br><span class="line">mytable.newkey &#x3D; &quot;新值2&quot;</span><br><span class="line">print(mytable.newkey,mymetatable.newkey)</span><br><span class="line"></span><br><span class="line">mytable.key1 &#x3D; &quot;新值1&quot;</span><br><span class="line">print(mytable.key1,mymetatable.key1)</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">value1</span><br><span class="line">nil    新值2</span><br><span class="line">新值1    nil</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><strong>操作符元方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">-- 计算表中最大值，table.maxn在Lua5.2以上版本中已无法使用</span><br><span class="line">-- 自定义计算表中最大键值函数 table_maxn，即计算表的元素个数</span><br><span class="line">function table_maxn(t)</span><br><span class="line">    local mn &#x3D; 0</span><br><span class="line">    for k, v in pairs(t) do</span><br><span class="line">        if mn &lt; k then</span><br><span class="line">            mn &#x3D; k</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">    return mn</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">-- 两表相加操作</span><br><span class="line">mytable &#x3D; setmetatable(&#123; 1, 2, 3 &#125;, &#123;</span><br><span class="line">  __add &#x3D; function(mytable, newtable)</span><br><span class="line">    for i &#x3D; 1, table_maxn(newtable) do</span><br><span class="line">      table.insert(mytable, table_maxn(mytable)+1,newtable[i])</span><br><span class="line">    end</span><br><span class="line">    return mytable</span><br><span class="line">  end</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">secondtable &#x3D; &#123;4,5,6&#125;</span><br><span class="line"></span><br><span class="line">mytable &#x3D; mytable + secondtable</span><br><span class="line">        for k,v in ipairs(mytable) do</span><br><span class="line">print(k,v)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">1    1</span><br><span class="line">2    2</span><br><span class="line">3    3</span><br><span class="line">4    4</span><br><span class="line">5    5</span><br><span class="line">6    6</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">操作符元方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">__add</td>
+<td align="center">加</td>
+</tr>
+<tr>
+<td align="center">__sub</td>
+<td align="center">减</td>
+</tr>
+<tr>
+<td align="center">__mul</td>
+<td align="center">乘</td>
+</tr>
+<tr>
+<td align="center">__div</td>
+<td align="center">商 ‘/’</td>
+</tr>
+<tr>
+<td align="center">__mod</td>
+<td align="center">余数 ‘%’</td>
+</tr>
+<tr>
+<td align="center">__unm</td>
+<td align="center">负数 ‘-’</td>
+</tr>
+<tr>
+<td align="center">__concat</td>
+<td align="center">连接符号 ‘..’</td>
+</tr>
+<tr>
+<td align="center">__eq</td>
+<td align="center">判断相等 ‘==’</td>
+</tr>
+<tr>
+<td align="center">__lt</td>
+<td align="center">小于 ‘&lt;’</td>
+</tr>
+<tr>
+<td align="center">__le</td>
+<td align="center">小于等于 ‘&lt;=’</td>
+</tr>
+</tbody></table>
+<p><strong>__call元方法</strong></p>
+<p>提供元组一个调用函数的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">-- 计算表中最大值，table.maxn在Lua5.2以上版本中已无法使用</span><br><span class="line">-- 自定义计算表中最大键值函数 table_maxn，即计算表的元素个数</span><br><span class="line">function table_maxn(t)</span><br><span class="line">    local mn &#x3D; 0</span><br><span class="line">    for k, v in pairs(t) do</span><br><span class="line">        if mn &lt; k then</span><br><span class="line">            mn &#x3D; k</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">    return mn</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">-- 定义元方法__call</span><br><span class="line">mytable &#x3D; setmetatable(&#123;10&#125;, &#123;</span><br><span class="line">  __call &#x3D; function(mytable, newtable)</span><br><span class="line">        sum &#x3D; 0</span><br><span class="line">        for i &#x3D; 1, table_maxn(mytable) do</span><br><span class="line">                sum &#x3D; sum + mytable[i]</span><br><span class="line">        end</span><br><span class="line">    for i &#x3D; 1, table_maxn(newtable) do</span><br><span class="line">                sum &#x3D; sum + newtable[i]</span><br><span class="line">        end</span><br><span class="line">        return sum</span><br><span class="line">  end</span><br><span class="line">&#125;)</span><br><span class="line">newtable &#x3D; &#123;10,20,30&#125;</span><br><span class="line">print(mytable(newtable))</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">70</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><strong>__tostring元方法</strong></p>
+<p>提供<code>table</code>格式化输出的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mytable &#x3D; setmetatable(&#123; 10, 20, 30 &#125;, &#123;</span><br><span class="line">  __tostring &#x3D; function(mytable)</span><br><span class="line">    sum &#x3D; 0</span><br><span class="line">    for k, v in pairs(mytable) do</span><br><span class="line">                sum &#x3D; sum + v</span><br><span class="line">        end</span><br><span class="line">    return &quot;表所有元素的和为 &quot; .. sum</span><br><span class="line">  end</span><br><span class="line">&#125;)</span><br><span class="line">print(mytable)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://www.chaguake.com/2021/03/24/lua-base-knowledge/" title="lua 基础知识" target="_blank" rel="external">https://www.chaguake.com/2021/03/24/lua-base-knowledge/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
+        <div>是码农啦！不喜格仔衫……</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/03/31/OpenGL-introduction-01/" title="OpenGL入门（一）——GLFW库与GLAD库"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/23/c-usage-of-time-and-date/" title="c++ 时间与日期相关函数的使用"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 茶瓜客
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
