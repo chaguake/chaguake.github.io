@@ -17,20 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>标签 | 茶瓜客</title>
-  <meta name="description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="https://www.chaguake.com/tags/index.html">
+  <title>Reservoir Sampling 抽样算法 | 茶瓜客</title>
+  <meta name="description" content="“从m个数中随机抽取n个”，在m是确定值的情况下，使用Fisher Yates 洗牌算法可以快速的得到足够随机的n个数。 但是，当m不是确定值呢？ 可以使用Reservoir Sampling 抽样算法。 由于m是不确定的，那么使用[0,m]范围内随机产生数的方式就没办法使用。所以，需要设计一种方法，使得每个数被抽取的概率都是$\frac{n}{m}$。 一、”每次都是 $\frac{1}{i}$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reservoir Sampling 抽样算法">
+<meta property="og:url" content="https://www.chaguake.com/2021/04/05/reservoir-sampling-alg/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
+<meta property="og:description" content="“从m个数中随机抽取n个”，在m是确定值的情况下，使用Fisher Yates 洗牌算法可以快速的得到足够随机的n个数。 但是，当m不是确定值呢？ 可以使用Reservoir Sampling 抽样算法。 由于m是不确定的，那么使用[0,m]范围内随机产生数的方式就没办法使用。所以，需要设计一种方法，使得每个数被抽取的概率都是$\frac{n}{m}$。 一、”每次都是 $\frac{1}{i}$">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-09T07:36:46.388Z">
-<meta property="article:modified_time" content="2021-03-09T05:57:02.612Z">
+<meta property="article:published_time" content="2021-04-04T16:20:31.000Z">
+<meta property="article:modified_time" content="2021-04-06T08:23:01.651Z">
 <meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="抽样算法">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/tags/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/04/05/reservoir-sampling-alg/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -40,6 +41,8 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
   
   
   
@@ -338,391 +341,219 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="article article-tags post-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">标签</h1>
-      <p class="text-muted hidden-xs">共 8 个标签</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/tags">All</a></li>
-          
-          <li><a href="/tags/OpenGL入门/">OpenGL入门</a></li>
-          
-          <li><a href="/tags/C-C-知识/">C/C++知识</a></li>
-          
-          <li><a href="/tags/洗牌算法/">洗牌算法</a></li>
-          
-          <li><a href="/tags/lua/">lua</a></li>
-          
-          <li><a href="/tags/抽样算法/">抽样算法</a></li>
-          
-          <li><a href="/tags/TCP/">TCP</a></li>
-          
-          <li><a href="/tags/C-多态/">C++多态</a></li>
-          
-          <li><a href="/tags/垃圾回收的算法与实现/">垃圾回收的算法与实现</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-reservoir-sampling-alg" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
       
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" title="#OpenGL入门"># OpenGL入门</a>
-        <small class="text-muted">(Total 3 articles)</small>
-      </h3>
-      <div class="row">
         
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-31T06:22:54.000Z" itemprop="datePublished">2021-03-31</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/31/OpenGL-introduction-01/">OpenGL入门（一）——GLFW库与GLAD库</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" class="label label-default mb">OpenGL入门</a>
-     
-     
-   </div>
-   
-</article>
+  
+    <h1 class="article-title" itemprop="name">
+      Reservoir Sampling 抽样算法
+    </h1>
+  
 
-
-        </div>
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/04/05/reservoir-sampling-alg/" class="article-date">
+	  <time datetime="2021-04-04T16:20:31.000Z" itemprop="datePublished">2021-04-05</time>
+	</a>
+</span>
         
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-31T06:59:55.000Z" itemprop="datePublished">2021-03-31</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/31/OpenGL-introduction-02/">OpenGL入门（二）——Hello Window小节笔记</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" class="label label-default mb">OpenGL入门</a>
-     
-     
-   </div>
-   
-</article>
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </span>
 
-
-        </div>
         
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-31T10:50:43.000Z" itemprop="datePublished">2021-03-31</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/31/OpenGL-introduction-03/">OpenGL入门（三）——生成三角形小结笔记</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" class="label label-default mb">OpenGL入门</a>
-     
-     
-   </div>
-   
-</article>
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" rel="tag">抽样算法</a>
+  </span>
 
 
-        </div>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/05/reservoir-sampling-alg/#comments" class="article-comment-link">评论</a></span>
         
       </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
       
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" title="#C/C++知识"># C/C++知识</a>
-        <small class="text-muted">(Total 2 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-23T03:21:14.000Z" itemprop="datePublished">2021-03-23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/23/c-usage-of-time-and-date/">c++ 时间与日期相关函数的使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" class="label label-default mb">C/C++知识</a>
-     
-     
-   </div>
-   
-</article>
+        <p>“从m个数中随机抽取n个”，在m是确定值的情况下，使用Fisher Yates 洗牌算法可以快速的得到足够随机的n个数。</p>
+<p>但是，当m不是确定值呢？</p>
+<p>可以使用Reservoir Sampling 抽样算法。</p>
+<p>由于m是不确定的，那么使用[0,m]范围内随机产生数的方式就没办法使用。所以，需要设计一种方法，使得每个数被抽取的概率都是$\frac{n}{m}$。</p>
+<h1 id="一、”每次都是-frac-1-i-”问题"><a href="#一、”每次都是-frac-1-i-”问题" class="headerlink" title="一、”每次都是 $\frac{1}{i}$”问题"></a>一、”每次都是 $\frac{1}{i}$”问题</h1><p><em>对于<code>n</code>(n&gt;=1)，如果每次（基数<code>k</code>从0到n递增）以$\frac{1}{i}$的概率决定是否替换选中元素直到<code>n</code>，那么最后每个元素被选中的概率相等，即为$\frac{1}{n}。$ </em></p>
+<p>证明：</p>
+<ul>
+<li><p>假设最后被选中的元素<code>a</code>(a&lt;=n)，它是在第<code>k</code>(k&lt;=n)次被选中。也就是说在第<code>k</code>次之后都不会有元素被选中，这样子才能确保最后选中的元素是<code>a</code>。</p>
+</li>
+<li><p>那么它被选中的概率等于第<code>k</code>次被选中的概率*第<code>k</code>次以后都没有元素选中。</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\frac{1}{k} × \frac{k}{k+1} × \frac{k+1}{k+2} × ··· × \frac{n-1}{n} = \frac{1}{n}</script><p>可以得到结论：在未知样本空间<code>n</code>中，随机抽取一个数<code>a</code>，它的概率是$\frac{1}{n}$。</p>
+<p>代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void Sampling(std::vector&lt;int&gt; &amp;vec, int &amp;num)</span><br><span class="line">&#123;</span><br><span class="line">    for (size_t i &#x3D; 1; i &lt; vec.size(); i++)&#123;</span><br><span class="line">	int random &#x3D; rand() % i;</span><br><span class="line">	num &#x3D; vec[random];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="二、如何从未知样本空间m随机抽取n个数"><a href="#二、如何从未知样本空间m随机抽取n个数" class="headerlink" title="二、如何从未知样本空间m随机抽取n个数"></a>二、如何从未知样本空间m随机抽取n个数</h1><p>假如按照第一点中的方法，抽取n个数。的确也是能实现$\frac{n}{m}$的概率，但是要遍历n次，时间复杂度就顶不住了。</p>
+<p>换个角度，假设，先取出前n个元素组成一个集合N，把第n+1个元素放进集合N，从集合N中抽取n个元素重新组成集合N，直至最后一个元素。</p>
+<p>也就是说，第n+1个元素随机替换集合N中的一个元素。下面证明最后得出的集合N中，每个元素的概率是$\frac{n}{m}$。</p>
+<p>证明：</p>
+<ul>
+<li><p>假设集合N中的任意一个元素<code>a</code>，它是第<code>k</code>(n&lt;=k&lt;=m)次被放进集合N，它最后留在集合N的概率 = 在它后面的元素都没有被抽中的概率 + 在它后面的元素被抽中的概率 * 没有替换元素<code>a</code>的概率。</p>
+</li>
+<li><p>根据第一点中的方法，第<code>k</code>(k&gt;=n)次某元素被选中并替换到集合N的概率是$\frac{1}{k} × n = \frac{n}{k}$。</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\frac{n}{k} × (\frac{k+1-n}{k+1} + \frac{n}{k+1} × \frac{n-1}{n}) × (\frac{k+2-n}{k+2} + \frac{n}{k+2} × \frac{n-1}{n}) × ··· × \frac{m-n}{m} + \frac{n}{m} × \frac{n-1}{n}
+= \frac{n}{k} × \frac{k}{k+1} × \frac{k+1}{k+2} × ··· × \frac{m-1}{m} = \frac{n}{m}</script><p>证明成立，这个实现就是蓄水池抽样算法（Reservoir Sampling）。</p>
+<p>代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void ReservoirSampling(std::vector&lt;int&gt; &amp;vec,int n)</span><br><span class="line">&#123;</span><br><span class="line">    for (size_t i &#x3D; n; i &lt; vec.size(); i++) &#123;</span><br><span class="line">	int random &#x3D; rand() % i;</span><br><span class="line">	if(random &lt; n)&#123;</span><br><span class="line">	    std::swap(vec[random], vec[i]);</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分布式实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;up-low&gt;n</span><br><span class="line">void ReservoirSampling(std::vector&lt;int&gt; &amp;vec, int n, int low, int up)</span><br><span class="line">&#123;</span><br><span class="line">    for (size_t i &#x3D; low + n; i &lt; up; i++) &#123;</span><br><span class="line">	int random &#x3D; rand() % (up - low) + low;</span><br><span class="line">	if (random &lt; low + n) &#123;</span><br><span class="line">	    std::swap(vec[random], vec[i]);</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，Reservoir Sampling 抽样算法的空间复杂度$O(1)$，时间复杂度$O(n)$。</p>
 
-
-        </div>
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-02T01:52:14.000Z" itemprop="datePublished">2021-04-02</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/02/interview-knowledge-C-base/">面试知识点——C/C++基础知识</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" class="label label-default mb">C/C++知识</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" title="#洗牌算法"># 洗牌算法</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-02T06:29:14.000Z" itemprop="datePublished">2021-04-02</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/02/fisher-yates-shuffle-alg/">Fisher Yates 洗牌算法</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" class="label label-default mb">洗牌算法</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/lua/" title="#lua"># lua</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-24T11:35:05.000Z" itemprop="datePublished">2021-03-24</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/24/lua-base-knowledge/">lua 基础知识</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/lua/" class="label label-default mb">lua</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" title="#抽样算法"># 抽样算法</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-04T16:20:31.000Z" itemprop="datePublished">2021-04-05</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/05/reservoir-sampling-alg/">Reservoir Sampling 抽样算法</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" class="label label-default mb">抽样算法</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/TCP/" title="#TCP"># TCP</a>
-        <small class="text-muted">(Total 2 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-08T00:42:22.000Z" itemprop="datePublished">2021-04-08</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/08/tcp-docking-problem-01/">TCP对接异常（一）——Server端宕机</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/TCP/" class="label label-default mb">TCP</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-07T02:13:50.000Z" itemprop="datePublished">2021-04-07</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/07/tcp-three-way-handshake/">TCP的三次握手</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/TCP/" class="label label-default mb">TCP</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/C-%E5%A4%9A%E6%80%81/" title="#C++多态"># C++多态</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-13T16:00:00.000Z" itemprop="datePublished">2021-03-14</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/14/virtual_function_or_table_of_polymorphism/">C++多态之虚函数与虚函数表</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/C-%E5%A4%9A%E6%80%81/" class="label label-default mb">C++多态</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="#垃圾回收的算法与实现"># 垃圾回收的算法与实现</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-14T16:00:00.000Z" itemprop="datePublished">2021-03-15</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/15/GC_mark_sweep_algorithm/">GC标记-清除算法</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/" class="label label-default mb">垃圾回收的算法与实现</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
       
     </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://www.chaguake.com/2021/04/05/reservoir-sampling-alg/" title="Reservoir Sampling 抽样算法" target="_blank" rel="external">https://www.chaguake.com/2021/04/05/reservoir-sampling-alg/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
+        <div>是码农啦！不喜格仔衫……</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
   </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/04/07/tcp-three-way-handshake/" title="TCP的三次握手"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/04/02/fisher-yates-shuffle-alg/" title="Fisher Yates 洗牌算法"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -776,6 +607,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 

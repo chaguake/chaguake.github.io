@@ -17,20 +17,23 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>标签 | 茶瓜客</title>
-  <meta name="description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="https://www.chaguake.com/tags/index.html">
+  <title>TCP的三次握手 | 茶瓜客</title>
+  <meta name="description" content="最近遇到了关于TCP三次握手的问题，发现自己对三次握手还只是停留在正常流程的认知上，TCP建立连接异常的情况却了解甚少。嗯，做个记录。 参考文献有： TCP三次握手、四次挥手出现意外情况时，为保证稳定，是如何处理的？ 面试官，不要再问我三次握手和四次挥手 三次握手正常流程三次是TCP建立连接的最小次数，因为在三次握手中，双方都经历了”请求-&gt;应答“的过程。  三次握手流程步骤：  在初始时，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP的三次握手">
+<meta property="og:url" content="https://www.chaguake.com/2021/04/07/tcp-three-way-handshake/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
+<meta property="og:description" content="最近遇到了关于TCP三次握手的问题，发现自己对三次握手还只是停留在正常流程的认知上，TCP建立连接异常的情况却了解甚少。嗯，做个记录。 参考文献有： TCP三次握手、四次挥手出现意外情况时，为保证稳定，是如何处理的？ 面试官，不要再问我三次握手和四次挥手 三次握手正常流程三次是TCP建立连接的最小次数，因为在三次握手中，双方都经历了”请求-&gt;应答“的过程。  三次握手流程步骤：  在初始时，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-09T07:36:46.388Z">
-<meta property="article:modified_time" content="2021-03-09T05:57:02.612Z">
+<meta property="og:image" content="https://image-static.segmentfault.com/106/870/1068704971-3084b02c4479b0c7_fix732">
+<meta property="article:published_time" content="2021-04-07T02:13:50.000Z">
+<meta property="article:modified_time" content="2021-04-07T07:03:49.700Z">
 <meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-static.segmentfault.com/106/870/1068704971-3084b02c4479b0c7_fix732">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/tags/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/04/07/tcp-three-way-handshake/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -338,391 +341,221 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="article article-tags post-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">标签</h1>
-      <p class="text-muted hidden-xs">共 8 个标签</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/tags">All</a></li>
-          
-          <li><a href="/tags/OpenGL入门/">OpenGL入门</a></li>
-          
-          <li><a href="/tags/C-C-知识/">C/C++知识</a></li>
-          
-          <li><a href="/tags/洗牌算法/">洗牌算法</a></li>
-          
-          <li><a href="/tags/lua/">lua</a></li>
-          
-          <li><a href="/tags/抽样算法/">抽样算法</a></li>
-          
-          <li><a href="/tags/TCP/">TCP</a></li>
-          
-          <li><a href="/tags/C-多态/">C++多态</a></li>
-          
-          <li><a href="/tags/垃圾回收的算法与实现/">垃圾回收的算法与实现</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-tcp-three-way-handshake" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
       
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" title="#OpenGL入门"># OpenGL入门</a>
-        <small class="text-muted">(Total 3 articles)</small>
-      </h3>
-      <div class="row">
         
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-31T06:22:54.000Z" itemprop="datePublished">2021-03-31</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/31/OpenGL-introduction-01/">OpenGL入门（一）——GLFW库与GLAD库</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" class="label label-default mb">OpenGL入门</a>
-     
-     
-   </div>
-   
-</article>
+  
+    <h1 class="article-title" itemprop="name">
+      TCP的三次握手
+    </h1>
+  
 
-
-        </div>
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/04/07/tcp-three-way-handshake/" class="article-date">
+	  <time datetime="2021-04-07T02:13:50.000Z" itemprop="datePublished">2021-04-07</time>
+	</a>
+</span>
         
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-31T06:59:55.000Z" itemprop="datePublished">2021-03-31</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/31/OpenGL-introduction-02/">OpenGL入门（二）——Hello Window小节笔记</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" class="label label-default mb">OpenGL入门</a>
-     
-     
-   </div>
-   
-</article>
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </span>
 
-
-        </div>
         
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-31T10:50:43.000Z" itemprop="datePublished">2021-03-31</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/31/OpenGL-introduction-03/">OpenGL入门（三）——生成三角形小结笔记</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" class="label label-default mb">OpenGL入门</a>
-     
-     
-   </div>
-   
-</article>
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/TCP/" rel="tag">TCP</a>
+  </span>
 
 
-        </div>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/07/tcp-three-way-handshake/#comments" class="article-comment-link">评论</a></span>
         
       </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
       
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" title="#C/C++知识"># C/C++知识</a>
-        <small class="text-muted">(Total 2 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-23T03:21:14.000Z" itemprop="datePublished">2021-03-23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/23/c-usage-of-time-and-date/">c++ 时间与日期相关函数的使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" class="label label-default mb">C/C++知识</a>
-     
-     
-   </div>
-   
-</article>
+        <p>最近遇到了关于TCP三次握手的问题，发现自己对三次握手还只是停留在正常流程的认知上，TCP建立连接异常的情况却了解甚少。嗯，做个记录。</p>
+<p>参考文献有：</p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000021740112">TCP三次握手、四次挥手出现意外情况时，为保证稳定，是如何处理的？</a></p>
+<p><a target="_blank" rel="noopener" href="https://yuanrengu.com/2020/77eef79f.html">面试官，不要再问我三次握手和四次挥手</a></p>
+<h1 id="三次握手正常流程"><a href="#三次握手正常流程" class="headerlink" title="三次握手正常流程"></a>三次握手正常流程</h1><p>三次是TCP建立连接的最小次数，因为在三次握手中，双方都经历了”请求-&gt;应答“的过程。</p>
+<p><img src="https://image-static.segmentfault.com/106/870/1068704971-3084b02c4479b0c7_fix732" alt="三次握手状态流程图"></p>
+<p>三次握手流程步骤：</p>
+<ol>
+<li><p>在初始时，双端处于<code>CLOSE</code>状态，服务端(Server)为了提供服务，会主动监听某个端口，进入<code>LISTEN</code>状态。</p>
+</li>
+<li><p>客户端(Client)主动发送连接的<code>SYN</code>包，之后进入<code>SYN-SENT</code>状态，服务端在收到客户端发来的<code>SYN</code>包后，回复<code>SYN,ACK</code>包，之后进入<code>SYN-RCVD</code>状态。</p>
+</li>
+<li><p>客户端收到服务端发来的<code>SYN,ACK</code>包后，可以确认对方存在，此时回复<code>ACK</code>包，并进入<code>ESTABLISHED</code>状态。</p>
+</li>
+<li><p>服务端收到最后一个<code>ACK</code>包后，也进入<code>ESTABLISHED</code>状态。</p>
+</li>
+</ol>
+<p>三次握手重点是客户端和服务端的状态变化过程，比如：客户端在发送第三个<code>ACK</code>包的时候，状态就会变更成<code>ESTABLISHED</code>，而服务端需要在接收到客户端发出的第三个<code>ACK</code>包的时候，才将状态转换成<code>ESTABLISHED</code>。</p>
+<h1 id="三次握手异常情况"><a href="#三次握手异常情况" class="headerlink" title="三次握手异常情况"></a>三次握手异常情况</h1><p>计算机网络的异常处理有时比正常处理得流程更为重要，毕竟，需要花费更大的消耗去判断是网络故障还是连接异常。</p>
+<p><strong>1. <code>SYN</code>包丢失</strong></p>
+<p>对于服务端，客户端还是”不存在的“。</p>
+<p>对于客户端，无法清楚服务端是否接收到<code>SYN</code>包，所以客户端会进行重传<code>SYN</code>包的操作，一般重传三次，三次加起来大约是76s（采用指数退避算法）。</p>
+<p>在代码层次上，客户端会阻塞在<code>connect</code>函数上，失败会返回异常信息。</p>
+<p>可通过更改系统配置（<a target="_blank" rel="noopener" href="https://blog.csdn.net/chenyulancn/article/details/16339427">Linux点击这里</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/niejiangshuai/article/details/86573338">Windows点击这里</a>）来实现配置重连次数和重连耗时。</p>
+<p>也可以通过”ioctl(1)+select(timeout)“方式来间接实现连接超时控制。<a target="_blank" rel="noopener" href="https://blog.csdn.net/czh8706/article/details/84931785">TCP/IP Connect时间自主设定</a></p>
+<p><strong>2. <code>SYN+ACK</code>包丢失</strong></p>
+<p>对于客户端，跟<code>SYN</code>包丢失的处理流程是一样的。</p>
+<p>对于服务端，会触发重传操作，毕竟无法确定客户端是否收到<code>SYN+ACK</code>包，此时服务端的状态是<code>SYN_RCVD</code>。</p>
+<p>当超过重传次数之后，服务端系统会发送<code>RST</code>包。</p>
+<p><strong>3. <code>ACK</code>包丢失</strong></p>
+<p>对于服务端，跟<code>SYN+ACK</code>包丢失的处理流程是一样的，处于<code>SYN-RCVD</code>状态。</p>
+<p>对于客户端，<code>connect</code>函数已经正常返回，客户端已经进入<code>ESTABLISHED</code>状态，可以发送/接收数据了。</p>
+<p>现在，服务端和客户端的状态不对等，那么客户端发给服务端的数据会怎么处理呢？</p>
+<p>结合<a target="_blank" rel="noopener" href="https://blog.csdn.net/zerooffdate/article/details/79359726">文章</a>来看，假如客户端发送的第一个数据包的<code>Seq</code>确认序号跟<code>ACK</code>包的<code>Seq</code>确认序号一样，那么，服务端将进入<code>ESTABLISHED</code>状态，正常连接。假如不一样，服务端会发送<code>RST</code>包，结束该连接。而在代码实现中，<code>connect</code>函数是在客户端回复<code>ACK</code>包之后就返回了，这时三次握手还没完成。</p>
+<p>所以，可以在<code>conenct</code>函数返回之后，立即发送一个跟<code>ACK</code>包相同<code>Seq</code>确认序号的数据包（默认第一个数据包的<code>Seq</code>是跟<code>ACK</code>一样），哪怕服务端没有接收到<code>ACK</code>包，也可以正常进入<code>ESTABLISHED</code>状态。并且也可以验证连接是否成功，假如服务端返回<code>RST</code>包，则连接失败。</p>
+<p>应用层上，使用select、poll或者epoll机制判断socket是否可写来确认连接是否已经建立。<a target="_blank" rel="noopener" href="https://blog.csdn.net/ruixj/article/details/1756440">非阻塞socket 的连接</a></p>
 
-
-        </div>
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-02T01:52:14.000Z" itemprop="datePublished">2021-04-02</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/02/interview-knowledge-C-base/">面试知识点——C/C++基础知识</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" class="label label-default mb">C/C++知识</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" title="#洗牌算法"># 洗牌算法</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-02T06:29:14.000Z" itemprop="datePublished">2021-04-02</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/02/fisher-yates-shuffle-alg/">Fisher Yates 洗牌算法</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" class="label label-default mb">洗牌算法</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/lua/" title="#lua"># lua</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-24T11:35:05.000Z" itemprop="datePublished">2021-03-24</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/24/lua-base-knowledge/">lua 基础知识</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/lua/" class="label label-default mb">lua</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" title="#抽样算法"># 抽样算法</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-04T16:20:31.000Z" itemprop="datePublished">2021-04-05</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/05/reservoir-sampling-alg/">Reservoir Sampling 抽样算法</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" class="label label-default mb">抽样算法</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/TCP/" title="#TCP"># TCP</a>
-        <small class="text-muted">(Total 2 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-08T00:42:22.000Z" itemprop="datePublished">2021-04-08</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/08/tcp-docking-problem-01/">TCP对接异常（一）——Server端宕机</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/TCP/" class="label label-default mb">TCP</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-07T02:13:50.000Z" itemprop="datePublished">2021-04-07</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/07/tcp-three-way-handshake/">TCP的三次握手</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/TCP/" class="label label-default mb">TCP</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/C-%E5%A4%9A%E6%80%81/" title="#C++多态"># C++多态</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-13T16:00:00.000Z" itemprop="datePublished">2021-03-14</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/14/virtual_function_or_table_of_polymorphism/">C++多态之虚函数与虚函数表</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/C-%E5%A4%9A%E6%80%81/" class="label label-default mb">C++多态</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="#垃圾回收的算法与实现"># 垃圾回收的算法与实现</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-14T16:00:00.000Z" itemprop="datePublished">2021-03-15</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/15/GC_mark_sweep_algorithm/">GC标记-清除算法</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/" class="label label-default mb">垃圾回收的算法与实现</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
       
     </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://www.chaguake.com/2021/04/07/tcp-three-way-handshake/" title="TCP的三次握手" target="_blank" rel="external">https://www.chaguake.com/2021/04/07/tcp-three-way-handshake/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
+        <div>是码农啦！不喜格仔衫……</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
   </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/04/08/tcp-docking-problem-01/" title="TCP对接异常（一）——Server端宕机"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/04/05/reservoir-sampling-alg/" title="Reservoir Sampling 抽样算法"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -776,6 +609,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 

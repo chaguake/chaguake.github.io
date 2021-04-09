@@ -17,20 +17,26 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>标签 | 茶瓜客</title>
-  <meta name="description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="https://www.chaguake.com/tags/index.html">
+  <title>TCP对接异常（一）——Server端宕机 | 茶瓜客</title>
+  <meta name="description" content="背景介绍问题出现在某次与第三方HTTP数据对接上，发现Server端在运行大约半个小时后出现宕机现象。 Server端使用boost的asio库，性能应该有保障的。 首先，查看日志，排查对应代码片段，未发现有出现”死锁“的逻辑，只能从wireshark抓包分析了。 现场同事把抓包发回一看，好家伙，一堆的”TCP ZeroWindow”和”RST“！ 问题排查1、统计一下http请求情况，  才三百">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP对接异常（一）——Server端宕机">
+<meta property="og:url" content="https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
+<meta property="og:description" content="背景介绍问题出现在某次与第三方HTTP数据对接上，发现Server端在运行大约半个小时后出现宕机现象。 Server端使用boost的asio库，性能应该有保障的。 首先，查看日志，排查对应代码片段，未发现有出现”死锁“的逻辑，只能从wireshark抓包分析了。 现场同事把抓包发回一看，好家伙，一堆的”TCP ZeroWindow”和”RST“！ 问题排查1、统计一下http请求情况，  才三百">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-09T07:36:46.388Z">
-<meta property="article:modified_time" content="2021-03-09T05:57:02.612Z">
+<meta property="og:image" content="https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/http_statistic.jpg">
+<meta property="og:image" content="https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/syn.jpg">
+<meta property="og:image" content="https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/tcp_zerowindow.jpg">
+<meta property="og:image" content="https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/problem.jpg">
+<meta property="article:published_time" content="2021-04-08T00:42:22.000Z">
+<meta property="article:modified_time" content="2021-04-09T06:17:02.418Z">
 <meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/http_statistic.jpg">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/tags/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -338,391 +344,212 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="article article-tags post-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">标签</h1>
-      <p class="text-muted hidden-xs">共 8 个标签</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/tags">All</a></li>
-          
-          <li><a href="/tags/OpenGL入门/">OpenGL入门</a></li>
-          
-          <li><a href="/tags/C-C-知识/">C/C++知识</a></li>
-          
-          <li><a href="/tags/洗牌算法/">洗牌算法</a></li>
-          
-          <li><a href="/tags/lua/">lua</a></li>
-          
-          <li><a href="/tags/抽样算法/">抽样算法</a></li>
-          
-          <li><a href="/tags/TCP/">TCP</a></li>
-          
-          <li><a href="/tags/C-多态/">C++多态</a></li>
-          
-          <li><a href="/tags/垃圾回收的算法与实现/">垃圾回收的算法与实现</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-tcp-docking-problem-01" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
       
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" title="#OpenGL入门"># OpenGL入门</a>
-        <small class="text-muted">(Total 3 articles)</small>
-      </h3>
-      <div class="row">
         
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-31T06:22:54.000Z" itemprop="datePublished">2021-03-31</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/31/OpenGL-introduction-01/">OpenGL入门（一）——GLFW库与GLAD库</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" class="label label-default mb">OpenGL入门</a>
-     
-     
-   </div>
-   
-</article>
+  
+    <h1 class="article-title" itemprop="name">
+      TCP对接异常（一）——Server端宕机
+    </h1>
+  
 
-
-        </div>
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/04/08/tcp-docking-problem-01/" class="article-date">
+	  <time datetime="2021-04-08T00:42:22.000Z" itemprop="datePublished">2021-04-08</time>
+	</a>
+</span>
         
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-31T06:59:55.000Z" itemprop="datePublished">2021-03-31</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/31/OpenGL-introduction-02/">OpenGL入门（二）——Hello Window小节笔记</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" class="label label-default mb">OpenGL入门</a>
-     
-     
-   </div>
-   
-</article>
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </span>
 
-
-        </div>
         
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-31T10:50:43.000Z" itemprop="datePublished">2021-03-31</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/31/OpenGL-introduction-03/">OpenGL入门（三）——生成三角形小结笔记</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" class="label label-default mb">OpenGL入门</a>
-     
-     
-   </div>
-   
-</article>
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/TCP/" rel="tag">TCP</a>
+  </span>
 
 
-        </div>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/08/tcp-docking-problem-01/#comments" class="article-comment-link">评论</a></span>
         
       </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
       
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" title="#C/C++知识"># C/C++知识</a>
-        <small class="text-muted">(Total 2 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-23T03:21:14.000Z" itemprop="datePublished">2021-03-23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/23/c-usage-of-time-and-date/">c++ 时间与日期相关函数的使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" class="label label-default mb">C/C++知识</a>
-     
-     
-   </div>
-   
-</article>
+        <h1 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h1><p>问题出现在某次与第三方HTTP数据对接上，发现Server端在运行大约半个小时后出现宕机现象。</p>
+<p>Server端使用boost的asio库，性能应该有保障的。</p>
+<p>首先，查看日志，排查对应代码片段，未发现有出现”死锁“的逻辑，只能从wireshark抓包分析了。</p>
+<p>现场同事把抓包发回一看，好家伙，一堆的”TCP ZeroWindow”和”RST“！</p>
+<h1 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h1><p>1、统计一下http请求情况，</p>
+<p><img src="./http_statistic.jpg" alt="Http统计"></p>
+<p>才三百多次http请求，远远没达到正常水平，排除Server端处理瓶颈问题。</p>
+<p>2、输入筛选条件<code>tcp.flags.syn</code>，看看tcp三次握手情况。</p>
+<p><img src="./syn.jpg" alt="syn统计"></p>
+<p>Client新连接都直接被Server端拒绝了，Server端的连接数已经达到了极限。</p>
+<p>而Server端在处理完http请求之后都会断开当前连接，并非长连接模式。并且，根据Server端的http处理耗时来看，还算正常。</p>
+<p>问题估计在已建立但是未正常关闭的连接上，粗略看下，基本都会出现”TCP ZeroWindow“标记。</p>
+<p>3、随机追踪一条出现”TCP ZeroWindow“的tcp连接，</p>
+<p><img src="./tcp_zerowindow.jpg" alt="tcp zerowindow"></p>
+<p>统计了下，出现这情况的连接大概有两百条，那就有可能出现同时并发的连接数大于<code>CPU数量*2+1</code>的情况。</p>
+<p>而且，100个tcp包就出现滑动窗口占满的情况是不可能的，问题肯定出现在这里了。</p>
+<p>经过排查，终于发现问题所在：</p>
+<p><img src="./problem.jpg" alt="问题所在"></p>
+<p>如上图，Server端最后回复给Client端包中，<code>Win</code>的值为5632，表示Server端还能接收5632个包。</p>
+<p>并且<code>Ack</code>值为126929，希望Client下一个包的<code>Seq</code>序号值从126929开始。果不其然，Client端紧接着的包中<code>Seq</code>序号值为126929。</p>
+<p>看Server端回复“TCP ZeroWindow”包的前一个由Client端发出的包LAST，它的<code>Seq</code>值为131273。</p>
+<p>不难看出，<code>131273 - 126929 = 4344 &lt; 5632</code>，这时还可以正常接收。</p>
+<p>但是展开那个包LAST中的<code>Next Seq</code>值是132609，<code>132609 - 126929 = 5680 &gt; 5632</code>，已经超出<code>Win</code>大小，所以，Server端接收到包LAST之后就返回“TCP ZeroWindow”包。</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>1、Client端更改<code>Seq</code>的生成规则，使得<code>Seq</code>自增步长减少。</p>
+<p>抓包中可以看出，Client端<code>Seq</code>的自增步长是1448。</p>
+<p>2、Server端将滑动窗口变大。</p>
+<p>由于Client端会发送<code>PSH</code>包通知Srever端清空缓冲，那么Server端可以将滑动窗口变大，避免出现“TCP ZeroWindow”情况。</p>
+<p>3、优化Srever端“接收请求-&gt;回复请求”的耗时，避免同时出现异常连接并发数大于<code>CPU数量*2+1</code>的情况。</p>
+<p>这种方法依旧是没办法解决问题所在的，只是尽量避免宕机情况出现。</p>
+<p>4、Server端添加tcp连接的timeout处理。</p>
+<p>Server端主动关闭超过timeout时间没有接收到http请求的连接。</p>
 
-
-        </div>
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-02T01:52:14.000Z" itemprop="datePublished">2021-04-02</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/02/interview-knowledge-C-base/">面试知识点——C/C++基础知识</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" class="label label-default mb">C/C++知识</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" title="#洗牌算法"># 洗牌算法</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-02T06:29:14.000Z" itemprop="datePublished">2021-04-02</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/02/fisher-yates-shuffle-alg/">Fisher Yates 洗牌算法</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" class="label label-default mb">洗牌算法</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/lua/" title="#lua"># lua</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-24T11:35:05.000Z" itemprop="datePublished">2021-03-24</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/24/lua-base-knowledge/">lua 基础知识</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/lua/" class="label label-default mb">lua</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" title="#抽样算法"># 抽样算法</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-04T16:20:31.000Z" itemprop="datePublished">2021-04-05</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/05/reservoir-sampling-alg/">Reservoir Sampling 抽样算法</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" class="label label-default mb">抽样算法</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/TCP/" title="#TCP"># TCP</a>
-        <small class="text-muted">(Total 2 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-08T00:42:22.000Z" itemprop="datePublished">2021-04-08</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/08/tcp-docking-problem-01/">TCP对接异常（一）——Server端宕机</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/TCP/" class="label label-default mb">TCP</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-04-07T02:13:50.000Z" itemprop="datePublished">2021-04-07</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/04/07/tcp-three-way-handshake/">TCP的三次握手</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/TCP/" class="label label-default mb">TCP</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/C-%E5%A4%9A%E6%80%81/" title="#C++多态"># C++多态</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-13T16:00:00.000Z" itemprop="datePublished">2021-03-14</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/14/virtual_function_or_table_of_polymorphism/">C++多态之虚函数与虚函数表</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/C-%E5%A4%9A%E6%80%81/" class="label label-default mb">C++多态</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="#垃圾回收的算法与实现"># 垃圾回收的算法与实现</a>
-        <small class="text-muted">(Total 1 articles)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-6">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2021-03-14T16:00:00.000Z" itemprop="datePublished">2021-03-15</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2021/03/15/GC_mark_sweep_algorithm/">GC标记-清除算法</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/" class="label label-default mb">垃圾回收的算法与实现</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
       
     </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/" title="TCP对接异常（一）——Server端宕机" target="_blank" rel="external">https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
+        <div>是码农啦！不喜格仔衫……</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
   </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/04/07/tcp-three-way-handshake/" title="TCP的三次握手"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -776,6 +603,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 

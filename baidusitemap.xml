@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.chaguake.com/2021/04/02/fisher-yates-shuffle-alg/</loc>
-    <lastmod>2021-04-02</lastmod>
+    <loc>https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/</loc>
+    <lastmod>2021-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://www.chaguake.com/2021/04/07/tcp-three-way-handshake/</loc>
+    <lastmod>2021-04-07</lastmod>
   </url>
   <url>
     <loc>https://www.chaguake.com/2021/04/02/interview-knowledge-C-base/</loc>
-    <lastmod>2021-04-02</lastmod>
+    <lastmod>2021-04-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.chaguake.com/2021/04/05/reservoir-sampling-alg/</loc>
+    <lastmod>2021-04-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.chaguake.com/2021/04/02/fisher-yates-shuffle-alg/</loc>
+    <lastmod>2021-04-06</lastmod>
   </url>
   <url>
     <loc>https://www.chaguake.com/2021/03/31/OpenGL-introduction-03/</loc>
