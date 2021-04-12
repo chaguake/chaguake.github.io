@@ -1,5 +1,5 @@
+https://www.chaguake.com/2021/04/09/C-knowledge-cin/
 https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/
 https://www.chaguake.com/2021/04/07/tcp-three-way-handshake/
 https://www.chaguake.com/2021/04/05/reservoir-sampling-alg/
 https://www.chaguake.com/2021/04/02/fisher-yates-shuffle-alg/
-https://www.chaguake.com/2021/04/02/interview-knowledge-C-base/

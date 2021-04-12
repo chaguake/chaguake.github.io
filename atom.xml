@@ -6,7 +6,7 @@
   <link href="https://www.chaguake.com/atom.xml" rel="self"/>
   
   <link href="https://www.chaguake.com/"/>
-  <updated>2021-04-09T06:17:02.418Z</updated>
+  <updated>2021-04-09T09:22:45.559Z</updated>
   <id>https://www.chaguake.com/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>TCP对接异常（一）——Server端宕机</title>
+    <title>C/C++如何获取不定数量的输入参数？</title>
+    <link href="https://www.chaguake.com/2021/04/09/C-knowledge-cin/"/>
+    <id>https://www.chaguake.com/2021/04/09/C-knowledge-cin/</id>
+    <published>2021-04-09T09:15:26.000Z</published>
+    <updated>2021-04-09T09:22:45.559Z</updated>
+    
+    <content type="html"><![CDATA[<p>刷题时偶尔会出现输入不定数量的参数，主要是使用<code>std::cin</code>来实现。</p><p>使用<code>Ctrl Z</code>（Windows）或<code>Ctrl D</code>（UNIX）结束输入：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt; vec;</span><br><span class="line">int value;</span><br><span class="line">while(std::cin&gt;&gt;value)&#123;</span><br><span class="line">    vec.push_back(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>使用回车结束输入：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt; vec;</span><br><span class="line">int value;</span><br><span class="line">while(std::cin&gt;&gt;value)&#123;</span><br><span class="line">    vec.push_back(value);</span><br><span class="line">    if(std::cin.get() &#x3D;&#x3D; &#39;\n&#39;)&#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;刷题时偶尔会出现输入不定数量的参数，主要是使用&lt;code&gt;std::cin&lt;/code&gt;来实现。&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;Ctrl Z&lt;/code&gt;（Windows）或&lt;code&gt;Ctrl D&lt;/code&gt;（UNIX）结束输入：&lt;/p&gt;
+&lt;figure class=&quot;</summary>
+      
+    
+    
+    
+    <category term="C/C++" scheme="https://www.chaguake.com/categories/C-C/"/>
+    
+    
+    <category term="C/C++知识" scheme="https://www.chaguake.com/tags/C-C-%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP对接异常——Server端宕机</title>
     <link href="https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/"/>
     <id>https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/</id>
     <published>2021-04-08T00:42:22.000Z</published>
-    <updated>2021-04-09T06:17:02.418Z</updated>
+    <updated>2021-04-09T08:51:45.652Z</updated>
     
     <content type="html"><![CDATA[<h1 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h1><p>问题出现在某次与第三方HTTP数据对接上，发现Server端在运行大约半个小时后出现宕机现象。</p><p>Server端使用boost的asio库，性能应该有保障的。</p><p>首先，查看日志，排查对应代码片段，未发现有出现”死锁“的逻辑，只能从wireshark抓包分析了。</p><p>现场同事把抓包发回一看，好家伙，一堆的”TCP ZeroWindow”和”RST“！</p><h1 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h1><p>1、统计一下http请求情况，</p><p><img src="./http_statistic.jpg" alt="Http统计"></p><p>才三百多次http请求，远远没达到正常水平，排除Server端处理瓶颈问题。</p><p>2、输入筛选条件<code>tcp.flags.syn</code>，看看tcp三次握手情况。</p><p><img src="./syn.jpg" alt="syn统计"></p><p>Client新连接都直接被Server端拒绝了，Server端的连接数已经达到了极限。</p><p>而Server端在处理完http请求之后都会断开当前连接，并非长连接模式。并且，根据Server端的http处理耗时来看，还算正常。</p><p>问题估计在已建立但是未正常关闭的连接上，粗略看下，基本都会出现”TCP ZeroWindow“标记。</p><p>3、随机追踪一条出现”TCP ZeroWindow“的tcp连接，</p><p><img src="./tcp_zerowindow.jpg" alt="tcp zerowindow"></p><p>统计了下，出现这情况的连接大概有两百条，那就有可能出现同时并发的连接数大于<code>CPU数量*2+1</code>的情况。</p><p>而且，100个tcp包就出现滑动窗口占满的情况是不可能的，问题肯定出现在这里了。</p><p>经过排查，终于发现问题所在：</p><p><img src="./problem.jpg" alt="问题所在"></p><p>如上图，Server端最后回复给Client端包中，<code>Win</code>的值为5632，表示Server端还能接收5632个包。</p><p>并且<code>Ack</code>值为126929，希望Client下一个包的<code>Seq</code>序号值从126929开始。果不其然，Client端紧接着的包中<code>Seq</code>序号值为126929。</p><p>看Server端回复“TCP ZeroWindow”包的前一个由Client端发出的包LAST，它的<code>Seq</code>值为131273。</p><p>不难看出，<code>131273 - 126929 = 4344 &lt; 5632</code>，这时还可以正常接收。</p><p>但是展开那个包LAST中的<code>Next Seq</code>值是132609，<code>132609 - 126929 = 5680 &gt; 5632</code>，已经超出<code>Win</code>大小，所以，Server端接收到包LAST之后就返回“TCP ZeroWindow”包。</p><h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>1、Client端更改<code>Seq</code>的生成规则，使得<code>Seq</code>自增步长减少。</p><p>抓包中可以看出，Client端<code>Seq</code>的自增步长是1448。</p><p>2、Server端将滑动窗口变大。</p><p>由于Client端会发送<code>PSH</code>包通知Srever端清空缓冲，那么Server端可以将滑动窗口变大，避免出现“TCP ZeroWindow”情况。</p><p>3、优化Srever端“接收请求-&gt;回复请求”的耗时，避免同时出现异常连接并发数大于<code>CPU数量*2+1</code>的情况。</p><p>这种方法依旧是没办法解决问题所在的，只是尽量避免宕机情况出现。</p><p>4、Server端添加tcp连接的timeout处理。</p><p>Server端主动关闭超过timeout时间没有接收到http请求的连接。</p>]]></content>
     
@@ -34,10 +60,10 @@
     
     
     
-    <category term="计算机网络" scheme="https://www.chaguake.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    <category term="问题排查" scheme="https://www.chaguake.com/categories/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/"/>
     
     
-    <category term="TCP" scheme="https://www.chaguake.com/tags/TCP/"/>
+    <category term="问题排查之TCP" scheme="https://www.chaguake.com/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B9%8BTCP/"/>
     
   </entry>
   
