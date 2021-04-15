@@ -17,20 +17,24 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>分类 | 茶瓜客</title>
-  <meta name="description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://www.chaguake.com/categories/index.html">
+  <title>KMP字符串匹配算法 | 茶瓜客</title>
+  <meta name="description" content="在日常工作中，我们经常需要在文本中搜寻某些特定的字符串，那作为使用者的你，有没有想过其算法的实现呢？ 举个例子，假如有一个源字符串“ablshvaabcadababcskilils”，如何判断其是否包含搜索字符串“abcadaba”？ 一般想到的做法是暴力遍历匹配方法：遍历源字符串，然后取出与搜索字符串相同长度的子字符串做比较，不匹配就将迭代索引+1，再取出与搜索字符串相同长度的子字符串做比较，直">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KMP字符串匹配算法">
+<meta property="og:url" content="https://www.chaguake.com/2021/04/12/knuth-morris-pratt-alg/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
+<meta property="og:description" content="在日常工作中，我们经常需要在文本中搜寻某些特定的字符串，那作为使用者的你，有没有想过其算法的实现呢？ 举个例子，假如有一个源字符串“ablshvaabcadababcskilils”，如何判断其是否包含搜索字符串“abcadaba”？ 一般想到的做法是暴力遍历匹配方法：遍历源字符串，然后取出与搜索字符串相同长度的子字符串做比较，不匹配就将迭代索引+1，再取出与搜索字符串相同长度的子字符串做比较，直">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-09T07:36:46.388Z">
-<meta property="article:modified_time" content="2021-03-09T05:57:02.612Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200422194813187.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F0dHJhY3QxMjA2,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200422194829782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F0dHJhY3QxMjA2,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2021-04-12T06:07:04.000Z">
+<meta property="article:modified_time" content="2021-04-12T07:23:08.137Z">
 <meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="字符串算法">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200422194813187.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F0dHJhY3QxMjA2,size_16,color_FFFFFF,t_70#pic_center">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/categories/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/04/12/knuth-morris-pratt-alg/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -338,320 +342,206 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="article article-categories article-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">分类</h1>
-      <p class="text-muted hidden-xs">共 8 个分类</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/categories">All</a></li>
-          
-          <li><a href="/categories/OpenGL/">OpenGL</a></li>
-          
-          <li><a href="/categories/C-C/">C/C++</a></li>
-          
-          <li><a href="/categories/算法/">算法</a></li>
-          
-          <li><a href="/categories/面试/">面试</a></li>
-          
-          <li><a href="/categories/lua/">lua</a></li>
-          
-          <li><a href="/categories/计算机网络/">计算机网络</a></li>
-          
-          <li><a href="/categories/书籍/">书籍</a></li>
-          
-          <li><a href="/categories/问题排查/">问题排查</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-knuth-morris-pratt-alg" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
       
-      <div class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapseOpenGL" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              OpenGL
-            </a>
-            <small class="text-muted">(Total 3 articles)</small>
-          </h3>
-        </div>
-        <div id="collapseOpenGL" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOpenGL">
-          <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2021/03/31/OpenGL-introduction-01/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-31T06:22:54.000Z" itemprop="datePublished">2021-03-31</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> OpenGL入门（一）——GLFW库与GLAD库
-</a>
+        
+  
+    <h1 class="article-title" itemprop="name">
+      KMP字符串匹配算法
+    </h1>
+  
 
-
-              
-                
-<a href="/2021/03/31/OpenGL-introduction-02/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-31T06:59:55.000Z" itemprop="datePublished">2021-03-31</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> OpenGL入门（二）——Hello Window小节笔记
-</a>
-
-
-              
-                
-<a href="/2021/03/31/OpenGL-introduction-03/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-31T10:50:43.000Z" itemprop="datePublished">2021-03-31</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> OpenGL入门（三）——生成三角形小结笔记
-</a>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
       
-      <div class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapseC/C++" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              C/C++
-            </a>
-            <small class="text-muted">(Total 3 articles)</small>
-          </h3>
-        </div>
-        <div id="collapseC/C++" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingC/C++">
-          <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2021/03/23/c-usage-of-time-and-date/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-23T03:21:14.000Z" itemprop="datePublished">2021-03-23</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> c++ 时间与日期相关函数的使用
-</a>
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/04/12/knuth-morris-pratt-alg/" class="article-date">
+	  <time datetime="2021-04-12T06:07:04.000Z" itemprop="datePublished">2021-04-12</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" rel="tag">字符串算法</a>
+  </span>
 
 
-              
-                
-<a href="/2021/03/14/virtual_function_or_table_of_polymorphism/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-13T16:00:00.000Z" itemprop="datePublished">2021-03-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> C++多态之虚函数与虚函数表
-</a>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
 
 
-              
-                
-<a href="/2021/04/09/C-knowledge-cin/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-09T09:15:26.000Z" itemprop="datePublished">2021-04-09</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> C/C++如何获取不定数量的输入参数？
-</a>
-
-
-              
-            </div>
-          </div>
-        </div>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/12/knuth-morris-pratt-alg/#comments" class="article-comment-link">评论</a></span>
+        
       </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
       
-      <div class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse算法" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              算法
-            </a>
-            <small class="text-muted">(Total 5 articles)</small>
-          </h3>
-        </div>
-        <div id="collapse算法" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading算法">
-          <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2021/04/02/fisher-yates-shuffle-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-02T06:29:14.000Z" itemprop="datePublished">2021-04-02</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Fisher Yates 洗牌算法
-</a>
+        <p><em>在日常工作中，我们经常需要在文本中搜寻某些特定的字符串，那作为使用者的你，有没有想过其算法的实现呢？</em></p>
+<p>举个例子，假如有一个源字符串“ablshvaabcadababcskilils”，如何判断其是否包含搜索字符串“abcadaba”？</p>
+<p>一般想到的做法是暴力遍历匹配方法：遍历源字符串，然后取出与搜索字符串相同长度的子字符串做比较，不匹配就将迭代索引+1，再取出与搜索字符串相同长度的子字符串做比较，直到迭代结束。时间复杂度为$O(m*n)$，取决于源字符串和搜索字符串的长度。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200422194813187.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F0dHJhY3QxMjA2,size_16,color_FFFFFF,t_70#pic_center" alt="网图，如侵权请联系删除"></p>
+<p>不难发现，在子字符串与搜索字符串做比较时，很大程度上，有部分操作是与上一次比较时重复的，那能否设计一种模式，减少这部分的重复工作呢？</p>
+<h1 id="KMP算法（Knuth-Morris-Pratt算法）"><a href="#KMP算法（Knuth-Morris-Pratt算法）" class="headerlink" title="KMP算法（Knuth-Morris-Pratt算法）"></a>KMP算法（Knuth-Morris-Pratt算法）</h1><p>KMP算法是通过添加部分匹配表（Partial Match Table）来减少重复搜索工作的算法，它其实是对暴力遍历匹配方法的优化算法，在搜索字符串没有部分匹配字符串的时候，会退化成暴力遍历匹配方法。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200422194829782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F0dHJhY3QxMjA2,size_16,color_FFFFFF,t_70#pic_center" alt="网图，如侵权请联系删除"></p>
+<p>如上图，在匹配失败时，无须回退到上一迭代器+1的位置，而是从下一个部分匹配字符串的位置开始迭代。</p>
+<p><strong>部分匹配字符串和部分匹配表</strong></p>
+<p>首先，先理解“前缀子字符串”和“后缀子字符串”的概念。</p>
+<p>前缀子字符串：把搜索字符串的最后一个字符去掉，所有包含搜索字符串第一个字符、且连续的字符串。如上面的搜索字符串“abcadaba”，它的前缀字符串是<code>a、ab、abc、abca、abcad、abcada、abcadab</code>。</p>
+<p>后缀子字符串：把搜索字符串的第一个字符去掉，所有包含搜索字符串最后一个字符、且连续的字符串。如上面的搜索字符串“abcadaba”，它的后缀字符串是<code>bcadaba、cadaba、adaba、daba、aba、ba、a</code>。</p>
+<p>把同时出现在所有前缀字符串和后缀字符串中的，包含搜索字符串第一个字符且连续的子字符串称为部分匹配字符串，所有部分匹配字符串的集合称为部分匹配表。如上面的搜索字符串“abcadaba”，它的部分匹配表的元素有：<code>a、ab</code>。</p>
+<p><strong>代码实现部分匹配表</strong></p>
+<p>我们需要记录部分匹配字符串第二次出现的位置。</p>
+<p>创建一个与搜索字符串相同长度的整型数组，默认初始化值为0，用于存储在搜索字符串对应位置上，部分匹配字符串的长度。如上面的搜索字符串“abcadaba”，它的部分匹配表最终为：<code>[0, 0, 0, 1, 0, 1, 2, 0]。</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void GetPartialMatch(const std::string &amp;strTarget, int *arr)</span><br><span class="line">&#123;</span><br><span class="line">    int max_pre_size &#x3D; strTarget.length() - 1;</span><br><span class="line">    for (size_t i &#x3D; 0; i &lt; max_pre_size; i++)&#123;</span><br><span class="line"></span><br><span class="line">        std::string strTmp1 &#x3D; strTarget.substr(0, i + 1);</span><br><span class="line">        for (size_t j &#x3D; 1; j &lt; max_pre_size; j++)&#123;</span><br><span class="line">	    std::string strTmp2 &#x3D; strTarget.substr(j, i + 1);</span><br><span class="line"></span><br><span class="line">	    if (strTmp1 &#x3D;&#x3D; strTmp2) &#123;</span><br><span class="line">	        arr[j + i] &#x3D; i + 1;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>KMP算法实现</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">void KMP(const std::string &amp;strSrc, const std::string &amp;strTarget, const int *arr)</span><br><span class="line">&#123;</span><br><span class="line">    int match_index &#x3D; 0;</span><br><span class="line">    for (size_t i &#x3D; 0; i &lt; strSrc.length();)&#123;</span><br><span class="line">	if (strSrc[i] &#x3D;&#x3D; strTarget[match_index]) &#123;</span><br><span class="line">	    if (match_index + 1 &#x3D;&#x3D; strTarget.length()) &#123;</span><br><span class="line">		printf(&quot;match success,sub str index[%d].\n&quot;, i - match_index);</span><br><span class="line">		    return;</span><br><span class="line">	    &#125;</span><br><span class="line">	    i++;</span><br><span class="line">	    match_index++;</span><br><span class="line">	&#125;</span><br><span class="line">	else &#123;</span><br><span class="line">	    if (match_index &gt; 0) &#123;</span><br><span class="line">		match_index &#x3D; arr[match_index];</span><br><span class="line">	    &#125;</span><br><span class="line">	    else &#123;</span><br><span class="line">		i++;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;match fail.\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-              
-                
-<a href="/2021/04/05/reservoir-sampling-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-04T16:20:31.000Z" itemprop="datePublished">2021-04-05</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Reservoir Sampling 抽样算法
-</a>
-
-
-              
-                
-<a href="/2021/04/12/knuth-morris-pratt-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-12T06:07:04.000Z" itemprop="datePublished">2021-04-12</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> KMP字符串匹配算法
-</a>
-
-
-              
-                
-<a href="/2021/04/14/Boyer-Moore-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-14T05:44:16.000Z" itemprop="datePublished">2021-04-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> BM字符串匹配算法
-</a>
-
-
-              
-                
-<a href="/2021/04/15/Sunday-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-15T00:45:40.000Z" itemprop="datePublished">2021-04-15</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Sunday字符串匹配算法
-</a>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse面试" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              面试
-            </a>
-            <small class="text-muted">(Total 1 articles)</small>
-          </h3>
-        </div>
-        <div id="collapse面试" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading面试">
-          <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2021/04/02/interview-knowledge-C-base/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-02T01:52:14.000Z" itemprop="datePublished">2021-04-02</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 面试知识点——C/C++基础知识
-</a>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapselua" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              lua
-            </a>
-            <small class="text-muted">(Total 1 articles)</small>
-          </h3>
-        </div>
-        <div id="collapselua" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headinglua">
-          <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2021/03/24/lua-base-knowledge/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-24T11:35:05.000Z" itemprop="datePublished">2021-03-24</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> lua 基础知识
-</a>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse计算机网络" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              计算机网络
-            </a>
-            <small class="text-muted">(Total 1 articles)</small>
-          </h3>
-        </div>
-        <div id="collapse计算机网络" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading计算机网络">
-          <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2021/04/07/tcp-three-way-handshake/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-07T02:13:50.000Z" itemprop="datePublished">2021-04-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> TCP的三次握手
-</a>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse书籍" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              书籍
-            </a>
-            <small class="text-muted">(Total 1 articles)</small>
-          </h3>
-        </div>
-        <div id="collapse书籍" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading书籍">
-          <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2021/03/15/GC_mark_sweep_algorithm/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-14T16:00:00.000Z" itemprop="datePublished">2021-03-15</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> GC标记-清除算法
-</a>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse问题排查" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              问题排查
-            </a>
-            <small class="text-muted">(Total 1 articles)</small>
-          </h3>
-        </div>
-        <div id="collapse问题排查" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading问题排查">
-          <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2021/04/08/tcp-docking-problem-01/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-08T00:42:22.000Z" itemprop="datePublished">2021-04-08</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> TCP对接异常——Server端宕机
-</a>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
       
     </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://www.chaguake.com/2021/04/12/knuth-morris-pratt-alg/" title="KMP字符串匹配算法" target="_blank" rel="external">https://www.chaguake.com/2021/04/12/knuth-morris-pratt-alg/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
+        <div>是码农啦！不喜格仔衫……</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
   </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/04/14/Boyer-Moore-alg/" title="BM字符串匹配算法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/04/09/C-knowledge-cin/" title="C/C++如何获取不定数量的输入参数？"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </main>
+
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
 	
 	
@@ -703,6 +593,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 

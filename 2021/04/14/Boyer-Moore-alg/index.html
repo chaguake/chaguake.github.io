@@ -17,21 +17,26 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>OpenGL入门（一）——GLFW库与GLAD库 | 茶瓜客</title>
-  <meta name="description" content="OpenGL入门系列是博主学习LearnOpenGL教程的笔录。 LearnOpenGL中文翻译版教程地址：https:&#x2F;&#x2F;learnopengl-cn.github.io&#x2F; LearnOpenGL英文原作者版地址：https:&#x2F;&#x2F;learnopengl.com&#x2F; GLFW GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。  官网：https:&#x2F;&#x2F;www.g">
+  <title>BM字符串匹配算法 | 茶瓜客</title>
+  <meta name="description" content="参考文献有: BM字符串匹配算法论文 Boyer-Moore algorithm  BM（Boyer-Moore）算法比KMP算法高效不少。KMP算法只有一个匹配规则，而BM算法有两个匹配规则，更加优化了迭代索引，减少不必要的比较次数。 BM算法的主要思想是：源字符串迭代方向依旧是从左到右，源字符串与搜索字符串的比较方向是从左到右。遇到不匹配情况时，根据两个匹配规则，定位下一次源字符串与搜索字符串">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenGL入门（一）——GLFW库与GLAD库">
-<meta property="og:url" content="https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/index.html">
+<meta property="og:title" content="BM字符串匹配算法">
+<meta property="og:url" content="https://www.chaguake.com/2021/04/14/Boyer-Moore-alg/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="OpenGL入门系列是博主学习LearnOpenGL教程的笔录。 LearnOpenGL中文翻译版教程地址：https:&#x2F;&#x2F;learnopengl-cn.github.io&#x2F; LearnOpenGL英文原作者版地址：https:&#x2F;&#x2F;learnopengl.com&#x2F; GLFW GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。  官网：https:&#x2F;&#x2F;www.g">
+<meta property="og:description" content="参考文献有: BM字符串匹配算法论文 Boyer-Moore algorithm  BM（Boyer-Moore）算法比KMP算法高效不少。KMP算法只有一个匹配规则，而BM算法有两个匹配规则，更加优化了迭代索引，减少不必要的比较次数。 BM算法的主要思想是：源字符串迭代方向依旧是从左到右，源字符串与搜索字符串的比较方向是从左到右。遇到不匹配情况时，根据两个匹配规则，定位下一次源字符串与搜索字符串">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-31T06:22:54.000Z">
-<meta property="article:modified_time" content="2021-03-31T10:53:27.400Z">
+<meta property="og:image" content="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmbc2.gif">
+<meta property="og:image" content="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmbc1.gif">
+<meta property="og:image" content="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmgs1.gif">
+<meta property="og:image" content="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmgs2.gif">
+<meta property="article:published_time" content="2021-04-14T05:44:16.000Z">
+<meta property="article:modified_time" content="2021-04-14T09:19:27.946Z">
 <meta property="article:author" content="茶瓜客">
-<meta property="article:tag" content="OpenGL入门">
+<meta property="article:tag" content="字符串算法">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmbc2.gif">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/04/14/Boyer-Moore-alg/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -342,14 +347,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-OpenGL-introduction-01" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-Boyer-Moore-alg" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      OpenGL入门（一）——GLFW库与GLAD库
+      BM字符串匹配算法
     </h1>
   
 
@@ -357,20 +362,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/03/31/OpenGL-introduction-01/" class="article-date">
-	  <time datetime="2021-03-31T06:22:54.000Z" itemprop="datePublished">2021-03-31</time>
+	<a href="/2021/04/14/Boyer-Moore-alg/" class="article-date">
+	  <time datetime="2021-04-14T05:44:16.000Z" itemprop="datePublished">2021-04-14</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a>
+	<a class="article-tag-link-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" rel="tag">字符串算法</a>
   </span>
 
 
@@ -383,25 +388,56 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/31/OpenGL-introduction-01/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/14/Boyer-Moore-alg/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>OpenGL入门系列是博主学习LearnOpenGL教程的笔录。</p>
-<p>LearnOpenGL中文翻译版教程地址：<a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/">https://learnopengl-cn.github.io/</a></p>
-<p>LearnOpenGL英文原作者版地址：<a target="_blank" rel="noopener" href="https://learnopengl.com/">https://learnopengl.com/</a></p>
-<h2 id="GLFW"><a href="#GLFW" class="headerlink" title="GLFW"></a>GLFW</h2><blockquote>
-<p>GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。</p>
-</blockquote>
-<p>官网：<a target="_blank" rel="noopener" href="https://www.glfw.org/">https://www.glfw.org/</a></p>
-<p>GLFW提供了简单的API，方便开发者创建windows、contexts、surfaces、input和events等一系列操作。</p>
-<p>官网一般提供了现成的二进制文件库和头文件，将它引用到项目中使用。</p>
-<h2 id="GLAD"><a href="#GLAD" class="headerlink" title="GLAD"></a>GLAD</h2><p>由于OpenGL的接口函数地址一般是未知的，需要在运行期间动态获取。如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 定义函数原型</span><br><span class="line">typedef void (*GL_GENBUFFERS) (GLsizei, GLuint*);</span><br><span class="line">&#x2F;&#x2F; 找到正确的函数并赋值给函数指针</span><br><span class="line">GL_GENBUFFERS glGenBuffers  &#x3D; (GL_GENBUFFERS)wglGetProcAddress(&quot;glGenBuffers&quot;);</span><br><span class="line">&#x2F;&#x2F; 现在函数可以被正常调用了</span><br><span class="line">GLuint buffer;</span><br><span class="line">glGenBuffers(1, &amp;buffer);</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://github.com/Dav1dde/glad">GLAD</a>提供了一个<a target="_blank" rel="noopener" href="http://glad.dav1d.de/">在线服务</a>，通过一些自定义配置，生成一个文件库，把它引用到项目中使用。</p>
-<p><strong><em>值得注意的是，在引用GLFW的头文件之前要先引用GLAD的头文件，因为GLAD包含了OpenGL的头文件。</em></strong></p>
+        <p>参考文献有:</p>
+<p><a target="_blank" rel="noopener" href="https://www.cs.utexas.edu/users/moore/publications/fstrpos.pdf">BM字符串匹配算法论文</a></p>
+<p><a target="_blank" rel="noopener" href="http://www-igm.univ-mlv.fr/~lecroq/string/node14.html">Boyer-Moore algorithm</a></p>
+<hr>
+<p>BM（Boyer-Moore）算法比KMP算法高效不少。KMP算法只有一个匹配规则，而BM算法有两个匹配规则，更加优化了迭代索引，减少不必要的比较次数。</p>
+<p>BM算法的主要思想是：源字符串迭代方向依旧是从左到右，源字符串与搜索字符串的比较方向是从左到右。遇到不匹配情况时，根据两个匹配规则，定位下一次源字符串与搜索字符串比较的位置。</p>
+<h1 id="匹配规则"><a href="#匹配规则" class="headerlink" title="匹配规则"></a>匹配规则</h1><p>BM算法定义了两个匹配规则，在每一次调整搜索字符串位置时，移动位数由两个匹配规则判断返回值中的最大值决定。</p>
+<h2 id="坏字符规则（bad-character-shift）。"><a href="#坏字符规则（bad-character-shift）。" class="headerlink" title="坏字符规则（bad-character shift）。"></a>坏字符规则（bad-character shift）。</h2><p>当源字符串中的某个字符与搜索字符串中的某个字符不匹配时，则源字符串中的那个字符称之为坏字符。</p>
+<p>这时，搜索字符串向右移动的位数 = 已完成匹配字符集合（从右到左）的最后一个字符索引（从0开始） - 坏字符在搜索字符串中最右边出现的位置索引（从0开始）。</p>
+<p>假如坏字符在搜索字符串中未出现，则移动位数值为-1。</p>
+<p>坏字符规则下的两种判断情况：</p>
+<ul>
+<li>当搜索字符串不包含坏字符时，直接将搜索字符串移动到坏字符索引+1的位置（符合上面的计算公式）。</li>
+</ul>
+<p><img src="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmbc2.gif" alt="The bad-character shift, b does not occur in x."></p>
+<ul>
+<li>当搜索字符串包含坏字符时，将搜索字符串中最右出现的位置与坏字符位置对齐。这就意味着可能出现搜索字符串位置回退的情况，不过没关系，最后计算的移动位数由两个匹配规则决定的。</li>
+</ul>
+<p><img src="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmbc1.gif" alt="The bad-character shift, a occurs in x."></p>
+<h2 id="好后缀规则（good-suffix-shift）。"><a href="#好后缀规则（good-suffix-shift）。" class="headerlink" title="好后缀规则（good-suffix shift）。"></a>好后缀规则（good-suffix shift）。</h2><p>当字符无法继续匹配时，称已完成匹配字符集合为好后缀，</p>
+<p>搜索字符串向右移动的位数 = 搜索字符串最右的好后缀索引 - 搜索字符串倒数第二次出现的好后缀索引。</p>
+<p>假如好后缀在搜索字符串中只出现一次，则移动位数值为-1。</p>
+<p>好后缀规则下的三种判断情况：</p>
+<ul>
+<li><p>搜索字符串中除了已经匹配上好后缀的那一个子字符串，没有其他子字符串与好后缀适配且没有其他前缀子字符串与好后缀的后缀子字符串适配时，直接将搜索字符串移动到好后缀后面的字符位置。</p>
+</li>
+<li><p>搜索字符串中除了已经匹配上好后缀的那一个子字符串，还存在其他子字符串与好后缀适配时，则将搜索字符串倒数第二个适配的子字符串与好后缀对齐。</p>
+</li>
+</ul>
+<p><img src="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmgs1.gif" alt="The good-suffix shift, u re-occurs preceded by a character c different from a."></p>
+<ul>
+<li>搜索字符串中除了已经匹配上好后缀的那一个子字符串，没有其他子字符串与好后缀适配，但存在其他前缀子字符串与好后缀的后缀子字符串适配时，则将它们对齐。</li>
+</ul>
+<p><img src="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmgs2.gif" alt="The good-suffix shift, only a suffix of u re-occurs in x."></p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>下面以实例来进行详解，如何用代码实现BM算法。</p>
+<p>现在有一个源字符串<code>cbcccacacabccabc</code>，和一个搜索字符串<code>cabcca</code>，想要得到源字符串是否包含搜索字符串，有则输出位置索引。</p>
+<p>根据坏字符规则，需要创建一个字符位置映射表，用于记录坏字符在搜索字符串中最右边的位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;char_table大小要大于等于会出现的所有字符种类数</span><br><span class="line">&#x2F;&#x2F;int char_table[MAXNUM + 1];</span><br><span class="line">&#x2F;&#x2F;memset(char_table, -1, sizeof(char) *(MAXNUM + 1));</span><br><span class="line">void InitCharTable(const char *search, unsigned int len, int *char_table) &#123;</span><br><span class="line">    for (int i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">        char_table[search[i]] &#x3D; i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据好后缀规则，需要创建前缀子字符串索引表和后缀子字符串索引表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void InitGoodSuffixTable(const char *search, int len, int *suffix, bool *prefix) &#123;</span><br><span class="line">    for (int i &#x3D; 0; i &lt; len - 1; i++) &#123; &#x2F;&#x2F;范围从第一个字符到倒数第二个字符</span><br><span class="line">	int j &#x3D; i;</span><br><span class="line">	int k &#x3D; 0;</span><br><span class="line">	while (j &gt;&#x3D; 0 &amp;&amp; search[j] &#x3D;&#x3D; search[len - 1 - k]) &#123;&#x2F;&#x2F;通过j、k同时往前回朔找相同的字符</span><br><span class="line">	    suffix[++k] &#x3D; --j + 1;&#x2F;&#x2F;在后缀子字符串的后一个字符标记偏移量，兼容a[0]的情况</span><br><span class="line">	&#125;</span><br><span class="line">	if (j &#x3D;&#x3D; -1) &#123;</span><br><span class="line">	    prefix[k] &#x3D; true;&#x2F;&#x2F;前缀子字符串最多只有一个，在结束的字符上标记结束符号（设为true）</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">输出结果：</span><br><span class="line">suffix：[-1, 1, 0, -1, -1, -1]。</span><br><span class="line">prefix：[false, false, true, false, false, false]。</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+<p>移动位数的函数需要跟前缀子字符串索引表和后缀子字符串索引表的生成方式绑定使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int MoveIndexByGS(int bcindex, int len, int *suffix, bool *prefix) &#123;</span><br><span class="line">    int gslen &#x3D; len - 1 - bcindex;</span><br><span class="line">    if (suffix[gslen] !&#x3D; -1) &#123;</span><br><span class="line">	return bcindex - suffix[gslen] + 1;</span><br><span class="line">    &#125;</span><br><span class="line">		</span><br><span class="line">    for (int r &#x3D; bcindex + 2; r &lt;&#x3D; len - 1; r++) &#123;</span><br><span class="line">	if (prefix[len - r])</span><br><span class="line">	    return r;</span><br><span class="line">    &#125;</span><br><span class="line">    return len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BM算法的实现逻辑函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">int BM(const char *str, int len,const char *search, int slen) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;bad char rule tables</span><br><span class="line">    int char_table[MAXNUM + 1];</span><br><span class="line">    memset(char_table, -1, sizeof(char_table));</span><br><span class="line">    InitCharTable(search, slen, char_table);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;good suffix rule tables</span><br><span class="line">    int suffix[MAXNUM + 1];</span><br><span class="line">    bool prefix[MAXNUM + 1];</span><br><span class="line">    memset(suffix, -1, sizeof(suffix));</span><br><span class="line">    memset(prefix, false, sizeof(prefix));</span><br><span class="line">    InitGoodSuffixTable(search, slen, suffix, prefix);</span><br><span class="line"></span><br><span class="line">    int i &#x3D; 0;</span><br><span class="line">    while (i &lt;&#x3D; len - slen) &#123;</span><br><span class="line">	int j;</span><br><span class="line">	for (j &#x3D; slen - 1; j &gt;&#x3D; 0; j--) &#123;</span><br><span class="line">	    &#x2F;&#x2F;fine bad char</span><br><span class="line">	    if (str[i + j] !&#x3D; search[j])</span><br><span class="line">	    break;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if (j &lt; 0) &#123;</span><br><span class="line">	    return i;</span><br><span class="line">	&#125;</span><br><span class="line">			</span><br><span class="line">	&#x2F;&#x2F; find bad char position</span><br><span class="line">	int x &#x3D; j - char_table[(int)str[i + j]];</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">        &#x2F;&#x2F; find good suffix position</span><br><span class="line">	int y &#x3D; 0;</span><br><span class="line">	if (j &lt; slen - 1) &#123;</span><br><span class="line">	    y &#x3D; MoveIndexByGS(j, slen, suffix, prefix);</span><br><span class="line">	&#125;</span><br><span class="line">			</span><br><span class="line">	&#x2F;&#x2F;get the max offset</span><br><span class="line">	i &#x3D; i + max(x, y);</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -411,7 +447,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/" title="OpenGL入门（一）——GLFW库与GLAD库" target="_blank" rel="external">https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/</a>
+      <a href="https://www.chaguake.com/2021/04/14/Boyer-Moore-alg/" title="BM字符串匹配算法" target="_blank" rel="external">https://www.chaguake.com/2021/04/14/Boyer-Moore-alg/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -460,12 +496,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2021/03/31/OpenGL-introduction-02/" title="OpenGL入门（二）——Hello Window小节笔记"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2021/04/15/Sunday-alg/" title="Sunday字符串匹配算法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2021/03/24/lua-base-knowledge/" title="lua 基础知识"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/04/12/knuth-morris-pratt-alg/" title="KMP字符串匹配算法"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
