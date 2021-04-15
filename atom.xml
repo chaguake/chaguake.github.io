@@ -6,7 +6,7 @@
   <link href="https://www.chaguake.com/atom.xml" rel="self"/>
   
   <link href="https://www.chaguake.com/"/>
-  <updated>2021-04-15T01:14:42.265Z</updated>
+  <updated>2021-04-15T06:22:49.391Z</updated>
   <id>https://www.chaguake.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mysql常用SQL命令集合</title>
+    <link href="https://www.chaguake.com/2021/04/15/mysql-common-command/"/>
+    <id>https://www.chaguake.com/2021/04/15/mysql-common-command/</id>
+    <published>2021-04-15T03:27:46.000Z</published>
+    <updated>2021-04-15T06:22:49.391Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="show-engines命令"><a href="#show-engines命令" class="headerlink" title="show engines命令"></a>show engines命令</h3><p>用于查看当前Mysql使用的数据库存储引擎。</p><p><img src="./show_engines.jpg" alt="show_engines命令结果"></p><h3 id="show-variables命令"><a href="#show-variables命令" class="headerlink" title="show variables命令"></a>show variables命令</h3><p>用于查看当前Mysql的配置情况。</p><p><img src="./show_variables.jpg" alt="show_variables命令输出"></p><h3 id="show-status-like-‘Table-’命令"><a href="#show-status-like-‘Table-’命令" class="headerlink" title="show status like ‘Table%’命令"></a>show status like ‘Table%’命令</h3><p>用于查看当前表使用状态，有两个关键的字段：<code>Table_locks_immediate</code>为表立即释放锁的次数，<code>Table_locks_waited</code>为表等待释放锁的次数。</p><p><img src="./show_status.jpg" alt="show status命令输出"></p><h3 id="show-status-like-‘innodb-row-lock-’命令"><a href="#show-status-like-‘innodb-row-lock-’命令" class="headerlink" title="show status like ‘innodb_row_lock%’命令"></a>show status like ‘innodb_row_lock%’命令</h3><p>用于查看行锁争夺情况。</p><p><img src="./show_status1.jpg" alt="show status命令输出"></p><h3 id="lock-table-unlock-table命令"><a href="#lock-table-unlock-table命令" class="headerlink" title="lock table/unlock table命令"></a>lock table/unlock table命令</h3><p>MyISAM数据库引擎加锁（解锁）操作。</p><h3 id="InnoDB-Monitors"><a href="#InnoDB-Monitors" class="headerlink" title="InnoDB Monitors"></a>InnoDB Monitors</h3><p>可创建InnoDB Monitors来观察发生锁冲突的表、数据行等信息。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE innodb_monitor(a INT) ENGINE&#x3D;INNODB;</span><br><span class="line">Show innodb status \G;</span><br><span class="line">DROP TABLE innodb_monitor;</span><br></pre></td></tr></table></figure><h3 id="SELECT-…-LOCK-IN-SHARE-MODE命令"><a href="#SELECT-…-LOCK-IN-SHARE-MODE命令" class="headerlink" title="SELECT … LOCK IN SHARE MODE命令"></a>SELECT … LOCK IN SHARE MODE命令</h3><p>用SELECT … IN SHARE MODE获得共享锁，主要用在需要数据依存关系时来确认某行记录是否存在，并确保没有人对这个记录进行UPDATE或者DELETE操作。</p><p>但是如果当前事务也需要对该记录进行更新操作，则很有可能造成死锁。</p><h3 id="SELECT-…-FOR-UPDATE命令"><a href="#SELECT-…-FOR-UPDATE命令" class="headerlink" title="SELECT … FOR UPDATE命令"></a>SELECT … FOR UPDATE命令</h3><p>对于锁定行记录后需要进行更新操作的应用，应该使用SELECT… FOR UPDATE方式获得排他锁。</p><p>其他session可以查询，但是不能加共享锁。</p><h3 id="InnoDB的行锁与表锁"><a href="#InnoDB的行锁与表锁" class="headerlink" title="InnoDB的行锁与表锁"></a>InnoDB的行锁与表锁</h3><p>当使用索引来检索数据时，就会使用到行级锁，否则，将会使用表级锁。</p><p>比如，SELECT …WHERE … FOR UPDATE语句，如果where后面使用的是索引，那么这条语句就是行锁，否则是表锁。</p><p>而且，假如另一个session的SELECT …WHERE … FOR UPDATE语句通过另一个索引找到对应行，那还是会等待锁。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;show-engines命令&quot;&gt;&lt;a href=&quot;#show-engines命令&quot; class=&quot;headerlink&quot; title=&quot;show engines命令&quot;&gt;&lt;/a&gt;show engines命令&lt;/h3&gt;&lt;p&gt;用于查看当前Mysql使用的数据库存储引擎。</summary>
+      
+    
+    
+    
+    <category term="数据库" scheme="https://www.chaguake.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="Mysql" scheme="https://www.chaguake.com/tags/Mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>Sunday字符串匹配算法</title>

@@ -1,5 +1,5 @@
+https://www.chaguake.com/2021/04/15/mysql-common-command/
 https://www.chaguake.com/2021/04/15/Sunday-alg/
 https://www.chaguake.com/2021/04/14/Boyer-Moore-alg/
 https://www.chaguake.com/2021/04/12/knuth-morris-pratt-alg/
 https://www.chaguake.com/2021/04/09/C-knowledge-cin/
-https://www.chaguake.com/2021/04/08/tcp-docking-problem-01/

@@ -17,18 +17,26 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档 | 茶瓜客</title>
-  <meta name="description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="茶瓜客">
-<meta property="og:url" content="https://www.chaguake.com/archives/index.html">
+  <title>Mysql常用SQL命令集合 | 茶瓜客</title>
+  <meta name="description" content="show engines命令用于查看当前Mysql使用的数据库存储引擎。  show variables命令用于查看当前Mysql的配置情况。  show status like ‘Table%’命令用于查看当前表使用状态，有两个关键的字段：Table_locks_immediate为表立即释放锁的次数，Table_locks_waited为表等待释放锁的次数。  show status like">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql常用SQL命令集合">
+<meta property="og:url" content="https://www.chaguake.com/2021/04/15/mysql-common-command/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
+<meta property="og:description" content="show engines命令用于查看当前Mysql使用的数据库存储引擎。  show variables命令用于查看当前Mysql的配置情况。  show status like ‘Table%’命令用于查看当前表使用状态，有两个关键的字段：Table_locks_immediate为表立即释放锁的次数，Table_locks_waited为表等待释放锁的次数。  show status like">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.chaguake.com/2021/04/15/mysql-common-command/show_engines.jpg">
+<meta property="og:image" content="https://www.chaguake.com/2021/04/15/mysql-common-command/show_variables.jpg">
+<meta property="og:image" content="https://www.chaguake.com/2021/04/15/mysql-common-command/show_status.jpg">
+<meta property="og:image" content="https://www.chaguake.com/2021/04/15/mysql-common-command/show_status1.jpg">
+<meta property="article:published_time" content="2021-04-15T03:27:46.000Z">
+<meta property="article:modified_time" content="2021-04-15T06:22:49.391Z">
 <meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.chaguake.com/2021/04/15/mysql-common-command/show_engines.jpg">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/archives/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/04/15/mysql-common-command/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -338,208 +346,197 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档</h1>
-	      <p class="text-muted">共 17 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
+  <div class="content">
+  <article id="post-mysql-common-command" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
   
+    <h1 class="article-title" itemprop="name">
+      Mysql常用SQL命令集合
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/04/15/mysql-common-command/" class="article-date">
+	  <time datetime="2021-04-15T03:27:46.000Z" itemprop="datePublished">2021-04-15</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Mysql/" rel="tag">Mysql</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/15/mysql-common-command/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="show-engines命令"><a href="#show-engines命令" class="headerlink" title="show engines命令"></a>show engines命令</h3><p>用于查看当前Mysql使用的数据库存储引擎。</p>
+<p><img src="./show_engines.jpg" alt="show_engines命令结果"></p>
+<h3 id="show-variables命令"><a href="#show-variables命令" class="headerlink" title="show variables命令"></a>show variables命令</h3><p>用于查看当前Mysql的配置情况。</p>
+<p><img src="./show_variables.jpg" alt="show_variables命令输出"></p>
+<h3 id="show-status-like-‘Table-’命令"><a href="#show-status-like-‘Table-’命令" class="headerlink" title="show status like ‘Table%’命令"></a>show status like ‘Table%’命令</h3><p>用于查看当前表使用状态，有两个关键的字段：<code>Table_locks_immediate</code>为表立即释放锁的次数，<code>Table_locks_waited</code>为表等待释放锁的次数。</p>
+<p><img src="./show_status.jpg" alt="show status命令输出"></p>
+<h3 id="show-status-like-‘innodb-row-lock-’命令"><a href="#show-status-like-‘innodb-row-lock-’命令" class="headerlink" title="show status like ‘innodb_row_lock%’命令"></a>show status like ‘innodb_row_lock%’命令</h3><p>用于查看行锁争夺情况。</p>
+<p><img src="./show_status1.jpg" alt="show status命令输出"></p>
+<h3 id="lock-table-unlock-table命令"><a href="#lock-table-unlock-table命令" class="headerlink" title="lock table/unlock table命令"></a>lock table/unlock table命令</h3><p>MyISAM数据库引擎加锁（解锁）操作。</p>
+<h3 id="InnoDB-Monitors"><a href="#InnoDB-Monitors" class="headerlink" title="InnoDB Monitors"></a>InnoDB Monitors</h3><p>可创建InnoDB Monitors来观察发生锁冲突的表、数据行等信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE innodb_monitor(a INT) ENGINE&#x3D;INNODB;</span><br><span class="line">Show innodb status \G;</span><br><span class="line">DROP TABLE innodb_monitor;</span><br></pre></td></tr></table></figure>
+<h3 id="SELECT-…-LOCK-IN-SHARE-MODE命令"><a href="#SELECT-…-LOCK-IN-SHARE-MODE命令" class="headerlink" title="SELECT … LOCK IN SHARE MODE命令"></a>SELECT … LOCK IN SHARE MODE命令</h3><p>用SELECT … IN SHARE MODE获得共享锁，主要用在需要数据依存关系时来确认某行记录是否存在，并确保没有人对这个记录进行UPDATE或者DELETE操作。</p>
+<p>但是如果当前事务也需要对该记录进行更新操作，则很有可能造成死锁。</p>
+<h3 id="SELECT-…-FOR-UPDATE命令"><a href="#SELECT-…-FOR-UPDATE命令" class="headerlink" title="SELECT … FOR UPDATE命令"></a>SELECT … FOR UPDATE命令</h3><p>对于锁定行记录后需要进行更新操作的应用，应该使用SELECT… FOR UPDATE方式获得排他锁。</p>
+<p>其他session可以查询，但是不能加共享锁。</p>
+<h3 id="InnoDB的行锁与表锁"><a href="#InnoDB的行锁与表锁" class="headerlink" title="InnoDB的行锁与表锁"></a>InnoDB的行锁与表锁</h3><p>当使用索引来检索数据时，就会使用到行级锁，否则，将会使用表级锁。</p>
+<p>比如，SELECT …WHERE … FOR UPDATE语句，如果where后面使用的是索引，那么这条语句就是行锁，否则是表锁。</p>
+<p>而且，假如另一个session的SELECT …WHERE … FOR UPDATE语句通过另一个索引找到对应行，那还是会等待锁。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://www.chaguake.com/2021/04/15/mysql-common-command/" title="Mysql常用SQL命令集合" target="_blank" rel="external">https://www.chaguake.com/2021/04/15/mysql-common-command/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
+        <div>是码农啦！不喜格仔衫……</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
   
     
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
     
-      
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2021" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2021
-            </a>
-            <!-- <a href="/archives/2021" class="archive-year">2021</a> -->
-          </h3>
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/04/15/Sunday-alg/" title="Sunday字符串匹配算法"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div id="collapse2021" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2021">
-        <div class="panel-body">
-          <div class="collection">
-    
-    
-<a href="/2021/04/15/mysql-common-command/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-15T03:27:46.000Z" itemprop="datePublished">2021-04-15</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Mysql常用SQL命令集合
-</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-  
-    
-    
-    
-<a href="/2021/04/15/Sunday-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-15T00:45:40.000Z" itemprop="datePublished">2021-04-15</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Sunday字符串匹配算法
-</a>
 
-
-  
-    
-    
-    
-<a href="/2021/04/14/Boyer-Moore-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-14T05:44:16.000Z" itemprop="datePublished">2021-04-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> BM字符串匹配算法
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/04/12/knuth-morris-pratt-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-12T06:07:04.000Z" itemprop="datePublished">2021-04-12</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> KMP字符串匹配算法
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/04/09/C-knowledge-cin/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-09T09:15:26.000Z" itemprop="datePublished">2021-04-09</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> C/C++如何获取不定数量的输入参数？
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/04/08/tcp-docking-problem-01/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-08T00:42:22.000Z" itemprop="datePublished">2021-04-08</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> TCP对接异常——Server端宕机
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/04/07/tcp-three-way-handshake/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-07T02:13:50.000Z" itemprop="datePublished">2021-04-07</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> TCP的三次握手
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/04/05/reservoir-sampling-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-04T16:20:31.000Z" itemprop="datePublished">2021-04-05</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Reservoir Sampling 抽样算法
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/04/02/fisher-yates-shuffle-alg/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-02T06:29:14.000Z" itemprop="datePublished">2021-04-02</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Fisher Yates 洗牌算法
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/04/02/interview-knowledge-C-base/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-02T01:52:14.000Z" itemprop="datePublished">2021-04-02</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 面试知识点——C/C++基础知识
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/03/31/OpenGL-introduction-03/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-31T10:50:43.000Z" itemprop="datePublished">2021-03-31</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> OpenGL入门（三）——生成三角形小结笔记
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/03/31/OpenGL-introduction-02/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-31T06:59:55.000Z" itemprop="datePublished">2021-03-31</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> OpenGL入门（二）——Hello Window小节笔记
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/03/31/OpenGL-introduction-01/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-31T06:22:54.000Z" itemprop="datePublished">2021-03-31</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> OpenGL入门（一）——GLFW库与GLAD库
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/03/24/lua-base-knowledge/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-24T11:35:05.000Z" itemprop="datePublished">2021-03-24</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> lua 基础知识
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/03/23/c-usage-of-time-and-date/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-23T03:21:14.000Z" itemprop="datePublished">2021-03-23</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> c++ 时间与日期相关函数的使用
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/03/15/GC_mark_sweep_algorithm/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-14T16:00:00.000Z" itemprop="datePublished">2021-03-15</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> GC标记-清除算法
-</a>
-
-
-  
-    
-    
-    
-<a href="/2021/03/14/virtual_function_or_table_of_polymorphism/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-03-13T16:00:00.000Z" itemprop="datePublished">2021-03-14</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> C++多态之虚函数与虚函数表
-</a>
-
-
-  
-  
-    </div></div></div></section>
-  
-
-	    </div>
-  	</article>
-  	 	
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -593,6 +590,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 
