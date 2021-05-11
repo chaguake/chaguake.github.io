@@ -17,24 +17,27 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>OpenGL入门（四）——着色器 | 茶瓜客</title>
-  <meta name="description" content="英文原文地址    中文翻译地址 着色器（Shader）是运行在GPU上的小程序，用于图形渲染管线的某个特定部分。 而在OpenGL使用GLSL这一门着色器语言来实现着色器程序。 GLSL着色器是使用一种叫GLSL的类C语言写成的。GLSL是为图形计算量身定制的，它包含一些针对向量和矩阵操作的有用特性。 着色器的开头总是要声明版本，接着是输入和输出变量、uniform和main函数。每个着色器的入">
+  <title>Blender官方源码文档——RNA | 茶瓜客</title>
+  <meta name="description" content="最新的官方文档：目录 本文的原文在这里  RNA 这是一份数据API实现的文档。  实现（Implementation）RNA的实现在模块makesrna。其中，几个重要的文件如下： 123RNA_types.h: The important RNA data structures are defined here.RNA_access.h: API for accessing structs a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenGL入门（四）——着色器">
-<meta property="og:url" content="https://www.chaguake.com/2021/04/22/OpenGL-introduction-04/index.html">
+<meta property="og:title" content="Blender官方源码文档——RNA">
+<meta property="og:url" content="https://www.chaguake.com/2021/05/10/Blender-source-code-study-07/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="英文原文地址    中文翻译地址 着色器（Shader）是运行在GPU上的小程序，用于图形渲染管线的某个特定部分。 而在OpenGL使用GLSL这一门着色器语言来实现着色器程序。 GLSL着色器是使用一种叫GLSL的类C语言写成的。GLSL是为图形计算量身定制的，它包含一些针对向量和矩阵操作的有用特性。 着色器的开头总是要声明版本，接着是输入和输出变量、uniform和main函数。每个着色器的入">
+<meta property="og:description" content="最新的官方文档：目录 本文的原文在这里  RNA 这是一份数据API实现的文档。  实现（Implementation）RNA的实现在模块makesrna。其中，几个重要的文件如下： 123RNA_types.h: The important RNA data structures are defined here.RNA_access.h: API for accessing structs a">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://learnopengl-cn.github.io/img/01/05/vertex_attribute_pointer_interleaved.png">
-<meta property="og:image" content="https://learnopengl-cn.github.io/img/01/05/shaders3.png">
-<meta property="article:published_time" content="2021-04-22T08:53:15.000Z">
-<meta property="article:modified_time" content="2021-04-23T02:03:07.418Z">
+<meta property="og:image" content="https://wiki.blender.org/w/images/0/06/RNADataTypes.png">
+<meta property="og:image" content="https://wiki.blender.org/w/images/1/1b/RNAPreprocessing.png">
+<meta property="og:image" content="https://wiki.blender.org/w/images/5/5c/RNARuntimeAccess.png">
+<meta property="og:image" content="https://wiki.blender.org/w/images/b/b2/RNAPointerID.png">
+<meta property="og:image" content="https://wiki.blender.org/w/images/2/21/RNAIDProperties.png">
+<meta property="article:published_time" content="2021-05-10T02:23:35.000Z">
+<meta property="article:modified_time" content="2021-05-11T01:41:03.309Z">
 <meta property="article:author" content="茶瓜客">
-<meta property="article:tag" content="OpenGL入门">
+<meta property="article:tag" content="blender源码">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://learnopengl-cn.github.io/img/01/05/vertex_attribute_pointer_interleaved.png">
+<meta name="twitter:image" content="https://wiki.blender.org/w/images/0/06/RNADataTypes.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/2021/04/22/OpenGL-introduction-04/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/05/10/Blender-source-code-study-07/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -345,14 +348,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-OpenGL-introduction-04" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-Blender-source-code-study-07" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      OpenGL入门（四）——着色器
+      Blender官方源码文档——RNA
     </h1>
   
 
@@ -360,20 +363,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/04/22/OpenGL-introduction-04/" class="article-date">
-	  <time datetime="2021-04-22T08:53:15.000Z" itemprop="datePublished">2021-04-22</time>
+	<a href="/2021/05/10/Blender-source-code-study-07/" class="article-date">
+	  <time datetime="2021-05-10T02:23:35.000Z" itemprop="datePublished">2021-05-10</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
+    <a class="article-category-link" href="/categories/blender/">blender</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a>
+	<a class="article-tag-link-link" href="/tags/blender%E6%BA%90%E7%A0%81/" rel="tag">blender源码</a>
   </span>
 
 
@@ -386,81 +389,89 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/22/OpenGL-introduction-04/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/10/Blender-source-code-study-07/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p><a target="_blank" rel="noopener" href="https://learnopengl.com/Getting-started/Shaders">英文原文地址</a>    <a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/01%20Getting%20started/05%20Shaders/">中文翻译地址</a></p>
-<p>着色器（Shader）是运行在GPU上的小程序，用于图形渲染管线的某个特定部分。</p>
-<p>而在OpenGL使用GLSL这一门着色器语言来实现着色器程序。</p>
-<h2 id="GLSL"><a href="#GLSL" class="headerlink" title="GLSL"></a>GLSL</h2><p>着色器是使用一种叫GLSL的类C语言写成的。GLSL是为图形计算量身定制的，它包含一些针对向量和矩阵操作的有用特性。</p>
-<p>着色器的开头总是要声明版本，接着是输入和输出变量、uniform和main函数。每个着色器的入口点都是main函数，在这个函数中我们处理所有的输入变量，并将结果输出到输出变量中。如果你不知道什么是uniform也不用担心，我们后面会进行讲解。</p>
-<p>一个典型的着色器有下面的结构：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#version version_number</span><br><span class="line">in type in_variable_name;</span><br><span class="line">in type in_variable_name;</span><br><span class="line"></span><br><span class="line">out type out_variable_name;</span><br><span class="line"></span><br><span class="line">uniform type uniform_name;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F; 处理输入并进行一些图形操作</span><br><span class="line">  ...</span><br><span class="line">  &#x2F;&#x2F; 输出处理过的结果到输出变量</span><br><span class="line">  out_variable_name &#x3D; weird_stuff_we_processed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h2><p>GLSL包含C语言大部分默认的基础数据类型。</p>
-<p>向量是GLSL中比较常用的数据类型，常见的类型形式如下（n代表分量的数量）：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">vecn</td>
-<td style="text-align:center">包含n个float分量的默认向量</td>
-</tr>
-<tr>
-<td style="text-align:center">bvecn</td>
-<td style="text-align:center">包含n个bool分量的向量</td>
-</tr>
-<tr>
-<td style="text-align:center">ivecn</td>
-<td style="text-align:center">包含n个int分量的向量</td>
-</tr>
-<tr>
-<td style="text-align:center">uvecn</td>
-<td style="text-align:center">包含n个unsigned int分量的向量</td>
-</tr>
-<tr>
-<td style="text-align:center">dvecn</td>
-<td style="text-align:center">包含n个double分量的向量</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>向量支持重组特性，一个向量的分量可以由其他的向量组成：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec2 vect &#x3D; vec2(0.1, 0.1)</span><br><span class="line">vec4 result &#x3D; vec4(vect, 0.0, 0.0)</span><br><span class="line">vec4 result2 &#x3D; vec4(result.xyz, 1.0)</span><br></pre></td></tr></table></figure>
-<h2 id="输入与输出"><a href="#输入与输出" class="headerlink" title="输入与输出"></a>输入与输出</h2><p>GLSL定义了<code>in</code>和<code>out</code>关键字实现着色器的输入和输出。</p>
-<p>下面举个例子，顶点着色器接收一个3个分量的顶点位置向量，然后输出一个4个分量的顶点颜色向量，它会作为片段着色器的输入。</p>
-<p>顶点着色器代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">layout (location &#x3D; 0) in vec3 aPos; &#x2F;&#x2F; 位置变量的属性位置值为0</span><br><span class="line"></span><br><span class="line">out vec4 vertexColor; &#x2F;&#x2F; 为片段着色器指定一个颜色输出</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    gl_Position &#x3D; vec4(aPos, 1.0); &#x2F;&#x2F; 注意我们如何把一个vec3作为vec4的构造器的参数</span><br><span class="line">    vertexColor &#x3D; vec4(0.5, 0.0, 0.0, 1.0); &#x2F;&#x2F; 把输出变量设置为暗红色</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>片段着色器代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">out vec4 FragColor;</span><br><span class="line"></span><br><span class="line">in vec4 vertexColor; &#x2F;&#x2F; 从顶点着色器传来的输入变量（名称相同、类型相同）</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    FragColor &#x3D; vertexColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="uniform"><a href="#uniform" class="headerlink" title="uniform"></a>uniform</h2><p>uniform提供了从CPU应用程序向GPU着色器程序发送数据的能力。</p>
-<p>并且，uniform变量是全局的，它必须在每个着色器程序对象中有且只有一个，并且它可以被着色器程序的任意着色器在任意阶段访问。</p>
-<p>使用方法如下：</p>
-<p>在片段着色器中定义uniform变量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">out vec4 FragColor;</span><br><span class="line"></span><br><span class="line">uniform vec4 ourColor; &#x2F;&#x2F; 在OpenGL程序代码中设定这个变量</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    FragColor &#x3D; ourColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在C/C++代码中，使用<code>glGetUniformLocation</code>函数获取该uniform变量，然后使用<code>glUniform4f</code>函数对其赋值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">float timeValue &#x3D; glfwGetTime();</span><br><span class="line">float greenValue &#x3D; (sin(timeValue) &#x2F; 2.0f) + 0.5f;</span><br><span class="line">int vertexColorLocation &#x3D; glGetUniformLocation(shaderProgram, &quot;ourColor&quot;);</span><br><span class="line">glUseProgram(shaderProgram);</span><br><span class="line">glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);</span><br></pre></td></tr></table></figure>
-<p>值得注意的是，如果<code>glGetUniformLocation</code>返回-1就代表没有找到这个位置值。</p>
-<p>而且，<code>glUniform4f</code>函数是属于设置uniform函数族中的一个，因为OpenGL底层是C库，不支持重载。</p>
-<h2 id="传递多个属性"><a href="#传递多个属性" class="headerlink" title="传递多个属性"></a>传递多个属性</h2><p>在上面的例子中，只是传递了顶点位置的属性到顶点着色器上，那怎样才能传递多个属性呢？</p>
-<p>首先，先给出顶点属性数据：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float vertices[] &#x3D; &#123;</span><br><span class="line">    &#x2F;&#x2F; 位置              &#x2F;&#x2F; 颜色</span><br><span class="line">     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   &#x2F;&#x2F; 右下</span><br><span class="line">    -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   &#x2F;&#x2F; 左下</span><br><span class="line">     0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    &#x2F;&#x2F; 顶部</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>然后再顶点着色器代码中接收多个输入，每个输入使用<code>(location = n)</code>来做绑定：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">layout (location &#x3D; 0) in vec3 aPos;   &#x2F;&#x2F; 位置变量的属性位置值为 0 </span><br><span class="line">layout (location &#x3D; 1) in vec3 aColor; &#x2F;&#x2F; 颜色变量的属性位置值为 1</span><br><span class="line"></span><br><span class="line">out vec3 ourColor; &#x2F;&#x2F; 向片段着色器输出一个颜色</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    gl_Position &#x3D; vec4(aPos, 1.0);</span><br><span class="line">    ourColor &#x3D; aColor; &#x2F;&#x2F; 将ourColor设置为我们从顶点数据那里得到的输入颜色</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>(location = n)</code>对应C/C++代码中<code>glVertexAttribPointer</code>函数的第一个参数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 位置属性</span><br><span class="line">glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);</span><br><span class="line">glEnableVertexAttribArray(0);</span><br><span class="line">&#x2F;&#x2F; 颜色属性</span><br><span class="line">glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));</span><br><span class="line">glEnableVertexAttribArray(1);</span><br></pre></td></tr></table></figure>
-<p>给出顶点数据的存储结构图：</p>
-<p><img src="https://learnopengl-cn.github.io/img/01/05/vertex_attribute_pointer_interleaved.png" alt=""></p>
-<p>最后输出结果如下：</p>
-<p><img src="https://learnopengl-cn.github.io/img/01/05/shaders3.png" alt=""></p>
+        <p>最新的官方文档：<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source">目录</a></p>
+<p>本文的原文在<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source/Architecture/RNA">这里</a></p>
+<hr>
+<h1 id="RNA"><a href="#RNA" class="headerlink" title="RNA"></a>RNA</h1><blockquote>
+<p>这是一份数据API实现的文档。</p>
+</blockquote>
+<h2 id="实现（Implementation）"><a href="#实现（Implementation）" class="headerlink" title="实现（Implementation）"></a>实现（Implementation）</h2><p>RNA的实现在模块<code>makesrna</code>。其中，几个重要的文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RNA_types.h: The important RNA data structures are defined here.</span><br><span class="line">RNA_access.h: API for accessing structs and properties at runtime.</span><br><span class="line">RNA_define.h: API for defining structs and properties.</span><br></pre></td></tr></table></figure>
+<p><img src="https://wiki.blender.org/w/images/0/06/RNADataTypes.png" alt=""></p>
+<h2 id="定义结构体和属性（Defining-Structs-and-Properties）"><a href="#定义结构体和属性（Defining-Structs-and-Properties）" class="headerlink" title="定义结构体和属性（Defining Structs and Properties）"></a>定义结构体和属性（Defining Structs and Properties）</h2><p>结构体和属性都定义在<code>makesrna</code>模块的<code>rna_*.c</code>这一类文件中，其定义作为构建系统的一部分生成。错误信息会在构建期间打印出来。</p>
+<h3 id="结构体（Struct）"><a href="#结构体（Struct）" class="headerlink" title="结构体（Struct）"></a>结构体（Struct）</h3><ul>
+<li><p>如果你没有在已存在的文件中添加它：</p>
+<ul>
+<li><p>拷贝已存在的文件，重命名并清理它。</p>
+</li>
+<li><p>在文件<code>makesrna.c</code>中，把它添加到列表<code>PROCESS_ITEMS</code>。</p>
+</li>
+</ul>
+</li>
+<li><p>在文件<code>rna_access.h</code>中，添加结构体<code>StructRNA</code>的extern描述。</p>
+</li>
+<li><p>对于数据块，在文件<code>rna_ID.c</code>中添加正确的ID_case到函数<code>rna_ID_refine()</code>。</p>
+</li>
+</ul>
+<p>接下来，在函数<code>RNA_def_*</code>类函数中，对应的结构体将会被定义。函数<code>RNA_def_struct</code>定义了结构体本身。我们必须定义一个唯一名称且人类能理解的标识符去标识这些结构体。</p>
+<p>系统就会自动尝试找到与标识符同名的DNA结构体。假如一个相应的结构体拥有不同的名称，函数<code>RNA_def_struct_sdna</code>可以找到正确的名称，这对于以后更加自动地定义属性很重要。</p>
+<p>对于每一个结构体都尽可能地把其名称设置为字符串属性，这个名称将用于UI，并且可以在集合（collections）中使用字符串搜索。</p>
+<p>对于ID数据块结构体（ID struct），它需要满足：</p>
+<ul>
+<li><p>在文件<code>rna_main.c</code>中，将“lists”数组中现有项改成正确的类型以代替“ID”，或者是添加新项。</p>
+</li>
+<li><p>在文件<code>rna_ID.c</code>中，使用函数<code>rna_ID_refine</code>添加改结构体。</p>
+</li>
+</ul>
+<h3 id="属性（Property）"><a href="#属性（Property）" class="headerlink" title="属性（Property）"></a>属性（Property）</h3><p>对于每一个属性，始于函数<code>RNA_def_property</code>。其标识符一定要跟对应的结构体类似。然后我们必须定义一个类型和子类型。类型确定了数据类型，子类型则是对数据的解释，举个例子，一个float数组属性可以是颜色、向量或者矩阵。</p>
+<p>同样地，系统会使用跟标识符一样的字符串在DNA结构体中查找属性，如果它有不一样的名称，下一步要做的是使用函数<code>RNA_def_*_sdna</code>正确指向它。DNA信息用于衍生各种各样的事物，比如说，<code>get/set</code>函数、集合的迭代器、数组长度、限制器等等，下一节将解释映射的工作规则。</p>
+<p>如果这些自动值（the automatic values）不正确，则可以后置覆盖。文件<code>RNA_define.h</code>为不同的类型提供信息概括。重要的定义是数组长度、数字范围和枚举项。</p>
+<p>接下来，我们需要定义默认值。如果没有显式定义，则数字的默认值为0，字符串的默认值为“”，指针的默认值为NULL，集合的默认值则为空。</p>
+<p>为了构建更加自动的用户界面，需要为工具定义通俗易懂的名称和描述。对于可伸缩的数值，定义可拖拽的步长和精度。这些将是从RNA属性中生成按钮时的默认值。</p>
+<p>在很多情况下，自动DNA的匹配会解决这个问题，但在某些情况下，我们必须为<code>get/set</code>函数设置回调函数。它们的名称可以使用函数<code>RNA_def_property_*_funcs</code>传递，参数请参见文件<code>RNA_type.h</code>。集合（collections）是最困难的，尽管可以自动支持<code>ListBase</code>和特定数组。请注意，有些函数调用是可选的，它们只对优化有帮助，举个例子，列表的查找函数。</p>
+<h3 id="DNA匹配（DNA-Matching）"><a href="#DNA匹配（DNA-Matching）" class="headerlink" title="DNA匹配（DNA Matching）"></a>DNA匹配（DNA Matching）</h3><p><img src="https://wiki.blender.org/w/images/1/1b/RNAPreprocessing.png" alt=""></p>
+<ul>
+<li><p>Booleans/Ints/Floats：数组长度基于在float member[x]中的数值<code>x</code>。举个例子，只支持一维数组。如果变量本身不是数组，它会假设连续变量是数组的一部分。举个例子，指定变量<code>r</code>来自浮点型变量<code>r</code>、<code>g</code>和<code>b</code>，那么，可以假设数组的地址为<code>&amp;r</code>。</p>
+</li>
+<li><p>Booleans可以使用函数<code>RNA_def_property_boolean_sdna</code>指定为一个bit。如果定义了数组长度但没有数组成员SDNA，那么可以假设这个数组是通过由指定bit开始的bit标志位定义的。</p>
+</li>
+<li><p>Ints：数值值范围见<code>INT_MIN/INT_MAX</code>，如果检测出是char或者short，则使用对应的值范围。非负数类型现在并没有自动检测（SDNA不支持），所以，应该使用子类型<code>PROP_UNSIGNED</code>或者手动限制其值范围。</p>
+</li>
+<li><p>Enums：函数<code>RNA_def_property_enum_sdna</code>有一个参数去判断枚举是否是bit标志位的，在与其他标志位混用时应当被设置。</p>
+</li>
+<li><p>Strings：char数组，最大长度取决于数组大小。</p>
+</li>
+<li><p>Pointers：如果指针类型未定义，则会根据结构体对应的DNA自动定义，对于定义为指向数组指针的集合，也是使用指针。</p>
+</li>
+<li><p>Collections：基于ListBase，函数<code>begin/next/get</code>会自动生成。</p>
+</li>
+<li><p>Collections：当将包含集合长度的变量的名称传递给SDNA函数时，假设正在使用一个数组，则会为这个数组自动生成函数<code>begin/next/get/end</code>。如果成员的指针是像<code>MVert *mvert;</code>这样的简单指针，它会返回<code>&amp;mvert[i]</code>这样的items，如果它是像<code>Material **mat;</code>这样指向指针的指针，他就会返回<code>mat[i]</code>这样的items。</p>
+</li>
+<li><p>在嵌套结构体中的成员也可以被识别，举个例子，使用函数<code>RNA_def_property_*_sdna</code>传递一个值。</p>
+</li>
+</ul>
+<h3 id="命名约束（Naming-Conventions）"><a href="#命名约束（Naming-Conventions）" class="headerlink" title="命名约束（Naming Conventions）"></a>命名约束（Naming Conventions）</h3><h2 id="运行时接入（Runtime-Access）"><a href="#运行时接入（Runtime-Access）" class="headerlink" title="运行时接入（Runtime Access）"></a>运行时接入（Runtime Access）</h2><p><img src="https://wiki.blender.org/w/images/5/5c/RNARuntimeAccess.png" alt=""></p>
+<p>运行时接入属性值是通过定义在文件<code>RNA_access.h</code>的函数。支持函数<code>get/set</code>和集合迭代器。</p>
+<p>这也是使用函数去检查属性是否可编辑的或已计算的。如果属性是可编辑的，这就意味着它可以被用户修改。如果它是可计算的，这就意味着它可以将一些函数设置为计算的一部分，例如：修改器、约束器或者动画系统的一部分。</p>
+<h3 id="指针（Pointers）"><a href="#指针（Pointers）" class="headerlink" title="指针（Pointers）"></a>指针（Pointers）</h3><p><img src="https://wiki.blender.org/w/images/b/b2/RNAPointerID.png" alt=""></p>
+<p>一个RNA结构体的指针总是包裹在结构体<code>PointerRNA</code>中。结构体<code>PointerRNA</code>包含实际的数据指针和结构体类型。它也包含了数据指针和数据所属的ID数据块类型。这在某种情况下是有需要的，举个例子，一个顶点自身是提供不了足够的信息去更新依赖关系图，我们需要知道顶点所在的网格（mesh）。</p>
+<p>在运行时中创建指针，使用函数<code>RNA_main_pointer_create</code>、<code>RNA_id_pointer_create</code>和<code>RNA_pointer_create</code>。</p>
+<p>属性的回调函数使用PointerRNA们来代替直接指向数据的指针，因此，它们在需要的时候可以使用ID数据。指针和集合的<code>get/set</code>回调函数返回数据指针，类型和ID则会在回调的外部自动填充。</p>
+<h2 id="ID属性（ID-Properties）"><a href="#ID属性（ID-Properties）" class="headerlink" title="ID属性（ID Properties）"></a>ID属性（ID Properties）</h2><p><img src="https://wiki.blender.org/w/images/2/21/RNAIDProperties.png" alt=""></p>
+<p>RNA同样支持ID属性，有两个方法：</p>
+<ul>
+<li><p>如果一个RNA属性是在运行时中定义，或者有<code>PROP_IDPROPERTY</code>标记，ID属性将会通过RNA API被首次创建。RNA API初始化时返回默认值，直到创建ID属性，然后，返回ID属性值。值得注意的是，如果RNA定义了相同名称但不用类型的ID属性，那它会移除和重写，以匹配上RNA的类型。</p>
+</li>
+<li><p>如果存在一个ID属性但它没有对应的RNA属性，当遍历结构体的属性时，依旧通过RNA暴露。RNA信息会得到默认值：像用户界面名称这类物体将从ID属性名称得到，数值范围则会根据其类型得到默认值。</p>
+</li>
+</ul>
+<p>为了简化没有对应RNA属性的ID属性的API，可使用函数<code>RNA_property_*</code>得到实际的<code>PropertyRNA*</code>，或者使用<code>IDProperty*</code>强制转换得到<code>PropertyRNA*</code>。内置函数会检测出哪个数据结构体被使用。因此，对成员<code>PropertyRNA*</code>的访问必须通过访问器函数，而不是直接访问该成员。</p>
 
       
     </div>
@@ -470,7 +481,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/2021/04/22/OpenGL-introduction-04/" title="OpenGL入门（四）——着色器" target="_blank" rel="external">https://www.chaguake.com/2021/04/22/OpenGL-introduction-04/</a>
+      <a href="https://www.chaguake.com/2021/05/10/Blender-source-code-study-07/" title="Blender官方源码文档——RNA" target="_blank" rel="external">https://www.chaguake.com/2021/05/10/Blender-source-code-study-07/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -518,13 +529,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2021/04/28/blender-hot-key/" title="blender快捷键汇总"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2021/04/21/Go-base-knowledge-02/" title="第一章 Go语言基础——函数、方法和接口"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/05/08/Blender-source-code-study-06/" title="Blender官方源码文档——ID Datablocks"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

@@ -17,24 +17,24 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>OpenGL入门（四）——着色器 | 茶瓜客</title>
-  <meta name="description" content="英文原文地址    中文翻译地址 着色器（Shader）是运行在GPU上的小程序，用于图形渲染管线的某个特定部分。 而在OpenGL使用GLSL这一门着色器语言来实现着色器程序。 GLSL着色器是使用一种叫GLSL的类C语言写成的。GLSL是为图形计算量身定制的，它包含一些针对向量和矩阵操作的有用特性。 着色器的开头总是要声明版本，接着是输入和输出变量、uniform和main函数。每个着色器的入">
+  <title>Blender官方源码文档——Context | 茶瓜客</title>
+  <meta name="description" content="最新的官方文档：目录 本文的原文在这里  Context在2.5中，bContext结构体被添加进来，作为全局变量的替代品，更明确地去创建上下文（make context）。比如，操作类、Python脚本和绘制代码，它们都能在定义好的上下文（context）中正常使用。 Blender的上下文（Context）由bContext结构体表示，其API定义在BKE_context.h文件中。获取上下文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenGL入门（四）——着色器">
-<meta property="og:url" content="https://www.chaguake.com/2021/04/22/OpenGL-introduction-04/index.html">
+<meta property="og:title" content="Blender官方源码文档——Context">
+<meta property="og:url" content="https://www.chaguake.com/2021/05/07/Blender-source-code-study-04/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="英文原文地址    中文翻译地址 着色器（Shader）是运行在GPU上的小程序，用于图形渲染管线的某个特定部分。 而在OpenGL使用GLSL这一门着色器语言来实现着色器程序。 GLSL着色器是使用一种叫GLSL的类C语言写成的。GLSL是为图形计算量身定制的，它包含一些针对向量和矩阵操作的有用特性。 着色器的开头总是要声明版本，接着是输入和输出变量、uniform和main函数。每个着色器的入">
+<meta property="og:description" content="最新的官方文档：目录 本文的原文在这里  Context在2.5中，bContext结构体被添加进来，作为全局变量的替代品，更明确地去创建上下文（make context）。比如，操作类、Python脚本和绘制代码，它们都能在定义好的上下文（context）中正常使用。 Blender的上下文（Context）由bContext结构体表示，其API定义在BKE_context.h文件中。获取上下文">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://learnopengl-cn.github.io/img/01/05/vertex_attribute_pointer_interleaved.png">
-<meta property="og:image" content="https://learnopengl-cn.github.io/img/01/05/shaders3.png">
-<meta property="article:published_time" content="2021-04-22T08:53:15.000Z">
-<meta property="article:modified_time" content="2021-04-23T02:03:07.418Z">
+<meta property="og:image" content="https://wiki.blender.org/w/images/5/56/Context_2.5_what.png">
+<meta property="og:image" content="https://wiki.blender.org/w/images/thumb/0/06/Context_2.5_setting.png/640px-Context_2.5_setting.png">
+<meta property="article:published_time" content="2021-05-07T09:12:07.000Z">
+<meta property="article:modified_time" content="2021-05-08T09:33:34.842Z">
 <meta property="article:author" content="茶瓜客">
-<meta property="article:tag" content="OpenGL入门">
+<meta property="article:tag" content="blender源码">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://learnopengl-cn.github.io/img/01/05/vertex_attribute_pointer_interleaved.png">
+<meta name="twitter:image" content="https://wiki.blender.org/w/images/5/56/Context_2.5_what.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/2021/04/22/OpenGL-introduction-04/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/05/07/Blender-source-code-study-04/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -345,14 +345,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-OpenGL-introduction-04" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-Blender-source-code-study-04" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      OpenGL入门（四）——着色器
+      Blender官方源码文档——Context
     </h1>
   
 
@@ -360,20 +360,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/04/22/OpenGL-introduction-04/" class="article-date">
-	  <time datetime="2021-04-22T08:53:15.000Z" itemprop="datePublished">2021-04-22</time>
+	<a href="/2021/05/07/Blender-source-code-study-04/" class="article-date">
+	  <time datetime="2021-05-07T09:12:07.000Z" itemprop="datePublished">2021-05-07</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
+    <a class="article-category-link" href="/categories/blender/">blender</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a>
+	<a class="article-tag-link-link" href="/tags/blender%E6%BA%90%E7%A0%81/" rel="tag">blender源码</a>
   </span>
 
 
@@ -386,81 +386,55 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/22/OpenGL-introduction-04/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/07/Blender-source-code-study-04/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p><a target="_blank" rel="noopener" href="https://learnopengl.com/Getting-started/Shaders">英文原文地址</a>    <a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/01%20Getting%20started/05%20Shaders/">中文翻译地址</a></p>
-<p>着色器（Shader）是运行在GPU上的小程序，用于图形渲染管线的某个特定部分。</p>
-<p>而在OpenGL使用GLSL这一门着色器语言来实现着色器程序。</p>
-<h2 id="GLSL"><a href="#GLSL" class="headerlink" title="GLSL"></a>GLSL</h2><p>着色器是使用一种叫GLSL的类C语言写成的。GLSL是为图形计算量身定制的，它包含一些针对向量和矩阵操作的有用特性。</p>
-<p>着色器的开头总是要声明版本，接着是输入和输出变量、uniform和main函数。每个着色器的入口点都是main函数，在这个函数中我们处理所有的输入变量，并将结果输出到输出变量中。如果你不知道什么是uniform也不用担心，我们后面会进行讲解。</p>
-<p>一个典型的着色器有下面的结构：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#version version_number</span><br><span class="line">in type in_variable_name;</span><br><span class="line">in type in_variable_name;</span><br><span class="line"></span><br><span class="line">out type out_variable_name;</span><br><span class="line"></span><br><span class="line">uniform type uniform_name;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F; 处理输入并进行一些图形操作</span><br><span class="line">  ...</span><br><span class="line">  &#x2F;&#x2F; 输出处理过的结果到输出变量</span><br><span class="line">  out_variable_name &#x3D; weird_stuff_we_processed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h2><p>GLSL包含C语言大部分默认的基础数据类型。</p>
-<p>向量是GLSL中比较常用的数据类型，常见的类型形式如下（n代表分量的数量）：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">vecn</td>
-<td style="text-align:center">包含n个float分量的默认向量</td>
-</tr>
-<tr>
-<td style="text-align:center">bvecn</td>
-<td style="text-align:center">包含n个bool分量的向量</td>
-</tr>
-<tr>
-<td style="text-align:center">ivecn</td>
-<td style="text-align:center">包含n个int分量的向量</td>
-</tr>
-<tr>
-<td style="text-align:center">uvecn</td>
-<td style="text-align:center">包含n个unsigned int分量的向量</td>
-</tr>
-<tr>
-<td style="text-align:center">dvecn</td>
-<td style="text-align:center">包含n个double分量的向量</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>向量支持重组特性，一个向量的分量可以由其他的向量组成：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec2 vect &#x3D; vec2(0.1, 0.1)</span><br><span class="line">vec4 result &#x3D; vec4(vect, 0.0, 0.0)</span><br><span class="line">vec4 result2 &#x3D; vec4(result.xyz, 1.0)</span><br></pre></td></tr></table></figure>
-<h2 id="输入与输出"><a href="#输入与输出" class="headerlink" title="输入与输出"></a>输入与输出</h2><p>GLSL定义了<code>in</code>和<code>out</code>关键字实现着色器的输入和输出。</p>
-<p>下面举个例子，顶点着色器接收一个3个分量的顶点位置向量，然后输出一个4个分量的顶点颜色向量，它会作为片段着色器的输入。</p>
-<p>顶点着色器代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">layout (location &#x3D; 0) in vec3 aPos; &#x2F;&#x2F; 位置变量的属性位置值为0</span><br><span class="line"></span><br><span class="line">out vec4 vertexColor; &#x2F;&#x2F; 为片段着色器指定一个颜色输出</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    gl_Position &#x3D; vec4(aPos, 1.0); &#x2F;&#x2F; 注意我们如何把一个vec3作为vec4的构造器的参数</span><br><span class="line">    vertexColor &#x3D; vec4(0.5, 0.0, 0.0, 1.0); &#x2F;&#x2F; 把输出变量设置为暗红色</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>片段着色器代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">out vec4 FragColor;</span><br><span class="line"></span><br><span class="line">in vec4 vertexColor; &#x2F;&#x2F; 从顶点着色器传来的输入变量（名称相同、类型相同）</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    FragColor &#x3D; vertexColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="uniform"><a href="#uniform" class="headerlink" title="uniform"></a>uniform</h2><p>uniform提供了从CPU应用程序向GPU着色器程序发送数据的能力。</p>
-<p>并且，uniform变量是全局的，它必须在每个着色器程序对象中有且只有一个，并且它可以被着色器程序的任意着色器在任意阶段访问。</p>
-<p>使用方法如下：</p>
-<p>在片段着色器中定义uniform变量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">out vec4 FragColor;</span><br><span class="line"></span><br><span class="line">uniform vec4 ourColor; &#x2F;&#x2F; 在OpenGL程序代码中设定这个变量</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    FragColor &#x3D; ourColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在C/C++代码中，使用<code>glGetUniformLocation</code>函数获取该uniform变量，然后使用<code>glUniform4f</code>函数对其赋值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">float timeValue &#x3D; glfwGetTime();</span><br><span class="line">float greenValue &#x3D; (sin(timeValue) &#x2F; 2.0f) + 0.5f;</span><br><span class="line">int vertexColorLocation &#x3D; glGetUniformLocation(shaderProgram, &quot;ourColor&quot;);</span><br><span class="line">glUseProgram(shaderProgram);</span><br><span class="line">glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);</span><br></pre></td></tr></table></figure>
-<p>值得注意的是，如果<code>glGetUniformLocation</code>返回-1就代表没有找到这个位置值。</p>
-<p>而且，<code>glUniform4f</code>函数是属于设置uniform函数族中的一个，因为OpenGL底层是C库，不支持重载。</p>
-<h2 id="传递多个属性"><a href="#传递多个属性" class="headerlink" title="传递多个属性"></a>传递多个属性</h2><p>在上面的例子中，只是传递了顶点位置的属性到顶点着色器上，那怎样才能传递多个属性呢？</p>
-<p>首先，先给出顶点属性数据：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">float vertices[] &#x3D; &#123;</span><br><span class="line">    &#x2F;&#x2F; 位置              &#x2F;&#x2F; 颜色</span><br><span class="line">     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   &#x2F;&#x2F; 右下</span><br><span class="line">    -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   &#x2F;&#x2F; 左下</span><br><span class="line">     0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    &#x2F;&#x2F; 顶部</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>然后再顶点着色器代码中接收多个输入，每个输入使用<code>(location = n)</code>来做绑定：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">layout (location &#x3D; 0) in vec3 aPos;   &#x2F;&#x2F; 位置变量的属性位置值为 0 </span><br><span class="line">layout (location &#x3D; 1) in vec3 aColor; &#x2F;&#x2F; 颜色变量的属性位置值为 1</span><br><span class="line"></span><br><span class="line">out vec3 ourColor; &#x2F;&#x2F; 向片段着色器输出一个颜色</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    gl_Position &#x3D; vec4(aPos, 1.0);</span><br><span class="line">    ourColor &#x3D; aColor; &#x2F;&#x2F; 将ourColor设置为我们从顶点数据那里得到的输入颜色</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>(location = n)</code>对应C/C++代码中<code>glVertexAttribPointer</code>函数的第一个参数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 位置属性</span><br><span class="line">glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);</span><br><span class="line">glEnableVertexAttribArray(0);</span><br><span class="line">&#x2F;&#x2F; 颜色属性</span><br><span class="line">glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));</span><br><span class="line">glEnableVertexAttribArray(1);</span><br></pre></td></tr></table></figure>
-<p>给出顶点数据的存储结构图：</p>
-<p><img src="https://learnopengl-cn.github.io/img/01/05/vertex_attribute_pointer_interleaved.png" alt=""></p>
-<p>最后输出结果如下：</p>
-<p><img src="https://learnopengl-cn.github.io/img/01/05/shaders3.png" alt=""></p>
+        <p>最新的官方文档：<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source">目录</a></p>
+<p>本文的原文在<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source/Architecture/Context">这里</a></p>
+<hr>
+<h1 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h1><p>在2.5中，bContext结构体被添加进来，作为全局变量的替代品，更明确地去创建上下文（make context）。比如，操作类、Python脚本和绘制代码，它们都能在定义好的上下文（context）中正常使用。</p>
+<p>Blender的上下文（Context）由bContext结构体表示，其API定义在BKE_context.h文件中。获取上下文（context）信息几乎都是使用<code>CTX_data_*</code>或者<code>CTX_wm_*</code>这些类型的函数（它们将bContext结构体对象作为参数），而设置上下文（context）则可以在screens、areas或者regions中懒设置（done lazily）。</p>
+<h1 id="What’s-in-the-context"><a href="#What’s-in-the-context" class="headerlink" title="What’s in the context?"></a>What’s in the context?</h1><p>在以下那张图中，值得注意是，它并不反映谁调用谁，而是反映出有哪些不同类型的数据是在上下文（context）中的。</p>
+<p><img src="https://wiki.blender.org/w/images/5/56/Context_2.5_what.png" alt=""></p>
+<p><code>User Preferences</code>是全局的、且并非是真正意义上的上下文，所有的代码都可以访问它。紧接着是<code>Main</code>，是一个拥有自己数据块的<code>.blend</code>文件，还包括了相关联的<code>.blend</code>文件的数据块。我们应该假设有很多个这样子的文件同时被打开，但现在还未能实现。</p>
+<p>接下来出现了分歧，绘制（drawing）和交互式编辑代码（interactive editing code）可假设是跑在<code>Window Manager</code>下。他们总是工作在某一层级（Screen、Area或者Region）中。随着这些层级有了一定的数据，屏幕（the screen）就会拥有一个活动场景（active Scene），并且区域（areas and regions）可以额外地将其他的数据放进上下文（context），当然，这取决于区域的类型。</p>
+<p>此外，我们有一些代码不能设定是窗口管理（window manager）控制的。但也不意味着它们不能被窗口管理调用，只是表示这些代码不属于窗口管理，也不需要使用窗口管理的方式调用它。这些代码可以不需要窗口选项而直接在后台运行，通常是用于渲染（rendering）、求值（Evalution）。渲染通常是通过一个场景和一些不在bContext结构体中的数据。</p>
+<p>文件读写、内核函数以及窗口管理代码这些并没有显示在图中。但事实上，它们或多或少都存在上下文中，或者根本不包含在上下文指针中。</p>
+<h1 id="Setting-Context"><a href="#Setting-Context" class="headerlink" title="Setting Context"></a>Setting Context</h1><p>首先我们得知道上下文（context）并不是持久化的。如果你想改变一个活动物体（active object），并非是通过上下文（context）设置它来实现。应当在场景（Scene）中设置对应的属性，然后再在上下文（context）中查找使用。上下文是进行操作（operator）或者绘制（drawing）时的临时本地状态。</p>
+<p><strong>Callbacks</strong></p>
+<p>上下文（context）主要由回调（callbacks）组成。屏幕（the Scene）、空间类型（space types）和区域类型（region types）都拥有一个上下文回调函数。这个函数接受一个上下文成员的名称，然后检查这个上下文是否知道这个成员，如果有，则返回一个RNA指针或者一个RNA指针集合。另外，每一个上下文回调都应该提供一个上下文成员列表。</p>
+<p>举个例子，一个图片窗口空间类型的回调：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">static int image_context(const bContext *C, const char *member, bContextDataResult *result)</span><br><span class="line">&#123;</span><br><span class="line">    SpaceImage *sima&#x3D; CTX_wm_space_image(C);</span><br><span class="line"></span><br><span class="line">    if(CTX_data_dir(member)) &#123;</span><br><span class="line">        static const char *dir[] &#x3D; &#123;&quot;edit_image&quot;, NULL&#125;;</span><br><span class="line">        CTX_data_dir_set(result, dir);</span><br><span class="line">    &#125;</span><br><span class="line">    else if(CTX_data_equals(member, &quot;edit_image&quot;)) &#123;</span><br><span class="line">        CTX_data_id_pointer_set(result, (ID*)ED_space_image(sima));</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>UI Layouts</strong></p>
+<p>此外，还可以为UI布局指定更具体的上下文。主要用于修改器（modifiers）或者约束（constraints）。对于每一个修改器UI布局箱（modifier UI layout box），“修改器”设置进上下文，然后所有来自这个UI布局箱按钮的操作都可以从它的上下文中找到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">box.set_context_pointer(&quot;group&quot;, group)</span><br></pre></td></tr></table></figure>
+<p><strong>Lookups</strong></p>
+<p>当一个上下文成员被请求，UI布局的上下文首先会被查找，接下来是区域回调（region callback,area callback）和屏幕回调（screen callback）。如果它被找到，就会返回对应的指针，假如找不到，则会返回一个空指针或者空集合。</p>
+<p><img src="https://wiki.blender.org/w/images/thumb/0/06/Context_2.5_setting.png/640px-Context_2.5_setting.png" alt=""></p>
+<h1 id="Getting-Context"><a href="#Getting-Context" class="headerlink" title="Getting Context"></a>Getting Context</h1><p><strong>Window Manager</strong></p>
+<p>窗口管理上下文是最简单的，它仅仅是一些screen、area、space data、region和region data的指针。主要是你得确保它们应该被包含在上下文中。对于绘制函数，它们是相当清晰的，对于操作函数，在<code>poll</code>函数中进行检查或者在运行时验证是很重要的。如果不这样子做，用于在使用配置密钥映射时会导致崩溃。</p>
+<p><strong>Data</strong></p>
+<p>数据上下文就比较复杂了，重要的一点是要理解它是基于RNA指针集合的。这也可以使得python脚本自动用得了上下文。</p>
+<p>在C中有两种方法去获取上下文的数据。某些访问器早已定义。请注意，在内部依旧是使用“edit_object”字符串来获取值，毕竟这很方便。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object *obedit&#x3D; CTX_data_edit_object(C);</span><br></pre></td></tr></table></figure>
+<p>其它的那些可能没被定义，需要使用字符串去查找上下文成员。这并不能确保数据类型是正确的，所以需要指定想要的数据类型。下面例子返回一个RNA指针（注意看函数后面的<code>.data</code>）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object *obedit&#x3D; CTX_data_pointer_get_type(C, &quot;edit_object&quot;, &amp;RNA_Object).data;</span><br></pre></td></tr></table></figure>
+<p>在Python中更简单了，上下文的成员相当于它的属性（properties）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obedit &#x3D; context.object_edit</span><br></pre></td></tr></table></figure>
+<p>集合（collections）也可以使用的，使用内部提供的宏会更加便捷。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CTX_DATA_BEGIN(C, Base*, base, selected_editable_bases) &#123;</span><br><span class="line">    printf(&quot;object: %s\n&quot;, base-&gt;object-&gt;id.name);</span><br><span class="line">&#125;</span><br><span class="line">CTX_DATA_END;</span><br></pre></td></tr></table></figure>
+<p><strong>Where to look</strong></p>
+<p>并没有一个地方可以看到列表中所有的上下文成员。但可以找到某一个上下文成员，最好的方法是查找其相关的回调。也就是说，如果你正在使用图片窗口（image window），可以在<code>space_image.c</code>文件中查找上下文回调函数。</p>
+<p>在Python中，可以实时地查找上下文：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(dir(context))</span><br></pre></td></tr></table></figure>
+<p><strong>Always Available</strong></p>
+<p>一些上下文成员总是被设置，它们不需要使用<code>poll</code>函数去检查。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CTX_wm_manager</span><br><span class="line">CTX_wm_window</span><br><span class="line">CTX_wm_screen</span><br><span class="line"></span><br><span class="line">CTX_data_main</span><br><span class="line">CTX_data_scene</span><br><span class="line">CTX_data_tool_settings</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>更多的信息，可以在以下的文件中找到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source&#x2F;blender&#x2F;blenkernel&#x2F;BKE_context.h</span><br><span class="line">source&#x2F;blender&#x2F;blenkernel&#x2F;intern&#x2F;context.c</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -470,7 +444,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/2021/04/22/OpenGL-introduction-04/" title="OpenGL入门（四）——着色器" target="_blank" rel="external">https://www.chaguake.com/2021/04/22/OpenGL-introduction-04/</a>
+      <a href="https://www.chaguake.com/2021/05/07/Blender-source-code-study-04/" title="Blender官方源码文档——Context" target="_blank" rel="external">https://www.chaguake.com/2021/05/07/Blender-source-code-study-04/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -519,12 +493,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2021/04/28/blender-hot-key/" title="blender快捷键汇总"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2021/05/08/Blender-source-code-study-05/" title="Blender官方源码文档——Dependency Graph"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2021/04/21/Go-base-knowledge-02/" title="第一章 Go语言基础——函数、方法和接口"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/04/30/Blender-source-code-study-03/" title="Blender源码学习（三）——Blender工具窗口和控件实现的调用过程"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

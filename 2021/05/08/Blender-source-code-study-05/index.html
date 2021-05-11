@@ -17,18 +17,23 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>分类: 面试 | 茶瓜客</title>
-  <meta name="description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="茶瓜客">
-<meta property="og:url" content="https://www.chaguake.com/categories/%E9%9D%A2%E8%AF%95/index.html">
+  <title>Blender官方源码文档——Dependency Graph | 茶瓜客</title>
+  <meta name="description" content="最新的官方文档：目录 本文的原文在这里  Blender 2.8：依赖关系图 本文档涵盖了依赖关系图的所有设计规范，以支持Blender 2.8项目的所有新功能。  简介（Introduction）首先，我们得了解依赖关系图是什么，在任何情况下它应该做什么和不应该做什么。依赖关系图的主要目标是确保场景数据在发生任何更改时，以最有效的方式正确地更新。这意味着依赖关系图只更新依赖于修改后的数值，而不会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blender官方源码文档——Dependency Graph">
+<meta property="og:url" content="https://www.chaguake.com/2021/05/08/Blender-source-code-study-05/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
+<meta property="og:description" content="最新的官方文档：目录 本文的原文在这里  Blender 2.8：依赖关系图 本文档涵盖了依赖关系图的所有设计规范，以支持Blender 2.8项目的所有新功能。  简介（Introduction）首先，我们得了解依赖关系图是什么，在任何情况下它应该做什么和不应该做什么。依赖关系图的主要目标是确保场景数据在发生任何更改时，以最有效的方式正确地更新。这意味着依赖关系图只更新依赖于修改后的数值，而不会">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wiki.blender.org/w/images/thumb/a/a6/Dev-Blender_2.8_Data_Flow.png/900px-Dev-Blender_2.8_Data_Flow.png">
+<meta property="article:published_time" content="2021-05-08T07:18:14.000Z">
+<meta property="article:modified_time" content="2021-05-08T09:48:34.391Z">
 <meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="blender源码">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wiki.blender.org/w/images/thumb/a/a6/Dev-Blender_2.8_Data_Flow.png/900px-Dev-Blender_2.8_Data_Flow.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/categories/%E9%9D%A2%E8%AF%95/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/05/08/Blender-source-code-study-05/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -336,69 +341,217 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="content article article-categories article-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">分类: 面试</h1>
-      <p class="hidden-xs">共 1 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/categories">All</a></li>
-          
-          <li><a href="/categories/OpenGL/">OpenGL</a></li>
-          
-          <li><a href="/categories/C-C/">C/C++</a></li>
-          
-          <li><a href="/categories/算法/">算法</a></li>
-          
-          <li><a href="/categories/面试/">面试</a></li>
-          
-          <li><a href="/categories/lua/">lua</a></li>
-          
-          <li><a href="/categories/计算机网络/">计算机网络</a></li>
-          
-          <li><a href="/categories/书籍/">书籍</a></li>
-          
-          <li><a href="/categories/问题排查/">问题排查</a></li>
-          
-          <li><a href="/categories/数据库/">数据库</a></li>
-          
-          <li><a href="/categories/blender/">blender</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="panel panel-default b-no">
-    <div class="panel-heading" role="tab">
-        <h4 class="panel-title">
-            <a data-toggle="collapse" href="#collapse面试" aria-expanded="true">
-              <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>
-              面试
-            </a>
-            <small class="text-muted">(Total 1 articles)</small>
-        </h4>
-    </div>
-    <div id="collapse面试" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading面试">
-        <div class="panel-body">
-            <div class="collection">
-              
-                
-<a href="/2021/04/02/interview-knowledge-C-base/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-04-02T01:52:14.000Z" itemprop="datePublished">2021-04-02</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 面试知识点——C/C++基础知识
-</a>
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Blender-source-code-study-05" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Blender官方源码文档——Dependency Graph
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/05/08/Blender-source-code-study-05/" class="article-date">
+	  <time datetime="2021-05-08T07:18:14.000Z" itemprop="datePublished">2021-05-08</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/blender/">blender</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/blender%E6%BA%90%E7%A0%81/" rel="tag">blender源码</a>
+  </span>
 
 
-              
-            </div>
-        </div>
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/08/Blender-source-code-study-05/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
     </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>最新的官方文档：<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source">目录</a></p>
+<p>本文的原文在<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source/Depsgraph">这里</a></p>
+<hr>
+<h1 id="Blender-2-8：依赖关系图"><a href="#Blender-2-8：依赖关系图" class="headerlink" title="Blender 2.8：依赖关系图"></a>Blender 2.8：依赖关系图</h1><blockquote>
+<p>本文档涵盖了依赖关系图的所有设计规范，以支持Blender 2.8项目的所有新功能。</p>
+</blockquote>
+<h2 id="简介（Introduction）"><a href="#简介（Introduction）" class="headerlink" title="简介（Introduction）"></a>简介（Introduction）</h2><p>首先，我们得了解依赖关系图是什么，在任何情况下它应该做什么和不应该做什么。依赖关系图的主要目标是确保场景数据在发生任何更改时，以最有效的方式正确地更新。这意味着依赖关系图只更新依赖于修改后的数值，而不会更新那些没有更改的数据。这样子，艺术家（artists）总是以最大帧更新速率让场景处于有意义的状态。依赖关系图通过预处理场景来实现的——创建一个图，其节点是场景的实体（例如，对象），边则是这些对象之间的关系（例如，当对象A拥有一个父对象B，这个图就有一条处于两个对象之间的边）。</p>
+<p>简单来说，依赖关系图负责场景的动态更新（dynamic updates），其中一些数值随着时间而变化。它不负责一次性的改变（one-time changes）。举个例子，依赖关系图负责f曲线的求值，但不负责网格编辑模式下边的细分操作。</p>
+<h2 id="概述（Overview）"><a href="#概述（Overview）" class="headerlink" title="概述（Overview）"></a>概述（Overview）</h2><p>最新的设计概述相当简单，如下图所示：</p>
+<p><img src="https://wiki.blender.org/w/images/thumb/a/a6/Dev-Blender_2.8_Data_Flow.png/900px-Dev-Blender_2.8_Data_Flow.png" alt=""></p>
+<p>与2.7x系列的差别如下：</p>
+<ul>
+<li><p>DNA数据直接从<code>.blend</code>文件中传递，它简单小巧，只需在外部存储中代表场景。</p>
+</li>
+<li><p>DNA数据没有运行时字段。</p>
+</li>
+<li><p>依赖关系图将所有必需的更改（modifiers, constraints, etc）应用到DNA数据的副本上。我们称它们为生成数据（generated data）。</p>
+</li>
+<li><p>依赖关系图存储自身的评估结果。任何的改变都不会应用到源DNA数据（original DNA）。</p>
+</li>
+<li><p>渲染引擎使用依赖关系图提供的生成数据（generated data），并且不会接触源DNA数据（original DNA）。</p>
+</li>
+<li><p>渲染引擎将具有通用且集中的API，用于存储引擎特定的数据。</p>
+</li>
+</ul>
+<p>这些更改都需要支持像在不同窗口不同状态下实现覆盖和场景这样的特性。它看起来简单，但是它会引导一些重大的设计决定，去尽可能地覆盖所有工具和边缘情况（corner cases）。</p>
+<h2 id="依赖关系图的所有权（Dependency-graph-ownership）"><a href="#依赖关系图的所有权（Dependency-graph-ownership）" class="headerlink" title="依赖关系图的所有权（Dependency graph ownership）"></a>依赖关系图的所有权（Dependency graph ownership）</h2><p>在回答是谁拥有依赖关系图的问题之前，让我们简单地讨论下工作区（workspaces）。</p>
+<p>工作区是组织艺术家（artists）工作流程的一种方式。活动工作区指针存储在每一个窗口（window）中，因此，窗口始终有且仅有一个活动工作区。工作区本身定义了渲染引擎（可以说是与场景渲染引擎相同，但又不完全一样）。工作区还定义了活动场景层（active scene layer），即在工作区编辑器中皆可见。</p>
+<p>这些都是非常重要的声明，理由是渲染引擎和活动场景层都定义了如何去计算对象的最终状态。因此，渲染引擎可以设置一些简单的配置，活动场景层可以拥有覆盖（overrides）。</p>
+<p>这里的决定代表着是窗口（window）拥有依赖关系图（对于交互操作和最终呈现，请看下文）。当艺术家（artists）改变了工作区，或者选择了另一个渲染引擎和场景层，窗口就会被要求重新创建它的依赖关系图，对应新的窗口/工作区状态。</p>
+<p>对于最终的F12渲染所有权则更简单些，依赖关系图由渲染结构拥有。</p>
+<p>通过这个方式，我们尽可能快地对可见数据（visible data）进行场景评估，并支持所有需要上下文关联的覆盖。</p>
+<h2 id="生成数据与写入时复制（Generated-data-and-copy-on-write）"><a href="#生成数据与写入时复制（Generated-data-and-copy-on-write）" class="headerlink" title="生成数据与写入时复制（Generated data and copy on write）"></a>生成数据与写入时复制（Generated data and copy on write）</h2>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://www.chaguake.com/2021/05/08/Blender-source-code-study-05/" title="Blender官方源码文档——Dependency Graph" target="_blank" rel="external">https://www.chaguake.com/2021/05/08/Blender-source-code-study-05/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
+        <div>是码农啦！不喜格仔衫……</div>
+      </div>
+    </figure>
+  </div>
 </div>
+
+
     </div>
   </article>
-   
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/05/08/Blender-source-code-study-06/" title="Blender官方源码文档——ID Datablocks"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/05/07/Blender-source-code-study-04/" title="Blender官方源码文档——Context"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -452,6 +605,30 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
 
 
 
