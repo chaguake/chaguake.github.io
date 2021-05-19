@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>OpenGL入门（八）——光照贴图和多光源 | 茶瓜客</title>
+  <meta name="description" content="光照贴图我们可以为物体的材质添加贴图，在贴图上实现光照效果（主要应用在冯氏光照模型中的漫反射光照和镜面光照上）。 贴图的方式与纹理的使用相似，首先，加载和绑定纹理： 1234567&#x2F;&#x2F; bind diffuse mapglActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D, diffuseMap);&#x2F;&amp;#x2F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenGL入门（八）——光照贴图和多光源">
+<meta property="og:url" content="https://www.chaguake.com/2021/05/18/OpenGL-introduction-08/index.html">
+<meta property="og:site_name" content="茶瓜客">
+<meta property="og:description" content="光照贴图我们可以为物体的材质添加贴图，在贴图上实现光照效果（主要应用在冯氏光照模型中的漫反射光照和镜面光照上）。 贴图的方式与纹理的使用相似，首先，加载和绑定纹理： 1234567&#x2F;&#x2F; bind diffuse mapglActiveTexture(GL_TEXTURE0);glBindTexture(GL_TEXTURE_2D, diffuseMap);&#x2F;&amp;#x2F">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/02/04/materials_specular_map.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/02/05/light_casters_directional_light.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/02/05/light_casters_point.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/02/05/attenuation.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/02/05/light_casters_point_light.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/02/05/light_casters_spotlight_angles.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/02/05/light_casters_spotlight_hard.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/02/05/light_casters_spotlight.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/02/06/multiple_lights_combined.png">
+<meta property="article:published_time" content="2021-05-18T07:40:22.000Z">
+<meta property="article:modified_time" content="2021-05-18T08:51:57.896Z">
+<meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="OpenGL入门">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://learnopengl-cn.github.io/img/02/04/materials_specular_map.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://www.chaguake.com/2021/05/18/OpenGL-introduction-08/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon1.svg" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chaguake" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">茶瓜客</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">码农 | 打工人</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> GuangZhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>解衣又作茶瓜客，倚槛同看烟雨峰。<br/>一个不仅仅是记录代码的博客……</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenGL/">OpenGL</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blender/">blender</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lua/">lua</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B9%A6%E7%B1%8D/">书籍</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">问题排查</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-%E5%A4%9A%E6%80%81/" rel="tag">C++多态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C-%E7%9F%A5%E8%AF%86/" rel="tag">C/C++知识</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blender%E5%B7%A5%E5%85%B7/" rel="tag">blender工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blender%E6%BA%90%E7%A0%81/" rel="tag">blender源码</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B/" rel="tag">《Go语言高级编程》</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0%E3%80%8B/" rel="tag">《垃圾回收的算法与实现》</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" rel="tag">字符串算法</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" rel="tag">抽样算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" rel="tag">洗牌算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B9%8BTCP/" rel="tag">问题排查之TCP</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C-%E5%A4%9A%E6%80%81/" style="font-size: 13px;">C++多态</a> <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" style="font-size: 13.5px;">C/C++知识</a> <a href="/tags/Mysql/" style="font-size: 13px;">Mysql</a> <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" style="font-size: 14px;">OpenGL入门</a> <a href="/tags/TCP/" style="font-size: 13px;">TCP</a> <a href="/tags/blender%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">blender工具</a> <a href="/tags/blender%E6%BA%90%E7%A0%81/" style="font-size: 13.75px;">blender源码</a> <a href="/tags/lua/" style="font-size: 13px;">lua</a> <a href="/tags/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B/" style="font-size: 13.25px;">《Go语言高级编程》</a> <a href="/tags/%E3%80%8A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0%E3%80%8B/" style="font-size: 13px;">《垃圾回收的算法与实现》</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" style="font-size: 13.5px;">字符串算法</a> <a href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" style="font-size: 13px;">抽样算法</a> <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" style="font-size: 13px;">洗牌算法</a> <a href="/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B9%8BTCP/" style="font-size: 13px;">问题排查之TCP</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/18/OpenGL-introduction-08/" class="title">OpenGL入门（八）——光照贴图和多光源</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-18T07:40:22.000Z" itemprop="datePublished">2021-05-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/14/OpenGL-introduction-07/" class="title">OpenGL入门（七）——材质</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-14T08:50:12.000Z" itemprop="datePublished">2021-05-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/13/OpenGL-introduction-06/" class="title">OpenGL入门（六）——基本光照</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-13T07:28:38.000Z" itemprop="datePublished">2021-05-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/12/OpenGL-introduction-05/" class="title">OpenGL入门（五）——坐标系统与摄像机</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-12T02:00:11.000Z" itemprop="datePublished">2021-05-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/blender/">blender</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/10/Blender-source-code-study-07/" class="title">Blender官方源码文档——RNA</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-10T02:23:35.000Z" itemprop="datePublished">2021-05-10</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-OpenGL-introduction-08" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenGL入门（八）——光照贴图和多光源
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/05/18/OpenGL-introduction-08/" class="article-date">
+	  <time datetime="2021-05-18T07:40:22.000Z" itemprop="datePublished">2021-05-18</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/18/OpenGL-introduction-08/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="光照贴图"><a href="#光照贴图" class="headerlink" title="光照贴图"></a>光照贴图</h1><p>我们可以为物体的材质添加贴图，在贴图上实现光照效果（主要应用在冯氏光照模型中的漫反射光照和镜面光照上）。</p>
+<p>贴图的方式与纹理的使用相似，首先，加载和绑定纹理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; bind diffuse map</span><br><span class="line">glActiveTexture(GL_TEXTURE0);</span><br><span class="line">glBindTexture(GL_TEXTURE_2D, diffuseMap);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; bind specular map</span><br><span class="line">glActiveTexture(GL_TEXTURE1);</span><br><span class="line">glBindTexture(GL_TEXTURE_2D, specularMap);</span><br></pre></td></tr></table></figure>
+<p>然后，片段着色器中，修改材质属性的结构体，使用<code>sampler2D</code>封装贴图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Material &#123;</span><br><span class="line">    sampler2D diffuse;</span><br><span class="line">    sampler2D specular;</span><br><span class="line">    float     shininess;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>最后，应用到漫反射光照和镜面光照计算中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vec3 ambient  &#x3D; light.ambient  * vec3(texture(material.diffuse, TexCoords));</span><br><span class="line">vec3 diffuse  &#x3D; light.diffuse  * diff * vec3(texture(material.diffuse, TexCoords));  </span><br><span class="line">vec3 specular &#x3D; light.specular * spec * vec3(texture(material.specular, TexCoords));</span><br><span class="line">FragColor &#x3D; vec4(ambient + diffuse + specular, 1.0);</span><br></pre></td></tr></table></figure>
+<p>输出的结果如下：</p>
+<p><img src="https://learnopengl-cn.github.io/img/02/04/materials_specular_map.png" alt=""></p>
+<h1 id="投光物"><a href="#投光物" class="headerlink" title="投光物"></a>投光物</h1><p><strong>平行光</strong></p>
+<p>平行光的每一条光线互相平行，例如太阳光。</p>
+<p>1<a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/img/02/05/light_casters_directional.png"></a></p>
+<p>平行光中，物体与光源的位置不重要了，只关心光的方向：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">struct Light &#123;</span><br><span class="line">    &#x2F;&#x2F; vec3 position; &#x2F;&#x2F; 使用定向光就不再需要了</span><br><span class="line">    vec3 direction;</span><br><span class="line"></span><br><span class="line">    vec3 ambient;</span><br><span class="line">    vec3 diffuse;</span><br><span class="line">    vec3 specular;</span><br><span class="line">&#125;;</span><br><span class="line">...</span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">  vec3 lightDir &#x3D; normalize(-light.direction);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<p><img src="https://learnopengl-cn.github.io/img/02/05/light_casters_directional_light.png" alt=""></p>
+<p><strong>点光</strong></p>
+<p>点光的光源是某一个点，然后光线从这个点向四周散发，并且随着距离组件衰减，例如灯泡和火把。</p>
+<p><img src="https://learnopengl-cn.github.io/img/02/05/light_casters_point.png" alt=""></p>
+<p>衰减的计算公式如下：</p>
+<script type="math/tex; mode=display">
+\begin{equation} F_{att} = \frac{1.0}{K_c + K_l * d + K_q * d^2} \end{equation}</script><p>用图表显示如下：</p>
+<p><img src="https://learnopengl-cn.github.io/img/02/05/attenuation.png" alt=""></p>
+<p>实现衰减需要添加三个参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct Light &#123;</span><br><span class="line">    vec3 position;  </span><br><span class="line"></span><br><span class="line">    vec3 ambient;</span><br><span class="line">    vec3 diffuse;</span><br><span class="line">    vec3 specular;</span><br><span class="line"></span><br><span class="line">    float constant;</span><br><span class="line">    float linear;</span><br><span class="line">    float quadratic;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后通过公式计算出衰减因子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">float distance    &#x3D; length(light.position - FragPos);</span><br><span class="line">float attenuation &#x3D; 1.0 &#x2F; (light.constant + light.linear * distance + </span><br><span class="line">                light.quadratic * (distance * distance));</span><br></pre></td></tr></table></figure>
+<p>最终，将这个衰减因子计算到每一个光照计算中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ambient  *&#x3D; attenuation; </span><br><span class="line">diffuse  *&#x3D; attenuation;</span><br><span class="line">specular *&#x3D; attenuation;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<p><img src="https://learnopengl-cn.github.io/img/02/05/light_casters_point_light.png" alt=""></p>
+<p><strong>聚光</strong></p>
+<p>聚光是具有方向和角度的光，它由某一个点发射光线，光线范围在一个圆锥体中，例如手电筒。</p>
+<p><img src="https://learnopengl-cn.github.io/img/02/05/light_casters_spotlight_angles.png" alt=""></p>
+<p>在片段着舍弃的光结构体中，需要聚光的位置向量、聚光的方向向量和聚光的切光角：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct Light &#123;</span><br><span class="line">    vec3  position;</span><br><span class="line">    vec3  direction;</span><br><span class="line">    float cutOff;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后计算片段与聚光的角度，来决定是否在聚光的内部：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">float theta &#x3D; dot(lightDir, normalize(-light.direction));</span><br><span class="line"></span><br><span class="line">if(theta &gt; light.cutOff) </span><br><span class="line">&#123;       </span><br><span class="line">  &#x2F;&#x2F; 执行光照计算</span><br><span class="line">&#125;</span><br><span class="line">else  &#x2F;&#x2F; 否则，使用环境光，让场景在聚光之外时不至于完全黑暗</span><br><span class="line">  color &#x3D; vec4(light.ambient * vec3(texture(material.diffuse, TexCoords)), 1.0);</span><br></pre></td></tr></table></figure>
+<p>最终输出的结果如下：</p>
+<p><img src="https://learnopengl-cn.github.io/img/02/05/light_casters_spotlight_hard.png" alt=""></p>
+<p>可以看到，聚光的边界十分的清晰，这不符合现实，我们需要将聚光的边缘平滑下，实现衰减效果。</p>
+<p>我们可以定义内圆锥和外圆锥，在内圆锥，光线强度恒为1，外光锥则随着偏移越大，光线强度而逐渐减少为0，计算公式如下。</p>
+<script type="math/tex; mode=display">
+\begin{equation} I = \frac{\theta - \gamma}{\epsilon} \end{equation}</script><p>在片段着色器不需要<code>if-else</code>的判断了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">float theta     &#x3D; dot(lightDir, normalize(-light.direction));</span><br><span class="line">float epsilon   &#x3D; light.cutOff - light.outerCutOff;</span><br><span class="line">float intensity &#x3D; clamp((theta - light.outerCutOff) &#x2F; epsilon, 0.0, 1.0);    </span><br><span class="line">...</span><br><span class="line">&#x2F;&#x2F; 将不对环境光做出影响，让它总是能有一点光</span><br><span class="line">diffuse  *&#x3D; intensity;</span><br><span class="line">specular *&#x3D; intensity;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>最终，输出结果如下：</p>
+<p><img src="https://learnopengl-cn.github.io/img/02/05/light_casters_spotlight.png" alt=""></p>
+<h1 id="多光源"><a href="#多光源" class="headerlink" title="多光源"></a>多光源</h1><p>多光源其实是在片段着色器中对每个光照的叠加，具体实现代码在<a target="_blank" rel="noopener" href="https://learnopengl.com/code_viewer_gh.php?code=src/2.lighting/6.multiple_lights/multiple_lights.cpp">这里</a>可以找到。</p>
+<p>实现的效果如下：</p>
+<p><img src="https://learnopengl-cn.github.io/img/02/06/multiple_lights_combined.png" alt=""></p>
+<p><strong>顶点着色器</strong></p>
+<p>我们来看下这个多光源场景中物体的顶点着色器源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">layout (location &#x3D; 0) in vec3 aPos;</span><br><span class="line">layout (location &#x3D; 1) in vec3 aNormal;</span><br><span class="line">layout (location &#x3D; 2) in vec2 aTexCoords;</span><br><span class="line"></span><br><span class="line">out vec3 FragPos;</span><br><span class="line">out vec3 Normal;</span><br><span class="line">out vec2 TexCoords;</span><br><span class="line"></span><br><span class="line">uniform mat4 model;</span><br><span class="line">uniform mat4 view;</span><br><span class="line">uniform mat4 projection;</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    FragPos &#x3D; vec3(model * vec4(aPos, 1.0));</span><br><span class="line">    Normal &#x3D; mat3(transpose(inverse(model))) * aNormal;  </span><br><span class="line">    TexCoords &#x3D; aTexCoords;</span><br><span class="line">    </span><br><span class="line">    gl_Position &#x3D; projection * view * vec4(FragPos, 1.0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>绑定了三个数据源，顶点位置、法向量和纹理位置。</p>
+<p><strong>片段着色器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line">#version 330 core</span><br><span class="line">out vec4 FragColor;</span><br><span class="line"></span><br><span class="line">struct Material &#123;</span><br><span class="line">    sampler2D diffuse;</span><br><span class="line">    sampler2D specular;</span><br><span class="line">    float shininess;</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">struct DirLight &#123;</span><br><span class="line">    vec3 direction;</span><br><span class="line">	</span><br><span class="line">    vec3 ambient;</span><br><span class="line">    vec3 diffuse;</span><br><span class="line">    vec3 specular;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct PointLight &#123;</span><br><span class="line">    vec3 position;</span><br><span class="line">    </span><br><span class="line">    float constant;</span><br><span class="line">    float linear;</span><br><span class="line">    float quadratic;</span><br><span class="line">	</span><br><span class="line">    vec3 ambient;</span><br><span class="line">    vec3 diffuse;</span><br><span class="line">    vec3 specular;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct SpotLight &#123;</span><br><span class="line">    vec3 position;</span><br><span class="line">    vec3 direction;</span><br><span class="line">    float cutOff;</span><br><span class="line">    float outerCutOff;</span><br><span class="line">  </span><br><span class="line">    float constant;</span><br><span class="line">    float linear;</span><br><span class="line">    float quadratic;</span><br><span class="line">  </span><br><span class="line">    vec3 ambient;</span><br><span class="line">    vec3 diffuse;</span><br><span class="line">    vec3 specular;       </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#define NR_POINT_LIGHTS 4</span><br><span class="line"></span><br><span class="line">in vec3 FragPos;</span><br><span class="line">in vec3 Normal;</span><br><span class="line">in vec2 TexCoords;</span><br><span class="line"></span><br><span class="line">uniform vec3 viewPos;</span><br><span class="line">uniform DirLight dirLight;</span><br><span class="line">uniform PointLight pointLights[NR_POINT_LIGHTS];</span><br><span class="line">uniform SpotLight spotLight;</span><br><span class="line">uniform Material material;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; function prototypes</span><br><span class="line">vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);</span><br><span class="line">vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);</span><br><span class="line">vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;    </span><br><span class="line">    &#x2F;&#x2F; properties</span><br><span class="line">    vec3 norm &#x3D; normalize(Normal);</span><br><span class="line">    vec3 viewDir &#x3D; normalize(viewPos - FragPos);</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; &#x3D;&#x3D; &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">    &#x2F;&#x2F; Our lighting is set up in 3 phases: directional, point lights and an optional flashlight</span><br><span class="line">    &#x2F;&#x2F; For each phase, a calculate function is defined that calculates the corresponding color</span><br><span class="line">    &#x2F;&#x2F; per lamp. In the main() function we take all the calculated colors and sum them up for</span><br><span class="line">    &#x2F;&#x2F; this fragment&#39;s final color.</span><br><span class="line">    &#x2F;&#x2F; &#x3D;&#x3D; &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">    &#x2F;&#x2F; phase 1: directional lighting</span><br><span class="line">    vec3 result &#x3D; CalcDirLight(dirLight, norm, viewDir);</span><br><span class="line">    &#x2F;&#x2F; phase 2: point lights</span><br><span class="line">    for(int i &#x3D; 0; i &lt; NR_POINT_LIGHTS; i++)</span><br><span class="line">        result +&#x3D; CalcPointLight(pointLights[i], norm, FragPos, viewDir);    </span><br><span class="line">    &#x2F;&#x2F; phase 3: spot light</span><br><span class="line">    result +&#x3D; CalcSpotLight(spotLight, norm, FragPos, viewDir);    </span><br><span class="line">    </span><br><span class="line">    FragColor &#x3D; vec4(result, 1.0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; calculates the color when using a directional light.</span><br><span class="line">vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)</span><br><span class="line">&#123;</span><br><span class="line">    vec3 lightDir &#x3D; normalize(-light.direction);</span><br><span class="line">    &#x2F;&#x2F; diffuse shading</span><br><span class="line">    float diff &#x3D; max(dot(normal, lightDir), 0.0);</span><br><span class="line">    &#x2F;&#x2F; specular shading</span><br><span class="line">    vec3 reflectDir &#x3D; reflect(-lightDir, normal);</span><br><span class="line">    float spec &#x3D; pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);</span><br><span class="line">    &#x2F;&#x2F; combine results</span><br><span class="line">    vec3 ambient &#x3D; light.ambient * vec3(texture(material.diffuse, TexCoords));</span><br><span class="line">    vec3 diffuse &#x3D; light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));</span><br><span class="line">    vec3 specular &#x3D; light.specular * spec * vec3(texture(material.specular, TexCoords));</span><br><span class="line">    return (ambient + diffuse + specular);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; calculates the color when using a point light.</span><br><span class="line">vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)</span><br><span class="line">&#123;</span><br><span class="line">    vec3 lightDir &#x3D; normalize(light.position - fragPos);</span><br><span class="line">    &#x2F;&#x2F; diffuse shading</span><br><span class="line">    float diff &#x3D; max(dot(normal, lightDir), 0.0);</span><br><span class="line">    &#x2F;&#x2F; specular shading</span><br><span class="line">    vec3 reflectDir &#x3D; reflect(-lightDir, normal);</span><br><span class="line">    float spec &#x3D; pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);</span><br><span class="line">    &#x2F;&#x2F; attenuation</span><br><span class="line">    float distance &#x3D; length(light.position - fragPos);</span><br><span class="line">    float attenuation &#x3D; 1.0 &#x2F; (light.constant + light.linear * distance + light.quadratic * (distance * distance));    </span><br><span class="line">    &#x2F;&#x2F; combine results</span><br><span class="line">    vec3 ambient &#x3D; light.ambient * vec3(texture(material.diffuse, TexCoords));</span><br><span class="line">    vec3 diffuse &#x3D; light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));</span><br><span class="line">    vec3 specular &#x3D; light.specular * spec * vec3(texture(material.specular, TexCoords));</span><br><span class="line">    ambient *&#x3D; attenuation;</span><br><span class="line">    diffuse *&#x3D; attenuation;</span><br><span class="line">    specular *&#x3D; attenuation;</span><br><span class="line">    return (ambient + diffuse + specular);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; calculates the color when using a spot light.</span><br><span class="line">vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)</span><br><span class="line">&#123;</span><br><span class="line">    vec3 lightDir &#x3D; normalize(light.position - fragPos);</span><br><span class="line">    &#x2F;&#x2F; diffuse shading</span><br><span class="line">    float diff &#x3D; max(dot(normal, lightDir), 0.0);</span><br><span class="line">    &#x2F;&#x2F; specular shading</span><br><span class="line">    vec3 reflectDir &#x3D; reflect(-lightDir, normal);</span><br><span class="line">    float spec &#x3D; pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);</span><br><span class="line">    &#x2F;&#x2F; attenuation</span><br><span class="line">    float distance &#x3D; length(light.position - fragPos);</span><br><span class="line">    float attenuation &#x3D; 1.0 &#x2F; (light.constant + light.linear * distance + light.quadratic * (distance * distance));    </span><br><span class="line">    &#x2F;&#x2F; spotlight intensity</span><br><span class="line">    float theta &#x3D; dot(lightDir, normalize(-light.direction)); </span><br><span class="line">    float epsilon &#x3D; light.cutOff - light.outerCutOff;</span><br><span class="line">    float intensity &#x3D; clamp((theta - light.outerCutOff) &#x2F; epsilon, 0.0, 1.0);</span><br><span class="line">    &#x2F;&#x2F; combine results</span><br><span class="line">    vec3 ambient &#x3D; light.ambient * vec3(texture(material.diffuse, TexCoords));</span><br><span class="line">    vec3 diffuse &#x3D; light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));</span><br><span class="line">    vec3 specular &#x3D; light.specular * spec * vec3(texture(material.specular, TexCoords));</span><br><span class="line">    ambient *&#x3D; attenuation * intensity;</span><br><span class="line">    diffuse *&#x3D; attenuation * intensity;</span><br><span class="line">    specular *&#x3D; attenuation * intensity;</span><br><span class="line">    return (ambient + diffuse + specular);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>片段着色器中可以看到，其GLSL的语法与C差不多。</p>
+<p>在main函数中，首先是对平行定向光线的计算：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; phase 1: directional lighting</span><br><span class="line">vec3 result &#x3D; CalcDirLight(dirLight, norm, viewDir);</span><br></pre></td></tr></table></figure>
+<p>然后，遍历计算每一个点光：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; phase 2: point lights</span><br><span class="line">for(int i &#x3D; 0; i &lt; NR_POINT_LIGHTS; i++)</span><br><span class="line">    result +&#x3D; CalcPointLight(pointLights[i], norm, FragPos, viewDir);</span><br></pre></td></tr></table></figure>
+<p>最后，计算聚光：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; phase 3: spot light</span><br><span class="line">result +&#x3D; CalcSpotLight(spotLight, norm, FragPos, viewDir);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://www.chaguake.com/2021/05/18/OpenGL-introduction-08/" title="OpenGL入门（八）——光照贴图和多光源" target="_blank" rel="external">https://www.chaguake.com/2021/05/18/OpenGL-introduction-08/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
+        <div>是码农啦！不喜格仔衫……</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/05/14/OpenGL-introduction-07/" title="OpenGL入门（七）——材质"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 茶瓜客
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

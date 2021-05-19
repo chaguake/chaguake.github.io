@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>OpenGL入门（五）——坐标系统与摄像机 | 茶瓜客</title>
+  <meta name="description" content="英文原文地址 中文翻译地址 坐标系统将物体的坐标最后转换成屏幕最后输出的结果，需要经过几次坐标系统的叠加转换，如下图：  1、局部坐标（Local Space）是物体相对于局部原点的坐标，也是物体其实的坐标。 2、下一步是将局部坐标变换成世界控件坐标（World Space），世界控件坐标是处于一个更大的空间范畴。物体相对于物体原点的坐标变换成相对于世界原点的坐标。 3、接下来将世界坐标变换成观察">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenGL入门（五）——坐标系统与摄像机">
+<meta property="og:url" content="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/index.html">
+<meta property="og:site_name" content="茶瓜客">
+<meta property="og:description" content="英文原文地址 中文翻译地址 坐标系统将物体的坐标最后转换成屏幕最后输出的结果，需要经过几次坐标系统的叠加转换，如下图：  1、局部坐标（Local Space）是物体相对于局部原点的坐标，也是物体其实的坐标。 2、下一步是将局部坐标变换成世界控件坐标（World Space），世界控件坐标是处于一个更大的空间范畴。物体相对于物体原点的坐标变换成相对于世界原点的坐标。 3、接下来将世界坐标变换成观察">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/01/08/coordinate_systems.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/01/08/coordinate_systems_right_handed.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/01/09/camera_pitch_yaw_roll.png">
+<meta property="og:image" content="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/tool00.png">
+<meta property="og:image" content="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/tool01.png">
+<meta property="og:image" content="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/tool02.png">
+<meta property="og:image" content="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/tool03.png">
+<meta property="og:image" content="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/tool01.png">
+<meta property="og:image" content="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/tool04.png">
+<meta property="og:image" content="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/tool05.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20170311165659086?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcmV3RmFu/font/5a6L5L2T/fontsize/200/fill/I0JBQkFCMA==/dissolve/70/gravity/NorthEast">
+<meta property="article:published_time" content="2021-05-12T02:00:11.000Z">
+<meta property="article:modified_time" content="2021-05-14T07:12:42.994Z">
+<meta property="article:author" content="茶瓜客">
+<meta property="article:tag" content="OpenGL入门">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://learnopengl-cn.github.io/img/01/08/coordinate_systems.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon1.svg" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/chaguake" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">茶瓜客</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">码农 | 打工人</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> GuangZhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>解衣又作茶瓜客，倚槛同看烟雨峰。<br/>一个不仅仅是记录代码的博客……</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenGL/">OpenGL</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blender/">blender</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lua/">lua</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B9%A6%E7%B1%8D/">书籍</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">问题排查</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-%E5%A4%9A%E6%80%81/" rel="tag">C++多态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C-%E7%9F%A5%E8%AF%86/" rel="tag">C/C++知识</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blender%E5%B7%A5%E5%85%B7/" rel="tag">blender工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blender%E6%BA%90%E7%A0%81/" rel="tag">blender源码</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B/" rel="tag">《Go语言高级编程》</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0%E3%80%8B/" rel="tag">《垃圾回收的算法与实现》</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" rel="tag">字符串算法</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" rel="tag">抽样算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" rel="tag">洗牌算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B9%8BTCP/" rel="tag">问题排查之TCP</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/C-%E5%A4%9A%E6%80%81/" style="font-size: 13px;">C++多态</a> <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" style="font-size: 13.5px;">C/C++知识</a> <a href="/tags/Mysql/" style="font-size: 13px;">Mysql</a> <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" style="font-size: 14px;">OpenGL入门</a> <a href="/tags/TCP/" style="font-size: 13px;">TCP</a> <a href="/tags/blender%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">blender工具</a> <a href="/tags/blender%E6%BA%90%E7%A0%81/" style="font-size: 13.75px;">blender源码</a> <a href="/tags/lua/" style="font-size: 13px;">lua</a> <a href="/tags/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B/" style="font-size: 13.25px;">《Go语言高级编程》</a> <a href="/tags/%E3%80%8A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0%E3%80%8B/" style="font-size: 13px;">《垃圾回收的算法与实现》</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" style="font-size: 13.5px;">字符串算法</a> <a href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" style="font-size: 13px;">抽样算法</a> <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" style="font-size: 13px;">洗牌算法</a> <a href="/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B9%8BTCP/" style="font-size: 13px;">问题排查之TCP</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/18/OpenGL-introduction-08/" class="title">OpenGL入门（八）——光照贴图和多光源</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-18T07:40:22.000Z" itemprop="datePublished">2021-05-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/14/OpenGL-introduction-07/" class="title">OpenGL入门（七）——材质</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-14T08:50:12.000Z" itemprop="datePublished">2021-05-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/13/OpenGL-introduction-06/" class="title">OpenGL入门（六）——基本光照</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-13T07:28:38.000Z" itemprop="datePublished">2021-05-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/OpenGL/">OpenGL</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/12/OpenGL-introduction-05/" class="title">OpenGL入门（五）——坐标系统与摄像机</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-12T02:00:11.000Z" itemprop="datePublished">2021-05-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/blender/">blender</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/10/Blender-source-code-study-07/" class="title">Blender官方源码文档——RNA</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-10T02:23:35.000Z" itemprop="datePublished">2021-05-10</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-OpenGL-introduction-05" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenGL入门（五）——坐标系统与摄像机
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/05/12/OpenGL-introduction-05/" class="article-date">
+	  <time datetime="2021-05-12T02:00:11.000Z" itemprop="datePublished">2021-05-12</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/12/OpenGL-introduction-05/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://learnopengl.com/Getting-started/Camera">英文原文地址</a> <a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/01%20Getting%20started/09%20Camera/">中文翻译地址</a></p>
+<h1 id="坐标系统"><a href="#坐标系统" class="headerlink" title="坐标系统"></a>坐标系统</h1><p>将物体的坐标最后转换成屏幕最后输出的结果，需要经过几次坐标系统的叠加转换，如下图：</p>
+<p><img src="https://learnopengl-cn.github.io/img/01/08/coordinate_systems.png" alt=""></p>
+<p>1、局部坐标（Local Space）是物体相对于局部原点的坐标，也是物体其实的坐标。</p>
+<p>2、下一步是将局部坐标变换成世界控件坐标（World Space），世界控件坐标是处于一个更大的空间范畴。物体相对于物体原点的坐标变换成相对于世界原点的坐标。</p>
+<p>3、接下来将世界坐标变换成观察空间坐标（View Space），使得每一个物体的坐标都是从摄像机的角度进行观察。</p>
+<p>4、然后需要将其投影到裁剪坐标（Clip Space）。坐标会被处理在-1.0到1.0之间的范围，由此判断哪些顶点将会出现在屏幕上。</p>
+<p>5、最后，将裁剪坐标变换成屏幕坐标（Screen Space），这是一个视口变换（Viewport transform）的过程。视口变换将位于-1.0到1.0范围内的坐标变换到由函数<code>glViewport</code>所定义的坐标范围内。最后变换出来的坐标会被送到光栅器，将其转化为片段。</p>
+<p>公式如下：</p>
+<script type="math/tex; mode=display">
+V_{clip} = M_{projection} \cdot M_{view} \cdot M_{model} \cdot V_{local}</script><h1 id="右手坐标系"><a href="#右手坐标系" class="headerlink" title="右手坐标系"></a>右手坐标系</h1><p>OpenGL使用右手坐标系。正X轴方向指向右边，正Y轴指向上方，正Z轴由屏幕内部指向外面。</p>
+<p><img src="https://learnopengl-cn.github.io/img/01/08/coordinate_systems_right_handed.png" alt=""></p>
+<p>也可以伸出右手，大拇指（正X轴）指向右边，食指（正Y轴）指向上方，中指（正Z轴）指向自己。</p>
+<p><strong>左手坐标系在DirectX中广泛应用，并且在标准化设备坐标系中OpenGL也是使用左手坐标系（投影矩阵交换了左右手）。</strong></p>
+<h1 id="Z缓冲（深度缓冲）"><a href="#Z缓冲（深度缓冲）" class="headerlink" title="Z缓冲（深度缓冲）"></a>Z缓冲（深度缓冲）</h1><p>OpenGL使用Z缓冲来存储深度信息，它决定何时是否覆盖一个像素。</p>
+<p>深度值存储在每个片段中（片段的z值），当片段要输出它的颜色时，OpenGL会将它的深度值和z缓冲进行比较，如果当前片段在其他片段之后，它将会被丢弃，否则将会覆盖。这个过程称为深度测试，由OpenGL自动完成。</p>
+<p>深度测试默认是关闭的，可使用函数<code>glEnable</code>来开启，使用函数<code>glDisable</code>来禁用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glEnable(GL_DEPTH_TEST);</span><br><span class="line">glDisable(GL_DEPTH_TEST);</span><br></pre></td></tr></table></figure>
+<p>同时，需要使用函数<code>glClear</code>来清理上一帧的深度缓冲：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);</span><br></pre></td></tr></table></figure>
+<h1 id="摄像机"><a href="#摄像机" class="headerlink" title="摄像机"></a>摄像机</h1><p>从世界空间坐标系转变成观察空间坐标，首先需要知道观察者，即摄像机相对于世界空间的坐标，还有就是摄像机方向。</p>
+<h2 id="摄像机位置"><a href="#摄像机位置" class="headerlink" title="摄像机位置"></a>摄像机位置</h2><p>摄像机位置简单来说就是世界空间中一个指向摄像机位置的变量，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glm::vec3 cameraPos &#x3D; glm::vec3(0.0f, 0.0f, 3.0f);</span><br></pre></td></tr></table></figure>
+<p>值得注意的是，正Z轴是从屏幕指向你的，如果要摄像机向后移动，把它沿着Z轴正方向移动即可。</p>
+<h2 id="摄像机方向"><a href="#摄像机方向" class="headerlink" title="摄像机方向"></a>摄像机方向</h2><p>下一个需要的向量是摄像机的方向，这里指的是摄像机指向哪个方向。现在我们让摄像机指向场景原点：(0, 0, 0)。还记得如果将两个矢量相减，我们就能得到这两个矢量的差吗？用场景原点向量减去摄像机位置向量的结果就是摄像机的指向向量。由于我们知道摄像机指向z轴负方向，但我们希望方向向量(Direction Vector)指向摄像机的z轴正方向。如果我们交换相减的顺序，我们就会获得一个指向摄像机正z轴方向的向量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glm::vec3 cameraTarget &#x3D; glm::vec3(0.0f, 0.0f, 0.0f);</span><br><span class="line">glm::vec3 cameraDirection &#x3D; glm::normalize(cameraPos - cameraTarget);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>方向向量(Direction Vector)并不是最好的名字，因为它实际上指向从它到目标向量的相反方向（译注：注意看前面的那个图，蓝色的方向向量大概指向z轴的正方向，与摄像机实际指向的方向是正好相反的）。</p>
+</blockquote>
+<h2 id="Look-At"><a href="#Look-At" class="headerlink" title="Look At"></a>Look At</h2><p>我们知道了摄像机的位置和方向，可以使用GLM库的函数<code>lookAt</code>来得到观察矩阵。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">glm::mat4 view;</span><br><span class="line">view &#x3D; glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), </span><br><span class="line">           glm::vec3(0.0f, 0.0f, 0.0f), </span><br><span class="line">           glm::vec3(0.0f, 1.0f, 0.0f));</span><br></pre></td></tr></table></figure>
+<p>函数<code>glm::LookAt</code>需要三个参数——摄像机位置、目标位置和世界空间中的上向量。</p>
+<h1 id="欧拉角"><a href="#欧拉角" class="headerlink" title="欧拉角"></a>欧拉角</h1><p>欧拉角表示三维控件中旋转的三个角——俯仰角（Pitch）、偏航角（Yaw）和滚转角（Roll）。</p>
+<p><img src="https://learnopengl-cn.github.io/img/01/09/camera_pitch_yaw_roll.png" alt=""></p>
+<h1 id="万向节死锁"><a href="#万向节死锁" class="headerlink" title="万向节死锁"></a>万向节死锁</h1><p>文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/AndrewFan/article/details/60981437">【Unity编程】欧拉角与万向节死锁（图文版）</a>解释得很清楚，出现万向节死锁的原因，简单来说就是，当一个轴转动了某一个角度，使得与另一个轴处于一个平面上后，这时对那个轴的操作得不到预期的效果。</p>
+<p>借助工具（<a target="_blank" rel="noopener" href="https://andrewfanchina.github.io/UnityLabs/Euler/">这里</a>）来加深对万向节死锁的理解。</p>
+<p>首先我们先了解下工具的使用情况。</p>
+<p>红色轴为X轴，绿色轴为Y轴，蓝色轴为Z轴，有实心圆点的一端是正方向。如下图：</p>
+<p><img src="./tool00.png" alt=""></p>
+<p>俯仰角（Pitch）改变的方向是垂直于X轴，平行于YZ平面。如下图：</p>
+<p><img src="./tool01.png" alt=""></p>
+<p>偏航角（Yaw）改变的方向是垂直于Y轴，平行于XZ平面。如下图：</p>
+<p><img src="./tool02.png" alt=""></p>
+<p>滚转角（Roll）改变的方向是垂直于Z轴，平行于XY平面。如下图：</p>
+<p><img src="./tool03.png" alt=""></p>
+<p>下面开始实现万向节死锁，第一步，我们先将目标朝上扬起90°，即俯仰角（Pitch）添加90°。如下图：</p>
+<p><img src="./tool01.png" alt=""></p>
+<p>1、假设我们第二步将目标向右旋转90°，即偏航角（Yaw）添加90°。如下图，对于目标来说，它是滚动旋转了90°。</p>
+<p><img src="./tool04.png" alt=""></p>
+<p>2、假设我们第二步将目标向右滚动旋转90°，即滚转角（Roll）添加90°，如下图，跟第一种假设情况一样，对于目标来说，它是滚动旋转了90°，但是它运动的方向并没有垂直于Z轴，平行于XY轴。</p>
+<p><img src="./tool05.png" alt=""></p>
+<p>显然，自由度从原来的三个自由度变成了两个自由度（俯仰角和偏航角）。因为X轴和Y轴平行了，如下图：</p>
+<p><img src="https://img-blog.csdn.net/20170311165659086?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcmV3RmFu/font/5a6L5L2T/fontsize/200/fill/I0JBQkFCMA==/dissolve/70/gravity/NorthEast" alt=""></p>
+<h1 id="四元数"><a href="#四元数" class="headerlink" title="四元数"></a>四元数</h1><h1 id="摄像机类的使用记录"><a href="#摄像机类的使用记录" class="headerlink" title="摄像机类的使用记录"></a>摄像机类的使用记录</h1><p><strong>概述</strong> </p>
+<p>在<a target="_blank" rel="noopener" href="https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/camera.h">这里</a>可以找到教程中的摄像机类的实现。</p>
+<p>可以看到，Camera类接受四个参数（position, up, yaw, pitch）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glm::lookAt(Position, Position + Front, Up);</span><br></pre></td></tr></table></figure>
+<p>Camera类将lookAt函数的第二个目标位置参数变成<code>Position+Front</code>，Front变量存储摄像机朝向的向量（前轴）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">glm::vec3 front;</span><br><span class="line">front.x &#x3D; cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));</span><br><span class="line">front.y &#x3D; sin(glm::radians(Pitch));</span><br><span class="line">front.z &#x3D; sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));</span><br><span class="line">Front &#x3D; glm::normalize(front);</span><br><span class="line">Right &#x3D; glm::normalize(glm::cross(Front, WorldUp));</span><br><span class="line">Up &#x3D; glm::normalize(glm::cross(Right, Front));</span><br></pre></td></tr></table></figure>
+<p>通过鼠标控制改变俯仰角和偏航角，进而改变摄像机的前轴和上轴，最后改变lookAt的位置。</p>
+<p>值得注意的是，假设俯仰角和偏航角的值都为0，那么Front值为(1,0,0)，一个向右的正X轴方向，即摄像机默认看向X轴正方向。一般地，我们需要将摄像机设置成垂直看向XY平面，所以需要默认给摄像机一个偏航角<code>-90°</code>，使得摄像机从朝向右变成朝向里。</p>
+<p><strong>摄像机位置</strong></p>
+<p>1、摄像机位于正Z轴上，看向原点(0,0,0)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Camera camera(glm::vec3(0.0f, 0.0f, 45.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);</span><br></pre></td></tr></table></figure>
+<p>这时，计算出来的Front为(0,0,-1)，看向负Z轴，这里可以计算出lookAt点为(0,0,44)。但为什么不是原点(0,0,0)呢？其实，这里无论是(0,0,44)还是(0,0,0)，都是一样的视角，只因为摄像机(0,0,45)本身也在Z轴上，这三个点都在同一条垂直于XY平面的直线上，而摄像机默认视角是垂直于XY平面的。</p>
+<p>假如把Up值改成(0,-1,0)，这时的视角就是倒立看到的视角。</p>
+<p>2、摄像机处于45°视角，看向原点(0,0,0)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Camera camera(glm::vec3(0.0f, 45.0f, 45.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -45.0f);</span><br></pre></td></tr></table></figure>
+<p>Front值为(0,-0.7,-0.7)（向量的长度不会改变向量的方向，它跟(0,45,45)平行反向）。</p>
+<p>可以看到俯仰角倾斜了45°，因为需要摄像机的视角与XY轴的夹角为45°。</p>
+<p>3、摄像机围绕原点(0,0,0)旋转</p>
+<p>我们选择摄像机的视角是位于XY平面看向原点(0,0,0)，处于(0,-45,0)位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Camera camera(glm::vec3(0.0f, -45.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), -90.0f, 90.0f);</span><br></pre></td></tr></table></figure>
+<p>那么需要设置摄像机的俯仰角固定为90°，偏航角起始值为-90°，且世界上向量应为(0,0,1)或(0,0,-1)。</p>
+<p>然后，需要把Camera类中的目标坐标从<code>Position + Front</code>改成<code>glm::vec3(0.0f, 0.0f, 0.0f)</code>，使得摄像机一直看向原点。</p>
+<p>最后，需要添加一个函数，在每个周期更新摄像机的位置和偏航角。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">void auto_cycle()&#123;</span><br><span class="line">	static float angle &#x3D; -90.0;</span><br><span class="line">	angle +&#x3D; 0.001;</span><br><span class="line">	float camX &#x3D; cos(angle) * 45;</span><br><span class="line">	float camY &#x3D; sin(angle) * 45;</span><br><span class="line">	float offsety &#x3D; camera.Position.y - camY;</span><br><span class="line">	camera.Position &#x3D; glm::vec3(camX, camY, 0.0f);</span><br><span class="line">	camera.Yaw -&#x3D; 0.001;</span><br><span class="line">	camera.updateCameraVectors();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更改位置的原因很简单，更改偏航角的原因是要让摄像机一直面向原点。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/" title="OpenGL入门（五）——坐标系统与摄像机" target="_blank" rel="external">https://www.chaguake.com/2021/05/12/OpenGL-introduction-05/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
+        <div>是码农啦！不喜格仔衫……</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+      </div>    
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/05/13/OpenGL-introduction-06/" title="OpenGL入门（六）——基本光照"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/05/10/Blender-source-code-study-07/" title="Blender官方源码文档——RNA"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 茶瓜客
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
