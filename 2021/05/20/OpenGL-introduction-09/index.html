@@ -17,21 +17,25 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>OpenGL入门（一）——GLFW库与GLAD库 | 茶瓜客</title>
-  <meta name="description" content="OpenGL入门系列是博主学习LearnOpenGL教程的笔录。 LearnOpenGL中文翻译版教程地址：https:&#x2F;&#x2F;learnopengl-cn.github.io&#x2F; LearnOpenGL英文原作者版地址：https:&#x2F;&#x2F;learnopengl.com&#x2F; GLFW GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。  官网：https:&#x2F;&#x2F;www.g">
+  <title>OpenGL入门（九）——模型加载 | 茶瓜客</title>
+  <meta name="description" content="模型加载库AssimpAssimp是一个非常流行的模型导入库，它是以场景为主导的模型：  网格（Mesh）网格是组成模型的基本单位，是我们在OpenGL中绘制物体所需要的最小单位，通常包含顶点数据、索引和材质属性。 顶点至少包含一个位置向量、一个法向量和一个纹理坐标向量： 12345struct Vertex &amp;#123;    glm::vec3 Position;    glm::vec3 N">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenGL入门（一）——GLFW库与GLAD库">
-<meta property="og:url" content="https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/index.html">
+<meta property="og:title" content="OpenGL入门（九）——模型加载">
+<meta property="og:url" content="https://www.chaguake.com/2021/05/20/OpenGL-introduction-09/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="OpenGL入门系列是博主学习LearnOpenGL教程的笔录。 LearnOpenGL中文翻译版教程地址：https:&#x2F;&#x2F;learnopengl-cn.github.io&#x2F; LearnOpenGL英文原作者版地址：https:&#x2F;&#x2F;learnopengl.com&#x2F; GLFW GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。  官网：https:&#x2F;&#x2F;www.g">
+<meta property="og:description" content="模型加载库AssimpAssimp是一个非常流行的模型导入库，它是以场景为主导的模型：  网格（Mesh）网格是组成模型的基本单位，是我们在OpenGL中绘制物体所需要的最小单位，通常包含顶点数据、索引和材质属性。 顶点至少包含一个位置向量、一个法向量和一个纹理坐标向量： 12345struct Vertex &amp;#123;    glm::vec3 Position;    glm::vec3 N">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-31T06:22:54.000Z">
-<meta property="article:modified_time" content="2021-03-31T10:53:27.400Z">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/03/01/assimp_structure.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/03/03/model_diffuse.png">
+<meta property="og:image" content="https://learnopengl-cn.github.io/img/03/03/model_lighting.png">
+<meta property="article:published_time" content="2021-05-20T03:22:19.000Z">
+<meta property="article:modified_time" content="2021-05-31T02:18:44.314Z">
 <meta property="article:author" content="茶瓜客">
 <meta property="article:tag" content="OpenGL入门">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://learnopengl-cn.github.io/img/03/01/assimp_structure.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/05/20/OpenGL-introduction-09/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -342,14 +346,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-OpenGL-introduction-01" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-OpenGL-introduction-09" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      OpenGL入门（一）——GLFW库与GLAD库
+      OpenGL入门（九）——模型加载
     </h1>
   
 
@@ -357,8 +361,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/03/31/OpenGL-introduction-01/" class="article-date">
-	  <time datetime="2021-03-31T06:22:54.000Z" itemprop="datePublished">2021-03-31</time>
+	<a href="/2021/05/20/OpenGL-introduction-09/" class="article-date">
+	  <time datetime="2021-05-20T03:22:19.000Z" itemprop="datePublished">2021-05-20</time>
 	</a>
 </span>
         
@@ -383,25 +387,28 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/31/OpenGL-introduction-01/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/20/OpenGL-introduction-09/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>OpenGL入门系列是博主学习LearnOpenGL教程的笔录。</p>
-<p>LearnOpenGL中文翻译版教程地址：<a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/">https://learnopengl-cn.github.io/</a></p>
-<p>LearnOpenGL英文原作者版地址：<a target="_blank" rel="noopener" href="https://learnopengl.com/">https://learnopengl.com/</a></p>
-<h2 id="GLFW"><a href="#GLFW" class="headerlink" title="GLFW"></a>GLFW</h2><blockquote>
-<p>GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。</p>
-</blockquote>
-<p>官网：<a target="_blank" rel="noopener" href="https://www.glfw.org/">https://www.glfw.org/</a></p>
-<p>GLFW提供了简单的API，方便开发者创建windows、contexts、surfaces、input和events等一系列操作。</p>
-<p>官网一般提供了现成的二进制文件库和头文件，将它引用到项目中使用。</p>
-<h2 id="GLAD"><a href="#GLAD" class="headerlink" title="GLAD"></a>GLAD</h2><p>由于OpenGL的接口函数地址一般是未知的，需要在运行期间动态获取。如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 定义函数原型</span><br><span class="line">typedef void (*GL_GENBUFFERS) (GLsizei, GLuint*);</span><br><span class="line">&#x2F;&#x2F; 找到正确的函数并赋值给函数指针</span><br><span class="line">GL_GENBUFFERS glGenBuffers  &#x3D; (GL_GENBUFFERS)wglGetProcAddress(&quot;glGenBuffers&quot;);</span><br><span class="line">&#x2F;&#x2F; 现在函数可以被正常调用了</span><br><span class="line">GLuint buffer;</span><br><span class="line">glGenBuffers(1, &amp;buffer);</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://github.com/Dav1dde/glad">GLAD</a>提供了一个<a target="_blank" rel="noopener" href="http://glad.dav1d.de/">在线服务</a>，通过一些自定义配置，生成一个文件库，把它引用到项目中使用。</p>
-<p><strong><em>值得注意的是，在引用GLFW的头文件之前要先引用GLAD的头文件，因为GLAD包含了OpenGL的头文件。</em></strong></p>
+        <h1 id="模型加载库Assimp"><a href="#模型加载库Assimp" class="headerlink" title="模型加载库Assimp"></a>模型加载库Assimp</h1><p><a target="_blank" rel="noopener" href="http://assimp.org/">Assimp</a>是一个非常流行的模型导入库，它是以场景为主导的模型：</p>
+<p><img src="https://learnopengl-cn.github.io/img/03/01/assimp_structure.png" alt=""></p>
+<h1 id="网格（Mesh）"><a href="#网格（Mesh）" class="headerlink" title="网格（Mesh）"></a>网格（Mesh）</h1><p>网格是组成模型的基本单位，是我们在OpenGL中绘制物体所需要的最小单位，通常包含顶点数据、索引和材质属性。</p>
+<p>顶点至少包含一个位置向量、一个法向量和一个纹理坐标向量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Vertex &#123;</span><br><span class="line">    glm::vec3 Position;</span><br><span class="line">    glm::vec3 Normal;</span><br><span class="line">    glm::vec2 TexCoords;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>纹理则包含一个纹理ID和纹理类型（漫反射贴图或镜面光贴图）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct Texture &#123;</span><br><span class="line">    unsigned int id;</span><br><span class="line">    string type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>那么，最简单的Mesh类结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Mesh &#123;</span><br><span class="line">    public:</span><br><span class="line">        &#x2F;*  网格数据  *&#x2F;</span><br><span class="line">        vector&lt;Vertex&gt; vertices;</span><br><span class="line">        vector&lt;unsigned int&gt; indices;</span><br><span class="line">        vector&lt;Texture&gt; textures;</span><br><span class="line">        &#x2F;*  函数  *&#x2F;</span><br><span class="line">        Mesh(vector&lt;Vertex&gt; vertices, vector&lt;unsigned int&gt; indices, vector&lt;Texture&gt; textures);</span><br><span class="line">        void Draw(Shader shader);</span><br><span class="line">    private:</span><br><span class="line">        &#x2F;*  渲染数据  *&#x2F;</span><br><span class="line">        unsigned int VAO, VBO, EBO;</span><br><span class="line">        &#x2F;*  函数  *&#x2F;</span><br><span class="line">        void setupMesh();</span><br><span class="line">&#125;;  </span><br></pre></td></tr></table></figure>
+<p>最终的Mesh类代码在<a target="_blank" rel="noopener" href="https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/mesh.h">这里</a>。</p>
+<h1 id="模型（Model）"><a href="#模型（Model）" class="headerlink" title="模型（Model）"></a>模型（Model）</h1><p>原文翻译文章看<a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/03%20Model%20Loading/03%20Model/">这里</a>。</p>
+<p>Model类的源码在<a target="_blank" rel="noopener" href="https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/model.h">这里</a>。</p>
+<p>最终，<a target="_blank" rel="noopener" href="https://learnopengl.com/code_viewer_gh.php?code=src/3.model_loading/1.model_loading/model_loading.cpp">例子</a>实现了加载模型文件的操作，输出如下：</p>
+<p><img src="https://learnopengl-cn.github.io/img/03/03/model_diffuse.png" alt=""></p>
+<p>根据<a href="https://www.chaguake.com/2021/05/18/OpenGL-introduction-08/">光照教程</a>，添加光线之后的效果如下：</p>
+<p><img src="https://learnopengl-cn.github.io/img/03/03/model_lighting.png" alt=""></p>
 
       
     </div>
@@ -411,7 +418,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/" title="OpenGL入门（一）——GLFW库与GLAD库" target="_blank" rel="external">https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/</a>
+      <a href="https://www.chaguake.com/2021/05/20/OpenGL-introduction-09/" title="OpenGL入门（九）——模型加载" target="_blank" rel="external">https://www.chaguake.com/2021/05/20/OpenGL-introduction-09/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -460,12 +467,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2021/03/31/OpenGL-introduction-02/" title="OpenGL入门（二）——Hello Window小节笔记"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2021/05/20/OpenGL-introduction-10/" title="OpenGL入门（十）——深度测试"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2021/03/24/lua-base-knowledge/" title="lua 基础知识"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/05/18/OpenGL-introduction-08/" title="OpenGL入门（八）——光照贴图和多光源"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

@@ -17,21 +17,18 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>OpenGL入门（一）——GLFW库与GLAD库 | 茶瓜客</title>
-  <meta name="description" content="OpenGL入门系列是博主学习LearnOpenGL教程的笔录。 LearnOpenGL中文翻译版教程地址：https:&#x2F;&#x2F;learnopengl-cn.github.io&#x2F; LearnOpenGL英文原作者版地址：https:&#x2F;&#x2F;learnopengl.com&#x2F; GLFW GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。  官网：https:&#x2F;&#x2F;www.g">
-<meta property="og:type" content="article">
-<meta property="og:title" content="OpenGL入门（一）——GLFW库与GLAD库">
-<meta property="og:url" content="https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/index.html">
+  <title>归档: 2021/9 | 茶瓜客</title>
+  <meta name="description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
+<meta property="og:type" content="website">
+<meta property="og:title" content="茶瓜客">
+<meta property="og:url" content="https://www.chaguake.com/archives/2021/09/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="OpenGL入门系列是博主学习LearnOpenGL教程的笔录。 LearnOpenGL中文翻译版教程地址：https:&#x2F;&#x2F;learnopengl-cn.github.io&#x2F; LearnOpenGL英文原作者版地址：https:&#x2F;&#x2F;learnopengl.com&#x2F; GLFW GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。  官网：https:&#x2F;&#x2F;www.g">
+<meta property="og:description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-31T06:22:54.000Z">
-<meta property="article:modified_time" content="2021-03-31T10:53:27.400Z">
 <meta property="article:author" content="茶瓜客">
-<meta property="article:tag" content="OpenGL入门">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/archives/2021/09/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -341,196 +338,106 @@
   
   
 <main class="main" role="main">
-  <div class="content">
-  <article id="post-OpenGL-introduction-01" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  	<article class="content article article-archives article-type-list" itemscope="">
+	    <header class="article-header">
+	      <h1 itemprop="title">归档: 2021/9</h1>
+	      <p class="text-muted">共 1 篇文章</p>
+	    </header>
+	    <div class="article-body">
+	      
+  
+  
     
-    <div class="article-header">
+    
       
-        
-  
-    <h1 class="article-title" itemprop="name">
-      OpenGL入门（一）——GLFW库与GLAD库
-    </h1>
-  
-
       
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/03/31/OpenGL-introduction-01/" class="article-date">
-	  <time datetime="2021-03-31T06:22:54.000Z" itemprop="datePublished">2021-03-31</time>
-	</a>
-</span>
-        
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/OpenGL/">OpenGL</a>
-  </span>
-
-        
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a>
-  </span>
-
-
-        
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/31/OpenGL-introduction-01/#comments" class="article-comment-link">评论</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <p>OpenGL入门系列是博主学习LearnOpenGL教程的笔录。</p>
-<p>LearnOpenGL中文翻译版教程地址：<a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/">https://learnopengl-cn.github.io/</a></p>
-<p>LearnOpenGL英文原作者版地址：<a target="_blank" rel="noopener" href="https://learnopengl.com/">https://learnopengl.com/</a></p>
-<h2 id="GLFW"><a href="#GLFW" class="headerlink" title="GLFW"></a>GLFW</h2><blockquote>
-<p>GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。</p>
-</blockquote>
-<p>官网：<a target="_blank" rel="noopener" href="https://www.glfw.org/">https://www.glfw.org/</a></p>
-<p>GLFW提供了简单的API，方便开发者创建windows、contexts、surfaces、input和events等一系列操作。</p>
-<p>官网一般提供了现成的二进制文件库和头文件，将它引用到项目中使用。</p>
-<h2 id="GLAD"><a href="#GLAD" class="headerlink" title="GLAD"></a>GLAD</h2><p>由于OpenGL的接口函数地址一般是未知的，需要在运行期间动态获取。如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 定义函数原型</span><br><span class="line">typedef void (*GL_GENBUFFERS) (GLsizei, GLuint*);</span><br><span class="line">&#x2F;&#x2F; 找到正确的函数并赋值给函数指针</span><br><span class="line">GL_GENBUFFERS glGenBuffers  &#x3D; (GL_GENBUFFERS)wglGetProcAddress(&quot;glGenBuffers&quot;);</span><br><span class="line">&#x2F;&#x2F; 现在函数可以被正常调用了</span><br><span class="line">GLuint buffer;</span><br><span class="line">glGenBuffers(1, &amp;buffer);</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://github.com/Dav1dde/glad">GLAD</a>提供了一个<a target="_blank" rel="noopener" href="http://glad.dav1d.de/">在线服务</a>，通过一些自定义配置，生成一个文件库，把它引用到项目中使用。</p>
-<p><strong><em>值得注意的是，在引用GLFW的头文件之前要先引用GLAD的头文件，因为GLAD包含了OpenGL的头文件。</em></strong></p>
-
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/" title="OpenGL入门（一）——GLFW库与GLAD库" target="_blank" rel="external">https://www.chaguake.com/2021/03/31/OpenGL-introduction-01/</a>
-    </li>
-    
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
-
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
-        <div>是码农啦！不喜格仔衫……</div>
-      </div>
-    </figure>
-  </div>
-</div>
-
-
-    </div>
-  </article>
-  
-    
-  <section id="comments">
-  	
-      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
-        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-      </div>    
-    
-  </section>
-
-
-  
-</div>
-
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-  
-  <ul class="pager pull-left">
-    
-    <li class="prev">
-      <a href="/2021/03/31/OpenGL-introduction-02/" title="OpenGL入门（二）——Hello Window小节笔记"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
-    
-    <li class="next">
-      <a href="/2021/03/24/lua-base-knowledge/" title="lua 基础知识"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
-  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
-    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
-  </div> -->
-  
-  
-  <div class="bar-right">
-    
-    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
-    
-  </div>
-  </div>
-</nav>
-  
-<!-- Modal -->
-<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content donate">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <div class="modal-body">
-        <div class="donate-box">
-          <div class="donate-head">
-            <p>感谢您的支持，我会继续努力的!</p>
-          </div>
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
-              <div class="donate-payimg">
-                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
-              </div>
-              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
-              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
-              <div class="donate-payimg">
-                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
-              </div>
-              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
-              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
-            </div>
-          </div>
-          <div class="donate-footer">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
-              <li role="presentation" class="active">
-                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
-              </li>
-              <li role="presentation" class="">
-                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
-              </li>
-            </ul>
-          </div>
+      <section class="panel panel-default b-no">
+        <div class="panel-heading" role="tab">
+          <h3 class="panel-title">
+            <a data-toggle="collapse" href="#collapse2021" aria-expanded="true">
+              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
+              2021
+            </a>
+            <!-- <a href="/archives/2021" class="archive-year">2021</a> -->
+          </h3>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+        <div id="collapse2021" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2021">
+        <div class="panel-body">
+          <div class="collection">
+    
+    
+<a href="/2021/09/03/smallpt-classic-ray-tracing-for-c-plus/" class="collection-item" target="_blank" itemprop="url">
+  <time datetime="2021-09-03T07:09:07.000Z" itemprop="datePublished">2021-09-03</time>
+  <span>&nbsp;&nbsp;&nbsp;</span> smallpt_classic_ray_tracing_for_c_plus
+</a>
 
 
+  
+  
+    </div></div></div></section>
+  
 
+	    </div>
+  	</article>
+  	<% if (page.total > 1){ %>
+    <% if (theme.pagination.number){ %>
+    <nav class="bar bar-footer clearfix" data-stick-bottom>
+        <div class="bar-inner">
+        <div class="pager pull-left">
+            <% if (!page.prev && theme.pagination.prev.alwayShow) { %>
+            <a class="prev disabled" href="javascript:;"><i class="icon icon-angle-left"></i> <%= __('pagination.prev') %></a>
+            <% } %>
+            <%- paginator({
+                prev_text: '<i class="icon icon-angle-left"></i> ' + __('pagination.prev'),
+                next_text: __('pagination.next') + ' <i class="icon icon-angle-right"></i>'
+            }) %>
+            <% if (!page.next && theme.pagination.next.alwayShow) { %>
+            <a class="next disabled" href="javascript:;"><%= __('pagination.next') %> <i class="icon icon-angle-right"></i></a>
+            <% } %>
+        </div>
+        <div class="total-article bar-right"><%= _p('pagination.pageof', page.current, page.total) %></div>
+        </div>
+    </nav>
+    <% } else { %>
+    <nav class="bar bar-footer clearfix" data-stick-bottom>
+        <div class="bar-inner">
+        <ul class="pager pull-left">
+            <% if (!page.prev && theme.pagination.prev.alwayShow) { %>
+            <li class="prev disabled">
+                <a href="javascript:;">
+                    <i class="icon icon-angle-left" />
+                    <%= __('pagination.prev') %>
+                </a>
+            </li>
+            <% } else { %>
+            <li class="prev">
+                <a href="<%- url_for(page.prev_link) %>">
+                    <i class="icon icon-angle-left" />
+                    <%= __('pagination.prev') %>
+                </a>
+            </li>
+            <% } %>
+            <% if (!page.next && theme.pagination.next.alwayShow) { %>
+            <li class="next disabled">
+                <a href="javascript:;">
+                    <%= __('pagination.next') %>
+                    <i class="icon icon-angle-right" />                    
+                </a>
+            </li>
+            <% } else { %>
+            <li class="next">
+                <a href="<%- url_for(page.next_link) %>">
+                    <%= __('pagination.next') %>
+                    <i class="icon icon-angle-right" />
+                </a>
+            </li>
+            <% } %>
+        </ul>
+        <div class="total-article bar-right"><%= _p('pagination.pageof', page.current, page.total) %></div>
+        </div>
+    </nav>
+    <% } %>
+<% } %> 	
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -584,30 +491,6 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-
-
-   
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
-   
-    
-<script defer type="text/javascript">
-  (function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-
-    if (typeof LivereTower === 'function') { return; }
-
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-
-    e.parentNode.insertBefore(j, e);
-  })(document, 'script');
-</script>
 
 
 

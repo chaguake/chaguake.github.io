@@ -6,7 +6,7 @@
   <link href="https://www.chaguake.com/atom.xml" rel="self"/>
   
   <link href="https://www.chaguake.com/"/>
-  <updated>2021-05-18T08:51:57.896Z</updated>
+  <updated>2021-09-03T07:09:07.259Z</updated>
   <id>https://www.chaguake.com/</id>
   
   <author>
@@ -15,6 +15,67 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>smallpt_classic_ray_tracing_for_c_plus</title>
+    <link href="https://www.chaguake.com/2021/09/03/smallpt-classic-ray-tracing-for-c-plus/"/>
+    <id>https://www.chaguake.com/2021/09/03/smallpt-classic-ray-tracing-for-c-plus/</id>
+    <published>2021-09-03T07:09:07.000Z</published>
+    <updated>2021-09-03T07:09:07.259Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>OpenGL入门（十）——深度测试</title>
+    <link href="https://www.chaguake.com/2021/05/20/OpenGL-introduction-10/"/>
+    <id>https://www.chaguake.com/2021/05/20/OpenGL-introduction-10/</id>
+    <published>2021-05-20T03:27:17.000Z</published>
+    <updated>2021-05-20T07:26:21.599Z</updated>
+    
+    <content type="html"><![CDATA[<p>渲染管线的过程在<a href="https://www.chaguake.com/2021/03/31/OpenGL-introduction-03/">文章</a>中有提过，顶点数据通过<code>glBufferData</code>等一系列函数传递进CPU，然后经过顶点着色器、图元装配、几何着色器、光栅化、片段着色器和最后的测试与混合，最后输出到屏幕。</p><p>本节所讲的深度测试位于片段着色器后面的测试与混合阶段，具体可看下图：</p><p><img src="https://chenanbao.github.io/img/pip.001.jpg" alt=""></p><h1 id="深度测试（Depth-Testing）"><a href="#深度测试（Depth-Testing）" class="headerlink" title="深度测试（Depth Testing）"></a>深度测试（Depth Testing）</h1><p>深度缓冲用于防止被阻挡的面渲染到其他面的前面，它在每个片段中存储了信息，由窗口系统自动创建，以16、24或32位float的类型存储它的深度值（默认是24位）。</p><p>深度测试默认是禁用的，开启使用函数<code>glEnable</code>实现：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glEnable(GL_DEPTH_TEST);</span><br><span class="line">glClear(GL_DEPTH_BUFFER_BIT);</span><br></pre></td></tr></table></figure><p>在某些情况下，可能不需要更新深度缓冲，这意味着要禁用深度缓冲的写入，那么，可以设置深度缓冲的深度掩码（Depth Mask）为FALSE实现：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glDepthMask(GL_FALSE);</span><br></pre></td></tr></table></figure><p>OpenGL使用深度函数<code>glDepthFunc</code>，修改深度测试的比较运算符，来控制片段的丢弃方式。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glDepthFunc(GL_LESS);</span><br></pre></td></tr></table></figure><p>比较运算符有以下这些：</p><div class="table-container"><table><thead><tr><th style="text-align:center">比较运算符号</th><th style="text-align:center">描述</th></tr></thead><tbody><tr><td style="text-align:center">GL_ALWAYS</td><td style="text-align:center">永远通过深度测试</td></tr><tr><td style="text-align:center">GL_NEVER</td><td style="text-align:center">永远不通过深度测试</td></tr><tr><td style="text-align:center">GL_LESS</td><td style="text-align:center">在片段深度值小于缓冲的深度值时通过测试</td></tr><tr><td style="text-align:center">GL_EQUAL</td><td style="text-align:center">在片段深度值等于缓冲区的深度值时通过测试</td></tr><tr><td style="text-align:center">GL_LEQUAL</td><td style="text-align:center">在片段深度值小于等于缓冲区的深度值时通过测试</td></tr><tr><td style="text-align:center">GL_GREATER</td><td style="text-align:center">在片段深度值大于缓冲区的深度值时通过测试</td></tr><tr><td style="text-align:center">GL_NOTEQUAL</td><td style="text-align:center">在片段深度值不等于缓冲区的深度值时通过测试</td></tr><tr><td style="text-align:center">GL_GEQUAL</td><td style="text-align:center">在片段深度值大于等于缓冲区的深度值时通过测试</td></tr></tbody></table></div><p>默认情况下使用的深度比较符号是<code>GL_LESS</code>，输出效果如下：</p><p><img src="https://learnopengl-cn.github.io/img/04/01/depth_testing_func_less.png" alt=""></p><p>使用<code>GL_ALWAYS</code>的输出效果如下：</p><p><img src="https://learnopengl-cn.github.io/img/04/01/depth_testing_func_always.png" alt=""></p><p>可以在<a href="https://learnopengl.com/code_viewer_gh.php?code=src/4.advanced_opengl/1.1.depth_testing/depth_testing.cpp">这里</a>找到例子源码。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;渲染管线的过程在&lt;a href=&quot;https://www.chaguake.com/2021/03/31/OpenGL-introduction-03/&quot;&gt;文章&lt;/a&gt;中有提过，顶点数据通过&lt;code&gt;glBufferData&lt;/code&gt;等一系列函数传递进CPU，然后经过</summary>
+      
+    
+    
+    
+    <category term="OpenGL" scheme="https://www.chaguake.com/categories/OpenGL/"/>
+    
+    
+    <category term="OpenGL入门" scheme="https://www.chaguake.com/tags/OpenGL%E5%85%A5%E9%97%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OpenGL入门（九）——模型加载</title>
+    <link href="https://www.chaguake.com/2021/05/20/OpenGL-introduction-09/"/>
+    <id>https://www.chaguake.com/2021/05/20/OpenGL-introduction-09/</id>
+    <published>2021-05-20T03:22:19.000Z</published>
+    <updated>2021-05-31T02:18:44.314Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="模型加载库Assimp"><a href="#模型加载库Assimp" class="headerlink" title="模型加载库Assimp"></a>模型加载库Assimp</h1><p><a href="http://assimp.org/">Assimp</a>是一个非常流行的模型导入库，它是以场景为主导的模型：</p><p><img src="https://learnopengl-cn.github.io/img/03/01/assimp_structure.png" alt=""></p><h1 id="网格（Mesh）"><a href="#网格（Mesh）" class="headerlink" title="网格（Mesh）"></a>网格（Mesh）</h1><p>网格是组成模型的基本单位，是我们在OpenGL中绘制物体所需要的最小单位，通常包含顶点数据、索引和材质属性。</p><p>顶点至少包含一个位置向量、一个法向量和一个纹理坐标向量：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Vertex &#123;</span><br><span class="line">    glm::vec3 Position;</span><br><span class="line">    glm::vec3 Normal;</span><br><span class="line">    glm::vec2 TexCoords;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>纹理则包含一个纹理ID和纹理类型（漫反射贴图或镜面光贴图）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct Texture &#123;</span><br><span class="line">    unsigned int id;</span><br><span class="line">    string type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>那么，最简单的Mesh类结构如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Mesh &#123;</span><br><span class="line">    public:</span><br><span class="line">        &#x2F;*  网格数据  *&#x2F;</span><br><span class="line">        vector&lt;Vertex&gt; vertices;</span><br><span class="line">        vector&lt;unsigned int&gt; indices;</span><br><span class="line">        vector&lt;Texture&gt; textures;</span><br><span class="line">        &#x2F;*  函数  *&#x2F;</span><br><span class="line">        Mesh(vector&lt;Vertex&gt; vertices, vector&lt;unsigned int&gt; indices, vector&lt;Texture&gt; textures);</span><br><span class="line">        void Draw(Shader shader);</span><br><span class="line">    private:</span><br><span class="line">        &#x2F;*  渲染数据  *&#x2F;</span><br><span class="line">        unsigned int VAO, VBO, EBO;</span><br><span class="line">        &#x2F;*  函数  *&#x2F;</span><br><span class="line">        void setupMesh();</span><br><span class="line">&#125;;  </span><br></pre></td></tr></table></figure><p>最终的Mesh类代码在<a href="https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/mesh.h">这里</a>。</p><h1 id="模型（Model）"><a href="#模型（Model）" class="headerlink" title="模型（Model）"></a>模型（Model）</h1><p>原文翻译文章看<a href="https://learnopengl-cn.github.io/03%20Model%20Loading/03%20Model/">这里</a>。</p><p>Model类的源码在<a href="https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/model.h">这里</a>。</p><p>最终，<a href="https://learnopengl.com/code_viewer_gh.php?code=src/3.model_loading/1.model_loading/model_loading.cpp">例子</a>实现了加载模型文件的操作，输出如下：</p><p><img src="https://learnopengl-cn.github.io/img/03/03/model_diffuse.png" alt=""></p><p>根据<a href="https://www.chaguake.com/2021/05/18/OpenGL-introduction-08/">光照教程</a>，添加光线之后的效果如下：</p><p><img src="https://learnopengl-cn.github.io/img/03/03/model_lighting.png" alt=""></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;模型加载库Assimp&quot;&gt;&lt;a href=&quot;#模型加载库Assimp&quot; class=&quot;headerlink&quot; title=&quot;模型加载库Assimp&quot;&gt;&lt;/a&gt;模型加载库Assimp&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://assimp.org/&quot;&gt;Assim</summary>
+      
+    
+    
+    
+    <category term="OpenGL" scheme="https://www.chaguake.com/categories/OpenGL/"/>
+    
+    
+    <category term="OpenGL入门" scheme="https://www.chaguake.com/tags/OpenGL%E5%85%A5%E9%97%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>OpenGL入门（八）——光照贴图和多光源</title>
@@ -432,83 +493,6 @@
     
     
     <category term="字符串算法" scheme="https://www.chaguake.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BM字符串匹配算法</title>
-    <link href="https://www.chaguake.com/2021/04/14/Boyer-Moore-alg/"/>
-    <id>https://www.chaguake.com/2021/04/14/Boyer-Moore-alg/</id>
-    <published>2021-04-14T05:44:16.000Z</published>
-    <updated>2021-04-14T09:19:27.946Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考文献有:</p><p><a href="https://www.cs.utexas.edu/users/moore/publications/fstrpos.pdf">BM字符串匹配算法论文</a></p><p><a href="http://www-igm.univ-mlv.fr/~lecroq/string/node14.html">Boyer-Moore algorithm</a></p><hr><p>BM（Boyer-Moore）算法比KMP算法高效不少。KMP算法只有一个匹配规则，而BM算法有两个匹配规则，更加优化了迭代索引，减少不必要的比较次数。</p><p>BM算法的主要思想是：源字符串迭代方向依旧是从左到右，源字符串与搜索字符串的比较方向是从左到右。遇到不匹配情况时，根据两个匹配规则，定位下一次源字符串与搜索字符串比较的位置。</p><h1 id="匹配规则"><a href="#匹配规则" class="headerlink" title="匹配规则"></a>匹配规则</h1><p>BM算法定义了两个匹配规则，在每一次调整搜索字符串位置时，移动位数由两个匹配规则判断返回值中的最大值决定。</p><h2 id="坏字符规则（bad-character-shift）。"><a href="#坏字符规则（bad-character-shift）。" class="headerlink" title="坏字符规则（bad-character shift）。"></a>坏字符规则（bad-character shift）。</h2><p>当源字符串中的某个字符与搜索字符串中的某个字符不匹配时，则源字符串中的那个字符称之为坏字符。</p><p>这时，搜索字符串向右移动的位数 = 已完成匹配字符集合（从右到左）的最后一个字符索引（从0开始） - 坏字符在搜索字符串中最右边出现的位置索引（从0开始）。</p><p>假如坏字符在搜索字符串中未出现，则移动位数值为-1。</p><p>坏字符规则下的两种判断情况：</p><ul><li>当搜索字符串不包含坏字符时，直接将搜索字符串移动到坏字符索引+1的位置（符合上面的计算公式）。</li></ul><p><img src="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmbc2.gif" alt="The bad-character shift, b does not occur in x."></p><ul><li>当搜索字符串包含坏字符时，将搜索字符串中最右出现的位置与坏字符位置对齐。这就意味着可能出现搜索字符串位置回退的情况，不过没关系，最后计算的移动位数由两个匹配规则决定的。</li></ul><p><img src="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmbc1.gif" alt="The bad-character shift, a occurs in x."></p><h2 id="好后缀规则（good-suffix-shift）。"><a href="#好后缀规则（good-suffix-shift）。" class="headerlink" title="好后缀规则（good-suffix shift）。"></a>好后缀规则（good-suffix shift）。</h2><p>当字符无法继续匹配时，称已完成匹配字符集合为好后缀，</p><p>搜索字符串向右移动的位数 = 搜索字符串最右的好后缀索引 - 搜索字符串倒数第二次出现的好后缀索引。</p><p>假如好后缀在搜索字符串中只出现一次，则移动位数值为-1。</p><p>好后缀规则下的三种判断情况：</p><ul><li><p>搜索字符串中除了已经匹配上好后缀的那一个子字符串，没有其他子字符串与好后缀适配且没有其他前缀子字符串与好后缀的后缀子字符串适配时，直接将搜索字符串移动到好后缀后面的字符位置。</p></li><li><p>搜索字符串中除了已经匹配上好后缀的那一个子字符串，还存在其他子字符串与好后缀适配时，则将搜索字符串倒数第二个适配的子字符串与好后缀对齐。</p></li></ul><p><img src="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmgs1.gif" alt="The good-suffix shift, u re-occurs preceded by a character c different from a."></p><ul><li>搜索字符串中除了已经匹配上好后缀的那一个子字符串，没有其他子字符串与好后缀适配，但存在其他前缀子字符串与好后缀的后缀子字符串适配时，则将它们对齐。</li></ul><p><img src="http://www-igm.univ-mlv.fr/~lecroq/string/images/bmgs2.gif" alt="The good-suffix shift, only a suffix of u re-occurs in x."></p><h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>下面以实例来进行详解，如何用代码实现BM算法。</p><p>现在有一个源字符串<code>cbcccacacabccabc</code>，和一个搜索字符串<code>cabcca</code>，想要得到源字符串是否包含搜索字符串，有则输出位置索引。</p><p>根据坏字符规则，需要创建一个字符位置映射表，用于记录坏字符在搜索字符串中最右边的位置。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;char_table大小要大于等于会出现的所有字符种类数</span><br><span class="line">&#x2F;&#x2F;int char_table[MAXNUM + 1];</span><br><span class="line">&#x2F;&#x2F;memset(char_table, -1, sizeof(char) *(MAXNUM + 1));</span><br><span class="line">void InitCharTable(const char *search, unsigned int len, int *char_table) &#123;</span><br><span class="line">    for (int i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">        char_table[search[i]] &#x3D; i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>根据好后缀规则，需要创建前缀子字符串索引表和后缀子字符串索引表。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void InitGoodSuffixTable(const char *search, int len, int *suffix, bool *prefix) &#123;</span><br><span class="line">    for (int i &#x3D; 0; i &lt; len - 1; i++) &#123; &#x2F;&#x2F;范围从第一个字符到倒数第二个字符</span><br><span class="line">int j &#x3D; i;</span><br><span class="line">int k &#x3D; 0;</span><br><span class="line">while (j &gt;&#x3D; 0 &amp;&amp; search[j] &#x3D;&#x3D; search[len - 1 - k]) &#123;&#x2F;&#x2F;通过j、k同时往前回朔找相同的字符</span><br><span class="line">    suffix[++k] &#x3D; --j + 1;&#x2F;&#x2F;在后缀子字符串的后一个字符标记偏移量，兼容a[0]的情况</span><br><span class="line">&#125;</span><br><span class="line">if (j &#x3D;&#x3D; -1) &#123;</span><br><span class="line">    prefix[k] &#x3D; true;&#x2F;&#x2F;前缀子字符串最多只有一个，在结束的字符上标记结束符号（设为true）</span><br><span class="line">&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">输出结果：</span><br><span class="line">suffix：[-1, 1, 0, -1, -1, -1]。</span><br><span class="line">prefix：[false, false, true, false, false, false]。</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure><p>移动位数的函数需要跟前缀子字符串索引表和后缀子字符串索引表的生成方式绑定使用。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int MoveIndexByGS(int bcindex, int len, int *suffix, bool *prefix) &#123;</span><br><span class="line">    int gslen &#x3D; len - 1 - bcindex;</span><br><span class="line">    if (suffix[gslen] !&#x3D; -1) &#123;</span><br><span class="line">return bcindex - suffix[gslen] + 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (int r &#x3D; bcindex + 2; r &lt;&#x3D; len - 1; r++) &#123;</span><br><span class="line">if (prefix[len - r])</span><br><span class="line">    return r;</span><br><span class="line">    &#125;</span><br><span class="line">    return len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>BM算法的实现逻辑函数：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">int BM(const char *str, int len,const char *search, int slen) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;bad char rule tables</span><br><span class="line">    int char_table[MAXNUM + 1];</span><br><span class="line">    memset(char_table, -1, sizeof(char_table));</span><br><span class="line">    InitCharTable(search, slen, char_table);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;good suffix rule tables</span><br><span class="line">    int suffix[MAXNUM + 1];</span><br><span class="line">    bool prefix[MAXNUM + 1];</span><br><span class="line">    memset(suffix, -1, sizeof(suffix));</span><br><span class="line">    memset(prefix, false, sizeof(prefix));</span><br><span class="line">    InitGoodSuffixTable(search, slen, suffix, prefix);</span><br><span class="line"></span><br><span class="line">    int i &#x3D; 0;</span><br><span class="line">    while (i &lt;&#x3D; len - slen) &#123;</span><br><span class="line">int j;</span><br><span class="line">for (j &#x3D; slen - 1; j &gt;&#x3D; 0; j--) &#123;</span><br><span class="line">    &#x2F;&#x2F;fine bad char</span><br><span class="line">    if (str[i + j] !&#x3D; search[j])</span><br><span class="line">    break;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (j &lt; 0) &#123;</span><br><span class="line">    return i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; find bad char position</span><br><span class="line">int x &#x3D; j - char_table[(int)str[i + j]];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; find good suffix position</span><br><span class="line">int y &#x3D; 0;</span><br><span class="line">if (j &lt; slen - 1) &#123;</span><br><span class="line">    y &#x3D; MoveIndexByGS(j, slen, suffix, prefix);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;get the max offset</span><br><span class="line">i &#x3D; i + max(x, y);</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;参考文献有:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.cs.utexas.edu/users/moore/publications/fstrpos.pdf&quot;&gt;BM字符串匹配算法论文&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://www-igm.uni</summary>
-      
-    
-    
-    
-    <category term="算法" scheme="https://www.chaguake.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="字符串算法" scheme="https://www.chaguake.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>KMP字符串匹配算法</title>
-    <link href="https://www.chaguake.com/2021/04/12/knuth-morris-pratt-alg/"/>
-    <id>https://www.chaguake.com/2021/04/12/knuth-morris-pratt-alg/</id>
-    <published>2021-04-12T06:07:04.000Z</published>
-    <updated>2021-04-12T07:23:08.137Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>在日常工作中，我们经常需要在文本中搜寻某些特定的字符串，那作为使用者的你，有没有想过其算法的实现呢？</em></p><p>举个例子，假如有一个源字符串“ablshvaabcadababcskilils”，如何判断其是否包含搜索字符串“abcadaba”？</p><p>一般想到的做法是暴力遍历匹配方法：遍历源字符串，然后取出与搜索字符串相同长度的子字符串做比较，不匹配就将迭代索引+1，再取出与搜索字符串相同长度的子字符串做比较，直到迭代结束。时间复杂度为$O(m*n)$，取决于源字符串和搜索字符串的长度。</p><p><img src="https://img-blog.csdnimg.cn/20200422194813187.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F0dHJhY3QxMjA2,size_16,color_FFFFFF,t_70#pic_center" alt="网图，如侵权请联系删除"></p><p>不难发现，在子字符串与搜索字符串做比较时，很大程度上，有部分操作是与上一次比较时重复的，那能否设计一种模式，减少这部分的重复工作呢？</p><h1 id="KMP算法（Knuth-Morris-Pratt算法）"><a href="#KMP算法（Knuth-Morris-Pratt算法）" class="headerlink" title="KMP算法（Knuth-Morris-Pratt算法）"></a>KMP算法（Knuth-Morris-Pratt算法）</h1><p>KMP算法是通过添加部分匹配表（Partial Match Table）来减少重复搜索工作的算法，它其实是对暴力遍历匹配方法的优化算法，在搜索字符串没有部分匹配字符串的时候，会退化成暴力遍历匹配方法。</p><p><img src="https://img-blog.csdnimg.cn/20200422194829782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0F0dHJhY3QxMjA2,size_16,color_FFFFFF,t_70#pic_center" alt="网图，如侵权请联系删除"></p><p>如上图，在匹配失败时，无须回退到上一迭代器+1的位置，而是从下一个部分匹配字符串的位置开始迭代。</p><p><strong>部分匹配字符串和部分匹配表</strong></p><p>首先，先理解“前缀子字符串”和“后缀子字符串”的概念。</p><p>前缀子字符串：把搜索字符串的最后一个字符去掉，所有包含搜索字符串第一个字符、且连续的字符串。如上面的搜索字符串“abcadaba”，它的前缀字符串是<code>a、ab、abc、abca、abcad、abcada、abcadab</code>。</p><p>后缀子字符串：把搜索字符串的第一个字符去掉，所有包含搜索字符串最后一个字符、且连续的字符串。如上面的搜索字符串“abcadaba”，它的后缀字符串是<code>bcadaba、cadaba、adaba、daba、aba、ba、a</code>。</p><p>把同时出现在所有前缀字符串和后缀字符串中的，包含搜索字符串第一个字符且连续的子字符串称为部分匹配字符串，所有部分匹配字符串的集合称为部分匹配表。如上面的搜索字符串“abcadaba”，它的部分匹配表的元素有：<code>a、ab</code>。</p><p><strong>代码实现部分匹配表</strong></p><p>我们需要记录部分匹配字符串第二次出现的位置。</p><p>创建一个与搜索字符串相同长度的整型数组，默认初始化值为0，用于存储在搜索字符串对应位置上，部分匹配字符串的长度。如上面的搜索字符串“abcadaba”，它的部分匹配表最终为：<code>[0, 0, 0, 1, 0, 1, 2, 0]。</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void GetPartialMatch(const std::string &amp;strTarget, int *arr)</span><br><span class="line">&#123;</span><br><span class="line">    int max_pre_size &#x3D; strTarget.length() - 1;</span><br><span class="line">    for (size_t i &#x3D; 0; i &lt; max_pre_size; i++)&#123;</span><br><span class="line"></span><br><span class="line">        std::string strTmp1 &#x3D; strTarget.substr(0, i + 1);</span><br><span class="line">        for (size_t j &#x3D; 1; j &lt; max_pre_size; j++)&#123;</span><br><span class="line">    std::string strTmp2 &#x3D; strTarget.substr(j, i + 1);</span><br><span class="line"></span><br><span class="line">    if (strTmp1 &#x3D;&#x3D; strTmp2) &#123;</span><br><span class="line">        arr[j + i] &#x3D; i + 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>KMP算法实现</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">void KMP(const std::string &amp;strSrc, const std::string &amp;strTarget, const int *arr)</span><br><span class="line">&#123;</span><br><span class="line">    int match_index &#x3D; 0;</span><br><span class="line">    for (size_t i &#x3D; 0; i &lt; strSrc.length();)&#123;</span><br><span class="line">if (strSrc[i] &#x3D;&#x3D; strTarget[match_index]) &#123;</span><br><span class="line">    if (match_index + 1 &#x3D;&#x3D; strTarget.length()) &#123;</span><br><span class="line">printf(&quot;match success,sub str index[%d].\n&quot;, i - match_index);</span><br><span class="line">    return;</span><br><span class="line">    &#125;</span><br><span class="line">    i++;</span><br><span class="line">    match_index++;</span><br><span class="line">&#125;</span><br><span class="line">else &#123;</span><br><span class="line">    if (match_index &gt; 0) &#123;</span><br><span class="line">match_index &#x3D; arr[match_index];</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;match fail.\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;em&gt;在日常工作中，我们经常需要在文本中搜寻某些特定的字符串，那作为使用者的你，有没有想过其算法的实现呢？&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;举个例子，假如有一个源字符串“ablshvaabcadababcskilils”，如何判断其是否包含搜索字符串“abcadaba”？&lt;/p&gt;</summary>
-      
-    
-    
-    
-    <category term="算法" scheme="https://www.chaguake.com/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="字符串算法" scheme="https://www.chaguake.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C/C++如何获取不定数量的输入参数？</title>
-    <link href="https://www.chaguake.com/2021/04/09/C-knowledge-cin/"/>
-    <id>https://www.chaguake.com/2021/04/09/C-knowledge-cin/</id>
-    <published>2021-04-09T09:15:26.000Z</published>
-    <updated>2021-04-09T09:22:45.559Z</updated>
-    
-    <content type="html"><![CDATA[<p>刷题时偶尔会出现输入不定数量的参数，主要是使用<code>std::cin</code>来实现。</p><p>使用<code>Ctrl Z</code>（Windows）或<code>Ctrl D</code>（UNIX）结束输入：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt; vec;</span><br><span class="line">int value;</span><br><span class="line">while(std::cin&gt;&gt;value)&#123;</span><br><span class="line">    vec.push_back(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>使用回车结束输入：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt; vec;</span><br><span class="line">int value;</span><br><span class="line">while(std::cin&gt;&gt;value)&#123;</span><br><span class="line">    vec.push_back(value);</span><br><span class="line">    if(std::cin.get() &#x3D;&#x3D; &#39;\n&#39;)&#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;刷题时偶尔会出现输入不定数量的参数，主要是使用&lt;code&gt;std::cin&lt;/code&gt;来实现。&lt;/p&gt;
-&lt;p&gt;使用&lt;code&gt;Ctrl Z&lt;/code&gt;（Windows）或&lt;code&gt;Ctrl D&lt;/code&gt;（UNIX）结束输入：&lt;/p&gt;
-&lt;figure class=&quot;</summary>
-      
-    
-    
-    
-    <category term="C/C++" scheme="https://www.chaguake.com/categories/C-C/"/>
-    
-    
-    <category term="C/C++知识" scheme="https://www.chaguake.com/tags/C-C-%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   
