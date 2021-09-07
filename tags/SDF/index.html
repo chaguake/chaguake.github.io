@@ -17,21 +17,18 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Blender官方源码文档——ID Datablocks | 茶瓜客</title>
-  <meta name="description" content="最新的官方文档：目录 本文的原文在这里  ID数据块（ID Datablocks）对象（objects）、网格（meshes）、材料（materials）、场景（scenes），它们都是ID数据块的例子。它们通常定义在头文件DNA_&amp;#123;some type&amp;#125;_typed.h中。 ID数据块是以一组公共属性开始的内存块。在C中，它被定义为结构体，并且会嵌入一个ID结构体类型作为第一个">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Blender官方源码文档——ID Datablocks">
-<meta property="og:url" content="https://www.chaguake.com/2021/05/08/Blender-source-code-study-06/index.html">
+  <title>标签: SDF | 茶瓜客</title>
+  <meta name="description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
+<meta property="og:type" content="website">
+<meta property="og:title" content="茶瓜客">
+<meta property="og:url" content="https://www.chaguake.com/tags/SDF/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="最新的官方文档：目录 本文的原文在这里  ID数据块（ID Datablocks）对象（objects）、网格（meshes）、材料（materials）、场景（scenes），它们都是ID数据块的例子。它们通常定义在头文件DNA_&amp;#123;some type&amp;#125;_typed.h中。 ID数据块是以一组公共属性开始的内存块。在C中，它被定义为结构体，并且会嵌入一个ID结构体类型作为第一个">
+<meta property="og:description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-08T09:50:42.000Z">
-<meta property="article:modified_time" content="2021-05-10T02:21:58.106Z">
 <meta property="article:author" content="茶瓜客">
-<meta property="article:tag" content="blender源码">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/2021/05/08/Blender-source-code-study-06/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/tags/SDF/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -339,213 +336,82 @@
 </aside>
 
   
-  
-<main class="main" role="main">
-  <div class="content">
-  <article id="post-Blender-source-code-study-06" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <main class="main" role="main">
+  <article class="content article article-tags post-type-list" itemscope="">
+    <header class="article-header">
+      <h1 itemprop="name" class="hidden-xs">标签: SDF</h1>
+      <p class="text-muted hidden-xs">共 1 篇文章</p>
+      <nav role="navigation" id="nav-main" class="okayNav">
+        <ul>
+          <li><a href="/tags">All</a></li>
+          
+          <li><a href="/tags/blender源码/">blender源码</a></li>
+          
+          <li><a href="/tags/字符串算法/">字符串算法</a></li>
+          
+          <li><a href="/tags/C-C-知识/">C/C++知识</a></li>
+          
+          <li><a href="/tags/《Go语言高级编程》/">《Go语言高级编程》</a></li>
+          
+          <li><a href="/tags/OpenGL入门/">OpenGL入门</a></li>
+          
+          <li><a href="/tags/blender工具/">blender工具</a></li>
+          
+          <li><a href="/tags/洗牌算法/">洗牌算法</a></li>
+          
+          <li><a href="/tags/lua/">lua</a></li>
+          
+          <li><a href="/tags/Mysql/">Mysql</a></li>
+          
+          <li><a href="/tags/抽样算法/">抽样算法</a></li>
+          
+          <li><a href="/tags/问题排查之TCP/">问题排查之TCP</a></li>
+          
+          <li><a href="/tags/TCP/">TCP</a></li>
+          
+          <li><a href="/tags/C-多态/">C++多态</a></li>
+          
+          <li><a href="/tags/《垃圾回收的算法与实现》/">《垃圾回收的算法与实现》</a></li>
+          
+          <li><a href="/tags/Ray-Tracing/">Ray Tracing</a></li>
+          
+          <li><a href="/tags/SDF/">SDF</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <!-- /header -->
+    <div class="article-body">
+      <div class="row">
+        
+<div class="col-md-6">
     
-    <div class="article-header">
-      
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Blender官方源码文档——ID Datablocks
-    </h1>
-  
-
-      
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/05/08/Blender-source-code-study-06/" class="article-date">
-	  <time datetime="2021-05-08T09:50:42.000Z" itemprop="datePublished">2021-05-08</time>
-	</a>
-</span>
-        
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/blender/">blender</a>
-  </span>
-
-        
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/blender%E6%BA%90%E7%A0%81/" rel="tag">blender源码</a>
-  </span>
-
-
-        
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/08/Blender-source-code-study-06/#comments" class="article-comment-link">评论</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <p>最新的官方文档：<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source">目录</a></p>
-<p>本文的原文在<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source/Architecture/ID">这里</a></p>
-<hr>
-<h1 id="ID数据块（ID-Datablocks）"><a href="#ID数据块（ID-Datablocks）" class="headerlink" title="ID数据块（ID Datablocks）"></a>ID数据块（ID Datablocks）</h1><p>对象（objects）、网格（meshes）、材料（materials）、场景（scenes），它们都是ID数据块的例子。它们通常定义在头文件<code>DNA_&#123;some type&#125;_typed.h</code>中。</p>
-<p>ID数据块是以一组公共属性开始的内存块。在C中，它被定义为结构体，并且会嵌入一个ID结构体类型作为第一个字段。如果它有存放动画数据的动画数据结构体，则这个动画数据结构体会是第二个字段。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef struct Mesh &#123;</span><br><span class="line">  ID id;</span><br><span class="line">  struct AnimData *adt;</span><br><span class="line">  …</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>数据块的名称（pointer-&gt;id.name）标识了数据块的类型。举个例子，一个Blender用户界面中显示的网格，它叫“Suzanne”，但在数据块中实际叫“MESuzanne”。可以使用<code>ID *id</code>得到正确的类型。函数<code>GS(id-&gt;name)</code>可以获取名称对应的ID数据类型常量——<code>if (GS(id-&gt;name) == ID_SC) ...</code>，可以用于检测场景中ID数据块。</p>
-<h2 id="ID数据类型的运行时注册（Runtime-Registration-of-ID-Types）"><a href="#ID数据类型的运行时注册（Runtime-Registration-of-ID-Types）" class="headerlink" title="ID数据类型的运行时注册（Runtime Registration of ID Types）"></a>ID数据类型的运行时注册（Runtime Registration of ID Types）</h2><p>2020年以前，ID数据块类型在Blender中是硬编码的。作为“代码清理日” 的一部分，它被转换成运行时的数据结构。本节介绍ID数据块类型新的注册方法。</p>
-<p>运行时类型信息存储在结构体<code>IDTypeInfo</code>中。它包含结构体的元数据，以及一些指向通用函数的指针（创建、拷贝、删除、本地化等等）。下面举个例子，用于实现一个对象：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">IDTypeInfo IDType_ID_OB &#x3D; &#123;</span><br><span class="line">    .id_code &#x3D; ID_OB,</span><br><span class="line">    .id_filter &#x3D; FILTER_ID_OB,</span><br><span class="line">    .main_listbase_index &#x3D; INDEX_ID_OB,</span><br><span class="line">    .struct_size &#x3D; sizeof(Object),</span><br><span class="line">    .name &#x3D; &quot;Object&quot;,</span><br><span class="line">    .name_plural &#x3D; &quot;objects&quot;,</span><br><span class="line">    .translation_context &#x3D; BLT_I18NCONTEXT_ID_OBJECT,</span><br><span class="line">    .flags &#x3D; 0,</span><br><span class="line"></span><br><span class="line">    .init_data &#x3D; object_init_data,</span><br><span class="line">    .copy_data &#x3D; object_copy_data,</span><br><span class="line">    .free_data &#x3D; object_free_data,</span><br><span class="line">    .make_local &#x3D; object_make_local,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="添加一个新的ID数据块类型（Adding-a-new-ID-Type）"><a href="#添加一个新的ID数据块类型（Adding-a-new-ID-Type）" class="headerlink" title="添加一个新的ID数据块类型（Adding a new ID Type）"></a>添加一个新的ID数据块类型（Adding a new ID Type）</h2><p>要添加一个新的<code>IDTypeInfo</code>，你需要：</p>
-<ul>
-<li><p>在相关BKE的实现文件（比如ID_ME的实现文件是mesh.c）中定义<code>IDTypeInfo</code>。</p>
-<ul>
-<li><p>在该文件的开头添加静态回调函数和<code>IDTypeInfo</code>结构体定义。</p>
-</li>
-<li><p>如果你需要额外的帮手，只添加它们的前置声明，然后在它们的定义下方实现它们。这使得每个ID数据块类型实现文件的公共信息和特定API分离。</p>
-</li>
-<li><p>这个新的<code>IDTypeInfo</code>应该根据它的识别码来命名。</p>
-</li>
-</ul>
-</li>
-<li><p>在文件<code>BKE_idtype.h</code>中为这个新的ID数据块类型添加extern声明。</p>
-</li>
-<li><p>在文件<code>idtype.c</code>中调用函数<code>id_type_init()</code>来注册这个新的<code>IDTypeInfo</code>。</p>
-</li>
-</ul>
-<h2 id="处理ID数据块类型的函数（Functions-for-Handling-ID-Types）"><a href="#处理ID数据块类型的函数（Functions-for-Handling-ID-Types）" class="headerlink" title="处理ID数据块类型的函数（Functions for Handling ID Types）"></a>处理ID数据块类型的函数（Functions for Handling ID Types）</h2><p>这里有有各种各样的函数可用于ID数据块。在这里列出来必然会出现过时的情况，所以只需阅读文件<code>BKE_idtype.h</code>即可。</p>
-
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/2021/05/08/Blender-source-code-study-06/" title="Blender官方源码文档——ID Datablocks" target="_blank" rel="external">https://www.chaguake.com/2021/05/08/Blender-source-code-study-06/</a>
-    </li>
-    
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
-
-
-<div class="panel panel-default panel-badger">
+<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
-        <div>是码农啦！不喜格仔衫……</div>
-      </div>
-    </figure>
-  </div>
+     <div class="article-meta">
+       <time datetime="2021-09-07T08:00:39.000Z" itemprop="datePublished">2021-09-07</time>
+     </div>
+     <h3 class="article-title" itemprop="name">
+       <a class="article-link" href="/2021/09/07/RayMarchingAndSDF/">Ray Marching and Signed Distance Functions</a>
+     </h3>
+   </div>
+   
+   <div class="panel-footer">
+     
+      <a href="/tags/SDF/" class="label label-default mb">SDF</a>
+     
+     
+   </div>
+   
+</article>
+
+
 </div>
 
-
+      </div>
     </div>
   </article>
-  
-    
-  <section id="comments">
-  	
-      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
-        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-      </div>    
-    
-  </section>
-
-
-  
-</div>
-
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-  
-  <ul class="pager pull-left">
-    
-    <li class="prev">
-      <a href="/2021/05/10/Blender-source-code-study-07/" title="Blender官方源码文档——RNA"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
-    
-    <li class="next">
-      <a href="/2021/05/08/Blender-source-code-study-05/" title="Blender官方源码文档——Dependency Graph"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
-  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
-    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
-  </div> -->
-  
-  
-  <div class="bar-right">
-    
-    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
-    
-  </div>
-  </div>
-</nav>
-  
-<!-- Modal -->
-<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content donate">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <div class="modal-body">
-        <div class="donate-box">
-          <div class="donate-head">
-            <p>感谢您的支持，我会继续努力的!</p>
-          </div>
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
-              <div class="donate-payimg">
-                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
-              </div>
-              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
-              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
-              <div class="donate-payimg">
-                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
-              </div>
-              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
-              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
-            </div>
-          </div>
-          <div class="donate-footer">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
-              <li role="presentation" class="active">
-                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
-              </li>
-              <li role="presentation" class="">
-                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
+   
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -599,30 +465,6 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
-
-
-   
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
-   
-    
-<script defer type="text/javascript">
-  (function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-
-    if (typeof LivereTower === 'function') { return; }
-
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-
-    e.parentNode.insertBefore(j, e);
-  })(document, 'script');
-</script>
 
 
 

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.chaguake.com/2021/09/07/RayMarchingAndSDF/</loc>
+    <lastmod>2021-09-07</lastmod>
+  </url>
+  <url>
     <loc>https://www.chaguake.com/2021/09/03/smallpt-classic-ray-tracing-for-c-plus/</loc>
-    <lastmod>2021-09-03</lastmod>
+    <lastmod>2021-09-07</lastmod>
   </url>
   <url>
     <loc>https://www.chaguake.com/2021/05/20/OpenGL-introduction-09/</loc>

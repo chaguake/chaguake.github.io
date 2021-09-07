@@ -17,21 +17,25 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Blender官方源码文档——ID Datablocks | 茶瓜客</title>
-  <meta name="description" content="最新的官方文档：目录 本文的原文在这里  ID数据块（ID Datablocks）对象（objects）、网格（meshes）、材料（materials）、场景（scenes），它们都是ID数据块的例子。它们通常定义在头文件DNA_&amp;#123;some type&amp;#125;_typed.h中。 ID数据块是以一组公共属性开始的内存块。在C中，它被定义为结构体，并且会嵌入一个ID结构体类型作为第一个">
+  <title>Ray Marching and Signed Distance Functions | 茶瓜客</title>
+  <meta name="description" content="原文  Signed Distance FunctionsSDF，符号距离函数，用于计算点和平面的位置关系，根据返回值的符号，来判断点是在平面内部还是外部。 （原文这里使用了一个圆心在原点、半径为1的球体做示例。） 对一些常见的3D物体的SDF函数，参见Modeling with Distance Functions。 The Raymarching Algorithm与光线跟踪一样，我们为相机选">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Blender官方源码文档——ID Datablocks">
-<meta property="og:url" content="https://www.chaguake.com/2021/05/08/Blender-source-code-study-06/index.html">
+<meta property="og:title" content="Ray Marching and Signed Distance Functions">
+<meta property="og:url" content="https://www.chaguake.com/2021/09/07/RayMarchingAndSDF/index.html">
 <meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="最新的官方文档：目录 本文的原文在这里  ID数据块（ID Datablocks）对象（objects）、网格（meshes）、材料（materials）、场景（scenes），它们都是ID数据块的例子。它们通常定义在头文件DNA_&amp;#123;some type&amp;#125;_typed.h中。 ID数据块是以一组公共属性开始的内存块。在C中，它被定义为结构体，并且会嵌入一个ID结构体类型作为第一个">
+<meta property="og:description" content="原文  Signed Distance FunctionsSDF，符号距离函数，用于计算点和平面的位置关系，根据返回值的符号，来判断点是在平面内部还是外部。 （原文这里使用了一个圆心在原点、半径为1的球体做示例。） 对一些常见的3D物体的SDF函数，参见Modeling with Distance Functions。 The Raymarching Algorithm与光线跟踪一样，我们为相机选">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-08T09:50:42.000Z">
-<meta property="article:modified_time" content="2021-05-10T02:21:58.106Z">
+<meta property="og:image" content="http://jamie-wong.com/images/16-07-11/raytrace.png">
+<meta property="og:image" content="http://jamie-wong.com/images/16-07-11/spheretrace.jpg">
+<meta property="og:image" content="http://jamie-wong.com/images/16-07-11/csg.png">
+<meta property="article:published_time" content="2021-09-07T08:00:39.000Z">
+<meta property="article:modified_time" content="2021-09-07T08:09:13.822Z">
 <meta property="article:author" content="茶瓜客">
-<meta property="article:tag" content="blender源码">
+<meta property="article:tag" content="SDF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://jamie-wong.com/images/16-07-11/raytrace.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/2021/05/08/Blender-source-code-study-06/index.html">
+  <link rel="canonical" href="https://www.chaguake.com/2021/09/07/RayMarchingAndSDF/index.html">
   
     <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
   
@@ -342,14 +346,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-Blender-source-code-study-06" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-RayMarchingAndSDF" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Blender官方源码文档——ID Datablocks
+      Ray Marching and Signed Distance Functions
     </h1>
   
 
@@ -357,20 +361,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/05/08/Blender-source-code-study-06/" class="article-date">
-	  <time datetime="2021-05-08T09:50:42.000Z" itemprop="datePublished">2021-05-08</time>
+	<a href="/2021/09/07/RayMarchingAndSDF/" class="article-date">
+	  <time datetime="2021-09-07T08:00:39.000Z" itemprop="datePublished">2021-09-07</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/blender/">blender</a>
+    <a class="article-category-link" href="/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/blender%E6%BA%90%E7%A0%81/" rel="tag">blender源码</a>
+	<a class="article-tag-link-link" href="/tags/SDF/" rel="tag">SDF</a>
   </span>
 
 
@@ -383,40 +387,82 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/08/Blender-source-code-study-06/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/09/07/RayMarchingAndSDF/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>最新的官方文档：<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source">目录</a></p>
-<p>本文的原文在<a target="_blank" rel="noopener" href="https://wiki.blender.org/wiki/Source/Architecture/ID">这里</a></p>
+        <p><a target="_blank" rel="noopener" href="http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/">原文</a></p>
 <hr>
-<h1 id="ID数据块（ID-Datablocks）"><a href="#ID数据块（ID-Datablocks）" class="headerlink" title="ID数据块（ID Datablocks）"></a>ID数据块（ID Datablocks）</h1><p>对象（objects）、网格（meshes）、材料（materials）、场景（scenes），它们都是ID数据块的例子。它们通常定义在头文件<code>DNA_&#123;some type&#125;_typed.h</code>中。</p>
-<p>ID数据块是以一组公共属性开始的内存块。在C中，它被定义为结构体，并且会嵌入一个ID结构体类型作为第一个字段。如果它有存放动画数据的动画数据结构体，则这个动画数据结构体会是第二个字段。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef struct Mesh &#123;</span><br><span class="line">  ID id;</span><br><span class="line">  struct AnimData *adt;</span><br><span class="line">  …</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>数据块的名称（pointer-&gt;id.name）标识了数据块的类型。举个例子，一个Blender用户界面中显示的网格，它叫“Suzanne”，但在数据块中实际叫“MESuzanne”。可以使用<code>ID *id</code>得到正确的类型。函数<code>GS(id-&gt;name)</code>可以获取名称对应的ID数据类型常量——<code>if (GS(id-&gt;name) == ID_SC) ...</code>，可以用于检测场景中ID数据块。</p>
-<h2 id="ID数据类型的运行时注册（Runtime-Registration-of-ID-Types）"><a href="#ID数据类型的运行时注册（Runtime-Registration-of-ID-Types）" class="headerlink" title="ID数据类型的运行时注册（Runtime Registration of ID Types）"></a>ID数据类型的运行时注册（Runtime Registration of ID Types）</h2><p>2020年以前，ID数据块类型在Blender中是硬编码的。作为“代码清理日” 的一部分，它被转换成运行时的数据结构。本节介绍ID数据块类型新的注册方法。</p>
-<p>运行时类型信息存储在结构体<code>IDTypeInfo</code>中。它包含结构体的元数据，以及一些指向通用函数的指针（创建、拷贝、删除、本地化等等）。下面举个例子，用于实现一个对象：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">IDTypeInfo IDType_ID_OB &#x3D; &#123;</span><br><span class="line">    .id_code &#x3D; ID_OB,</span><br><span class="line">    .id_filter &#x3D; FILTER_ID_OB,</span><br><span class="line">    .main_listbase_index &#x3D; INDEX_ID_OB,</span><br><span class="line">    .struct_size &#x3D; sizeof(Object),</span><br><span class="line">    .name &#x3D; &quot;Object&quot;,</span><br><span class="line">    .name_plural &#x3D; &quot;objects&quot;,</span><br><span class="line">    .translation_context &#x3D; BLT_I18NCONTEXT_ID_OBJECT,</span><br><span class="line">    .flags &#x3D; 0,</span><br><span class="line"></span><br><span class="line">    .init_data &#x3D; object_init_data,</span><br><span class="line">    .copy_data &#x3D; object_copy_data,</span><br><span class="line">    .free_data &#x3D; object_free_data,</span><br><span class="line">    .make_local &#x3D; object_make_local,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="添加一个新的ID数据块类型（Adding-a-new-ID-Type）"><a href="#添加一个新的ID数据块类型（Adding-a-new-ID-Type）" class="headerlink" title="添加一个新的ID数据块类型（Adding a new ID Type）"></a>添加一个新的ID数据块类型（Adding a new ID Type）</h2><p>要添加一个新的<code>IDTypeInfo</code>，你需要：</p>
-<ul>
-<li><p>在相关BKE的实现文件（比如ID_ME的实现文件是mesh.c）中定义<code>IDTypeInfo</code>。</p>
-<ul>
-<li><p>在该文件的开头添加静态回调函数和<code>IDTypeInfo</code>结构体定义。</p>
-</li>
-<li><p>如果你需要额外的帮手，只添加它们的前置声明，然后在它们的定义下方实现它们。这使得每个ID数据块类型实现文件的公共信息和特定API分离。</p>
-</li>
-<li><p>这个新的<code>IDTypeInfo</code>应该根据它的识别码来命名。</p>
-</li>
-</ul>
-</li>
-<li><p>在文件<code>BKE_idtype.h</code>中为这个新的ID数据块类型添加extern声明。</p>
-</li>
-<li><p>在文件<code>idtype.c</code>中调用函数<code>id_type_init()</code>来注册这个新的<code>IDTypeInfo</code>。</p>
-</li>
-</ul>
-<h2 id="处理ID数据块类型的函数（Functions-for-Handling-ID-Types）"><a href="#处理ID数据块类型的函数（Functions-for-Handling-ID-Types）" class="headerlink" title="处理ID数据块类型的函数（Functions for Handling ID Types）"></a>处理ID数据块类型的函数（Functions for Handling ID Types）</h2><p>这里有有各种各样的函数可用于ID数据块。在这里列出来必然会出现过时的情况，所以只需阅读文件<code>BKE_idtype.h</code>即可。</p>
+<h2 id="Signed-Distance-Functions"><a href="#Signed-Distance-Functions" class="headerlink" title="Signed Distance Functions"></a>Signed Distance Functions</h2><p>SDF，符号距离函数，用于计算点和平面的位置关系，根据返回值的符号，来判断点是在平面内部还是外部。</p>
+<p>（原文这里使用了一个圆心在原点、半径为1的球体做示例。）</p>
+<p>对一些常见的3D物体的SDF函数，参见<a target="_blank" rel="noopener" href="https://iquilezles.org/www/articles/distfunctions/distfunctions.htm">Modeling with Distance Functions</a>。</p>
+<h2 id="The-Raymarching-Algorithm"><a href="#The-Raymarching-Algorithm" class="headerlink" title="The Raymarching Algorithm"></a>The Raymarching Algorithm</h2><p>与光线跟踪一样，我们为相机选择一个位置，在其前面放置一个网格，通过网格中的每个点从相机发送光线，每个网格点对应于输出图像中的一个像素。</p>
+<p align="center">
+    <img src="http://jamie-wong.com/images/16-07-11/raytrace.png" width="95%">
+    <br />    <small> From "Ray tracing" on Wikipedia </small>
+</p>
+
+<p>在光线跟踪中，整个场景是根据有符号距离函数定义的。使用SDF可以快速而安全地让光线前进最大步伐（maximum step），直至物体表面（surface）。</p>
+<p>如图，$p_0$ 是摄像机。蓝色线段是从摄像机穿过视图平面的光线。</p>
+<p align="center">
+    <img src="http://jamie-wong.com/images/16-07-11/spheretrace.jpg" width="95%">
+    <br />    <small> From [GPU Gems 2: Chapter 8.](https://developer.nvidia.com/gpugems/gpugems2/part-i-geometric-complexity/chapter-8-pixel-displacement-mapping-distance-functions) </small>
+</p>
+
+<p>在GLSL的伪代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">float depth &#x3D; start;</span><br><span class="line">for (int i &#x3D; 0; i &lt; MAX_MARCHING_STEPS; i++) &#123;</span><br><span class="line">    float dist &#x3D; sceneSDF(eye + depth * viewRayDirection);</span><br><span class="line">    if (dist &lt; EPSILON) &#123;</span><br><span class="line">        &#x2F;&#x2F; We&#39;re inside the scene surface!</span><br><span class="line">        return depth;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; Move along the view ray</span><br><span class="line">    depth +&#x3D; dist;</span><br><span class="line"></span><br><span class="line">    if (depth &gt;&#x3D; end) &#123;</span><br><span class="line">        &#x2F;&#x2F; Gone too far; give up</span><br><span class="line">        return end;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">return end;</span><br></pre></td></tr></table></figure>
+<p>其实就是每次前进当前光点与球表面的距离，知道值小于0.001。</p>
+<p>shadertoy：<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/llt3R4">Ray Marching: Part 1</a>。</p>
+<h2 id="Surface-Normals-and-Lighting"><a href="#Surface-Normals-and-Lighting" class="headerlink" title="Surface Normals and Lighting"></a>Surface Normals and Lighting</h2><p>计算机图形学中的大多数照明模型都使用曲面法线的一些概念来计算曲面上给定点处材质的颜色。当曲面由显式几何体（如多边形）定义时，通常会为每个顶点指定法线，并且可以通过插值周围顶点法线找到面上任何给定点的法线。</p>
+<p>在使用SDF时，用梯度（gradient）来定义曲面法线。在点 $(x,y,z)$ 上的梯度函数 $f$ ，表示的是沿着某个方向，使得移动点 $(x,y,z)$ 变化最快的值。</p>
+<p>$f(x,y,z)$ 的梯度写作 $\nabla f$ 。</p>
+<script type="math/tex; mode=display">
+\nabla f =
+\left(
+\frac{\partial f}{\partial x},\frac{\partial f}{\partial y},\frac{\partial f}{\partial z}
+\right)</script><p>但是没有必要在这里进行微积分运算。我们将通过采样曲面上点周围的点来进行近似，而不是取函数的实导数，这很像在学习如何进行导数之前，如何计算函数中的斜率。</p>
+<script type="math/tex; mode=display">
+\overset{\to}{n}  = \begin{bmatrix}
+f(x + \varepsilon,y,z) - f(x - \varepsilon,y,z) \\
+f(x ,y+ \varepsilon,z) - f(x,y - \varepsilon,z) \\
+f(x ,y,z+ \varepsilon) - f(x ,y,z- \varepsilon) 
+\end{bmatrix}</script><p>GLSL的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Using the gradient of the SDF, estimate the normal on the surface at point p.</span><br><span class="line"> *&#x2F;</span><br><span class="line">vec3 estimateNormal(vec3 p) &#123;</span><br><span class="line">    return normalize(vec3(</span><br><span class="line">        sceneSDF(vec3(p.x + EPSILON, p.y, p.z)) - sceneSDF(vec3(p.x - EPSILON, p.y, p.z)),</span><br><span class="line">        sceneSDF(vec3(p.x, p.y + EPSILON, p.z)) - sceneSDF(vec3(p.x, p.y - EPSILON, p.z)),</span><br><span class="line">        sceneSDF(vec3(p.x, p.y, p.z  + EPSILON)) - sceneSDF(vec3(p.x, p.y, p.z - EPSILON))</span><br><span class="line">    ));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>shadertoy：<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/lt33z7">Ray Marching: Part 2</a>。</p>
+<h2 id="Moving-the-Camera"><a href="#Moving-the-Camera" class="headerlink" title="Moving the Camera"></a>Moving the Camera</h2><p>在GLSL中，实现类似gluLookAt函数的功能，提供一个变换矩阵。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Return a transformation matrix that will transform a ray from view space</span><br><span class="line"> * to world coordinates, given the eye point, the camera target, and an up vector.</span><br><span class="line"> *</span><br><span class="line"> * This assumes that the center of the camera is aligned with the negative z axis in</span><br><span class="line"> * view space when calculating the ray marching direction.</span><br><span class="line"> *&#x2F;</span><br><span class="line">mat4 viewMatrix(vec3 eye, vec3 center, vec3 up) &#123;</span><br><span class="line">	vec3 f &#x3D; normalize(center - eye);</span><br><span class="line">	vec3 s &#x3D; normalize(cross(f, up));</span><br><span class="line">	vec3 u &#x3D; cross(s, f);</span><br><span class="line">	return mat4(</span><br><span class="line">		vec4(s, 0.0),</span><br><span class="line">		vec4(u, 0.0),</span><br><span class="line">		vec4(-f, 0.0),</span><br><span class="line">		vec4(0.0, 0.0, 0.0, 1)</span><br><span class="line">	);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>shadertoy：<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/Xtd3z7">Ray Marching: Part 3</a>。</p>
+<h2 id="Constructive-Solid-Geometry"><a href="#Constructive-Solid-Geometry" class="headerlink" title="Constructive Solid Geometry"></a>Constructive Solid Geometry</h2><p>CSG，构建实体几何，使用简单几何体通过集合运算得到的复杂几何体。集合运算有交集（intersection）、并集（union）以及差集（difference）。</p>
+<p align="center">
+    <img src="http://jamie-wong.com/images/16-07-11/csg.png" width="95%">
+    <br />    <small> From "Constructive solid geometry" on Wikipedia </small>
+</p>
+
+<p>当组合表示为SDF的两个曲面时，这些操作都可以简洁地表达。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">float intersectSDF(float distA, float distB) &#123;</span><br><span class="line">    return max(distA, distB);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">float unionSDF(float distA, float distB) &#123;</span><br><span class="line">    return min(distA, distB);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">float differenceSDF(float distA, float distB) &#123;</span><br><span class="line">    return max(distA, -distB);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>几何体组合函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">float sceneSDF(vec3 samplePoint) &#123;</span><br><span class="line">    float sphereDist &#x3D; sphereSDF(samplePoint &#x2F; 1.2) * 1.2;</span><br><span class="line">    float cubeDist &#x3D; cubeSDF(samplePoint) * 1.2;</span><br><span class="line">    return intersectSDF(cubeDist, sphereDist);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>shadertoy：<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/MttGz7">Ray Marching: Part 4</a>。</p>
+<h2 id="Model-Transformations"><a href="#Model-Transformations" class="headerlink" title="Model Transformations"></a>Model Transformations</h2><p><strong>Rotation and Translation</strong></p>
+<p>对一个SDF表面进行平移或变换，可以在计算SDF之前对这个点进行逆变换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">float sceneSDF(vec3 samplePoint) &#123;</span><br><span class="line">    float sphereDist &#x3D; sphereSDF(samplePoint &#x2F; 1.2) * 1.2;</span><br><span class="line">    float cubeDist &#x3D; cubeSDF(samplePoint + vec3(0.0, sin(iGlobalTime), 0.0));</span><br><span class="line">    return intersectSDF(cubeDist, sphereDist);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>shadertoy：<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/XtcGWn">Ray Marching: Part 5</a>。</p>
+<p>进一步来说，添加一个旋转矩阵：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mat4 rotateY(float theta) &#123;</span><br><span class="line">    float c &#x3D; cos(theta);</span><br><span class="line">    float s &#x3D; sin(theta);</span><br><span class="line"></span><br><span class="line">    return mat4(</span><br><span class="line">        vec4(c, 0, s, 0),</span><br><span class="line">        vec4(0, 1, 0, 0),</span><br><span class="line">        vec4(-s, 0, c, 0),</span><br><span class="line">        vec4(0, 0, 0, 1)</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">float sceneSDF(vec3 samplePoint) &#123;</span><br><span class="line">    float sphereDist &#x3D; sphereSDF(samplePoint &#x2F; 1.2) * 1.2;</span><br><span class="line"></span><br><span class="line">    vec3 cubePoint &#x3D; (invert(rotateY(iGlobalTime)) * vec4(samplePoint, 1.0)).xyz;</span><br><span class="line"></span><br><span class="line">    float cubeDist &#x3D; cubeSDF(cubePoint);</span><br><span class="line">    return intersectSDF(cubeDist, sphereDist);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>应用到sceneSDF函数就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">float sceneSDF(vec3 samplePoint) &#123;</span><br><span class="line">    float sphereDist &#x3D; sphereSDF(samplePoint &#x2F; 1.2) * 1.2;</span><br><span class="line"></span><br><span class="line">    vec3 cubePoint &#x3D; (rotateY(-iGlobalTime) * vec4(samplePoint, 1.0)).xyz;</span><br><span class="line"></span><br><span class="line">    float cubeDist &#x3D; cubeSDF(cubePoint);</span><br><span class="line">    return intersectSDF(cubeDist, sphereDist);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Uniform Scaling</strong></p>
+<p>缩放会改变两点之间的距离，引起距离场失真。</p>
+<p>所以在缩放之后的点，经过SDF判断之后，需要对结果进行校准。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float dist &#x3D; someSDF(samplePoint &#x2F; scalingFactor) * scalingFactor;</span><br></pre></td></tr></table></figure>
+<p><strong>Non-uniform scaling and beyond</strong></p>
+<p>首先计算下不均匀变换时导致的失真值：</p>
+<script type="math/tex; mode=display">
+sphereSDF(x,y,z) = \sqrt{(2x)^2 + y ^2 +z^2} - 1</script><p>经过变换之后，可以乘以他们之间最小值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float dist &#x3D; someSDF(samplePoint &#x2F; vec3(s_x, s_y, s_z)) * min(s_x, min(s_y, s_z));</span><br></pre></td></tr></table></figure>
+<p>shadertoy：<a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/4tcGDr">Ray Marching: Part 6</a>。</p>
 
       
     </div>
@@ -426,7 +472,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/2021/05/08/Blender-source-code-study-06/" title="Blender官方源码文档——ID Datablocks" target="_blank" rel="external">https://www.chaguake.com/2021/05/08/Blender-source-code-study-06/</a>
+      <a href="https://www.chaguake.com/2021/09/07/RayMarchingAndSDF/" title="Ray Marching and Signed Distance Functions" target="_blank" rel="external">https://www.chaguake.com/2021/09/07/RayMarchingAndSDF/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -474,13 +520,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2021/05/10/Blender-source-code-study-07/" title="Blender官方源码文档——RNA"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2021/05/08/Blender-source-code-study-05/" title="Blender官方源码文档——Dependency Graph"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/09/03/smallpt-classic-ray-tracing-for-c-plus/" title="smallpt：经典光线追踪实现（C++）"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
