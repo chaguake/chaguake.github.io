@@ -6,7 +6,7 @@
   <link href="https://www.chaguake.com/atom.xml" rel="self"/>
   
   <link href="https://www.chaguake.com/"/>
-  <updated>2021-09-07T08:09:13.822Z</updated>
+  <updated>2021-09-08T05:45:35.859Z</updated>
   <id>https://www.chaguake.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LearnRayTracing01——并行处理像素点计算</title>
+    <link href="https://www.chaguake.com/2021/09/08/LearnRayTracing01/"/>
+    <id>https://www.chaguake.com/2021/09/08/LearnRayTracing01/</id>
+    <published>2021-09-08T05:42:48.000Z</published>
+    <updated>2021-09-08T05:45:35.859Z</updated>
+    
+    <content type="html"><![CDATA[<p align="center">    <img src="https://z3.ax1x.com/2021/09/08/h7mUOO.png" width="95%">    <br />    <small> LearnRayTracing01 </small></p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在学习 <a href="https://github.com/RayTracing/raytracing.github.io">Ray Tracing in One Weekend Book Series</a> 中第一章 <a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html">Ray Tracing in One Weekend</a> 的时候，感觉在原代码中输出结果上并不能实时预览，而且也没有多线程并发渲染。</p><p>结合之前学习 <a href="https://learnopengl-cn.github.io/">LearnOpenGL</a> 的教程，可以将原来的颜色数据当作纹理渲染到窗口上。参考代码在<a href="https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/2.2.hello_triangle_indexed/hello_triangle_indexed.cpp">这里</a>。</p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先，在 <a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html">Ray Tracing in One Weekend</a> 中可以看到，像素是从上往下、从左到右来处理的。所以在 <code>while (!glfwWindowShouldClose(window))</code> 这个渲染循环中，需要实时更新texture的数据。那么，使用到 <code>glTexSubImage2D</code> 这个API。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glBindTexture(GL_TEXTURE_2D, texture);</span><br><span class="line">glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, SCR_WIDTH, SCR_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, data);</span><br></pre></td></tr></table></figure><p>现在，就只用关心 <code>data</code> 变量的值计算填充了。</p><p>原来渲染代码片段如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for (int j &#x3D; image_height-1; j &gt;&#x3D; 0; --j) &#123;</span><br><span class="line">std::cerr &lt;&lt; &quot;\rScanlines remaining: &quot; &lt;&lt; j &lt;&lt; &#39; &#39; &lt;&lt; std::flush;</span><br><span class="line">for (int i &#x3D; 0; i &lt; image_width; ++i) &#123;</span><br><span class="line">color pixel_color(0,0,0);</span><br><span class="line">for (int s &#x3D; 0; s &lt; samples_per_pixel; ++s) &#123;</span><br><span class="line">auto u &#x3D; (i + random_double()) &#x2F; (image_width-1);</span><br><span class="line">auto v &#x3D; (j + random_double()) &#x2F; (image_height-1);</span><br><span class="line">ray r &#x3D; cam.get_ray(u, v);</span><br><span class="line">pixel_color +&#x3D; ray_color(r, world, max_depth);</span><br><span class="line">&#125;</span><br><span class="line">write_color(std::cout, pixel_color, samples_per_pixel);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>现在，从原来 <code>write_color</code> 中将数据输出到 <code>std::cout</code> 变成输出到 <code>data</code> 变量。代码片段如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for (int j &#x3D; SCR_HEIGHT - 1; j &gt;&#x3D; 0; --j) &#123;</span><br><span class="line">std::cerr &lt;&lt; &quot;\rScanlines remaining: &quot; &lt;&lt; j &lt;&lt; &#39; &#39; &lt;&lt; std::flush;</span><br><span class="line">std::vector&lt;std::shared_ptr&lt;std::future&lt;void&gt;&gt;&gt; list;</span><br><span class="line">for (int i &#x3D; 0; i &lt; SCR_WIDTH; ++i) &#123;</span><br><span class="line">std::shared_ptr&lt;std::future&lt;void&gt;&gt; ptr &#x3D; std::make_shared&lt;std::future&lt;void&gt;&gt;(std::async(render_color, world, cam, samples_per_pixel, max_depth, i, j));</span><br><span class="line">list.push_back(ptr);</span><br><span class="line">&#x2F;&#x2F;render_color(world, cam, samples_per_pixel, max_depth, i, j);</span><br><span class="line">&#125;</span><br><span class="line">deal_future(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>将对每个像素的操作封装到 <code>render_color</code> 函数中。然后使用C++关键字 <code>std::future</code> 来封存每个像素处理得状态，将一行像素的操作先推进容器 <code>std::vector</code> 中，然后再一起处理（其实就是 <code>std::future::wait</code> 函数的调用）。</p><p>当然，在对每个future对象遍历调用 <code>wait</code> 函数时，还可以使用 <a href="https://www.cnblogs.com/lfri/p/10111315.html">OpenMP</a> 的特性。使得每个for子循环并行处理。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void deal_future(std::vector&lt;std::shared_ptr&lt;std::future&lt;void&gt;&gt;&gt; &amp;list)</span><br><span class="line">&#123;</span><br><span class="line">#pragma omp parallel for schedule(dynamic, 1)</span><br><span class="line">for (int i &#x3D; 0; i &lt; list.size(); i++)&#123;</span><br><span class="line">list[i]-&gt;wait();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最终，渲染一张1600x900的照片只需392s（GTX 1050），而原来需要2075s。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p align=&quot;center&quot;&gt;
+    &lt;img src=&quot;https://z3.ax1x.com/2021/09/08/h7mUOO.png&quot; width=&quot;95%&quot;&gt;
+    &lt;br /&gt;    &lt;small&gt; LearnRayTracing01 &lt;/small&gt;
+&lt;/</summary>
+      
+    
+    
+    
+    <category term="图形学" scheme="https://www.chaguake.com/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/"/>
+    
+    
+    <category term="Ray Tracing" scheme="https://www.chaguake.com/tags/Ray-Tracing/"/>
+    
+  </entry>
   
   <entry>
     <title>Ray Marching and Signed Distance Functions</title>
@@ -481,30 +508,6 @@
     
     
     <category term="《Go语言高级编程》" scheme="https://www.chaguake.com/tags/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mysql常用SQL命令集合</title>
-    <link href="https://www.chaguake.com/2021/04/15/mysql-common-command/"/>
-    <id>https://www.chaguake.com/2021/04/15/mysql-common-command/</id>
-    <published>2021-04-15T03:27:46.000Z</published>
-    <updated>2021-04-15T06:22:49.391Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="show-engines命令"><a href="#show-engines命令" class="headerlink" title="show engines命令"></a>show engines命令</h3><p>用于查看当前Mysql使用的数据库存储引擎。</p><p><img src="./show_engines.jpg" alt="show_engines命令结果"></p><h3 id="show-variables命令"><a href="#show-variables命令" class="headerlink" title="show variables命令"></a>show variables命令</h3><p>用于查看当前Mysql的配置情况。</p><p><img src="./show_variables.jpg" alt="show_variables命令输出"></p><h3 id="show-status-like-‘Table-’命令"><a href="#show-status-like-‘Table-’命令" class="headerlink" title="show status like ‘Table%’命令"></a>show status like ‘Table%’命令</h3><p>用于查看当前表使用状态，有两个关键的字段：<code>Table_locks_immediate</code>为表立即释放锁的次数，<code>Table_locks_waited</code>为表等待释放锁的次数。</p><p><img src="./show_status.jpg" alt="show status命令输出"></p><h3 id="show-status-like-‘innodb-row-lock-’命令"><a href="#show-status-like-‘innodb-row-lock-’命令" class="headerlink" title="show status like ‘innodb_row_lock%’命令"></a>show status like ‘innodb_row_lock%’命令</h3><p>用于查看行锁争夺情况。</p><p><img src="./show_status1.jpg" alt="show status命令输出"></p><h3 id="lock-table-unlock-table命令"><a href="#lock-table-unlock-table命令" class="headerlink" title="lock table/unlock table命令"></a>lock table/unlock table命令</h3><p>MyISAM数据库引擎加锁（解锁）操作。</p><h3 id="InnoDB-Monitors"><a href="#InnoDB-Monitors" class="headerlink" title="InnoDB Monitors"></a>InnoDB Monitors</h3><p>可创建InnoDB Monitors来观察发生锁冲突的表、数据行等信息。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE innodb_monitor(a INT) ENGINE&#x3D;INNODB;</span><br><span class="line">Show innodb status \G;</span><br><span class="line">DROP TABLE innodb_monitor;</span><br></pre></td></tr></table></figure><h3 id="SELECT-…-LOCK-IN-SHARE-MODE命令"><a href="#SELECT-…-LOCK-IN-SHARE-MODE命令" class="headerlink" title="SELECT … LOCK IN SHARE MODE命令"></a>SELECT … LOCK IN SHARE MODE命令</h3><p>用SELECT … IN SHARE MODE获得共享锁，主要用在需要数据依存关系时来确认某行记录是否存在，并确保没有人对这个记录进行UPDATE或者DELETE操作。</p><p>但是如果当前事务也需要对该记录进行更新操作，则很有可能造成死锁。</p><h3 id="SELECT-…-FOR-UPDATE命令"><a href="#SELECT-…-FOR-UPDATE命令" class="headerlink" title="SELECT … FOR UPDATE命令"></a>SELECT … FOR UPDATE命令</h3><p>对于锁定行记录后需要进行更新操作的应用，应该使用SELECT… FOR UPDATE方式获得排他锁。</p><p>其他session可以查询，但是不能加共享锁。</p><h3 id="InnoDB的行锁与表锁"><a href="#InnoDB的行锁与表锁" class="headerlink" title="InnoDB的行锁与表锁"></a>InnoDB的行锁与表锁</h3><p>当使用索引来检索数据时，就会使用到行级锁，否则，将会使用表级锁。</p><p>比如，SELECT …WHERE … FOR UPDATE语句，如果where后面使用的是索引，那么这条语句就是行锁，否则是表锁。</p><p>而且，假如另一个session的SELECT …WHERE … FOR UPDATE语句通过另一个索引找到对应行，那还是会等待锁。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;show-engines命令&quot;&gt;&lt;a href=&quot;#show-engines命令&quot; class=&quot;headerlink&quot; title=&quot;show engines命令&quot;&gt;&lt;/a&gt;show engines命令&lt;/h3&gt;&lt;p&gt;用于查看当前Mysql使用的数据库存储引擎。</summary>
-      
-    
-    
-    
-    <category term="数据库" scheme="https://www.chaguake.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="Mysql" scheme="https://www.chaguake.com/tags/Mysql/"/>
     
   </entry>
   
