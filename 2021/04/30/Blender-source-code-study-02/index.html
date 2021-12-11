@@ -1,395 +1,84 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>Blender源码学习（二）——一些重要的结构体 | 茶瓜客</title>
-  <meta name="description" content="bContext结构体定义 1234567891011121314151617181920212223242526272829303132333435363738394041424344&#x2F;&#x2F;context.cstruct bContext &amp;#123;  int thread;  &#x2F;* windowmanager context *&#x2F;  struct &amp;#1">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Blender源码学习（二）——一些重要的结构体">
-<meta property="og:url" content="https://www.chaguake.com/2021/04/30/Blender-source-code-study-02/index.html">
-<meta property="og:site_name" content="茶瓜客">
-<meta property="og:description" content="bContext结构体定义 1234567891011121314151617181920212223242526272829303132333435363738394041424344&#x2F;&#x2F;context.cstruct bContext &amp;#123;  int thread;  &#x2F;* windowmanager context *&#x2F;  struct &amp;#1">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-30T02:35:03.000Z">
-<meta property="article:modified_time" content="2021-05-07T08:28:12.872Z">
-<meta property="article:author" content="茶瓜客">
-<meta property="article:tag" content="blender源码">
-<meta name="twitter:card" content="summary">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://www.chaguake.com/2021/04/30/Blender-source-code-study-02/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon1.svg" type="image/x-icon">
-  
-  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="解衣又作茶瓜客，倚槛同看烟雨峰">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="茶瓜客">
+    
+
+    <!-- Title -->
+    
+    <title>Blender源码学习（二）——一些重要的结构体 | 茶瓜客</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    
 <link rel="stylesheet" href="/css/style.css">
 
-  
-  
-  
-    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
-  
-  
-<meta name="generator" content="Hexo 5.4.0"></head>
 
+    <!-- Custom Fonts -->
+    <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
-  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-  <div class="slimContent">
-    <div class="navbar-header">
-      
-      
-      <div class="profile-block text-center">
-        <a id="avatar" href="https://github.com/chaguake" target="_blank">
-          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
-        </a>
-        <h2 id="name" class="hidden-xs hidden-sm">茶瓜客</h2>
-        <h3 id="title" class="hidden-xs hidden-sm hidden-md">码农 | 打工人</h3>
-        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> GuangZhou, China</small>
-      </div>
-      
-      <div class="search" id="search-form-wrap">
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
-            </span>
-        </div>
-    </form>
-    <div class="ins-search">
-  <div class="ins-search-mask"></div>
-  <div class="ins-search-container">
-    <div class="ins-input-wrapper">
-      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
-      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-    </div>
-    <div class="ins-section-wrapper">
-      <div class="ins-section-container"></div>
-    </div>
-  </div>
-</div>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="茶瓜客" type="application/atom+xml">
+</head>
 
+<body>
 
-</div>
-      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav menu-highlight">
-        
-        
-        <li class="menu-item menu-item-home">
-          <a href="/.">
-            
-            <i class="icon icon-home-fill"></i>
-            
-            <span class="menu-title">首页</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives">
-            
-            <i class="icon icon-archives-fill"></i>
-            
-            <span class="menu-title">归档</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories">
-            
-            <i class="icon icon-folder"></i>
-            
-            <span class="menu-title">分类</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags">
-            
-            <i class="icon icon-tags"></i>
-            
-            <span class="menu-title">标签</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-repository">
-          <a href="/repository">
-            
-            <i class="icon icon-project"></i>
-            
-            <span class="menu-title">项目</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-books">
-          <a href="/books">
-            
-            <i class="icon icon-book-fill"></i>
-            
-            <span class="menu-title">书单</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-links">
-          <a href="/links">
-            
-            <i class="icon icon-friendship"></i>
-            
-            <span class="menu-title">友链</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about">
-            
-            <i class="icon icon-cup-fill"></i>
-            
-            <span class="menu-title">关于</span>
-          </a>
-        </li>
-        
-      </ul>
-      
-	
-    <ul class="social-links">
-    	
-        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
+    <!-- Content -->
+    <section class="article-container">
+    <!-- Back Home -->
+    <a class="nav-back" href="/">
+    <i class="fa fa-puzzle-piece"></i>
+</a>
 
-    </nav>
-  </div>
-</header>
-
-  
-    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content">
-                <p>解衣又作茶瓜客，倚槛同看烟雨峰。<br/>一个不仅仅是记录代码的博客……</p>
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                Blender源码学习（二）——一些重要的结构体
+                            </h1>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
+        </header>
 
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenGL/">OpenGL</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blender/">blender</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/lua/">lua</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B9%A6%E7%B1%8D/">书籍</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">问题排查</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-%E5%A4%9A%E6%80%81/" rel="tag">C++多态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C-%E7%9F%A5%E8%AF%86/" rel="tag">C/C++知识</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL/" rel="tag">OpenGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenGL%E5%85%A5%E9%97%A8/" rel="tag">OpenGL入门</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ray-Tracing/" rel="tag">Ray Tracing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SDF/" rel="tag">SDF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/" rel="tag">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blender%E5%B7%A5%E5%85%B7/" rel="tag">blender工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blender%E6%BA%90%E7%A0%81/" rel="tag">blender源码</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lua/" rel="tag">lua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B/" rel="tag">《Go语言高级编程》</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E3%80%8A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0%E3%80%8B/" rel="tag">《垃圾回收的算法与实现》</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" rel="tag">字符串算法</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" rel="tag">抽样算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" rel="tag">洗牌算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B9%8BTCP/" rel="tag">问题排查之TCP</a><span class="tag-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget-body tagcloud">
-      <a href="/tags/C-%E5%A4%9A%E6%80%81/" style="font-size: 13px;">C++多态</a> <a href="/tags/C-C-%E7%9F%A5%E8%AF%86/" style="font-size: 13.5px;">C/C++知识</a> <a href="/tags/Mysql/" style="font-size: 13px;">Mysql</a> <a href="/tags/OpenGL/" style="font-size: 13.25px;">OpenGL</a> <a href="/tags/OpenGL%E5%85%A5%E9%97%A8/" style="font-size: 14px;">OpenGL入门</a> <a href="/tags/Ray-Tracing/" style="font-size: 13.25px;">Ray Tracing</a> <a href="/tags/SDF/" style="font-size: 13px;">SDF</a> <a href="/tags/TCP/" style="font-size: 13px;">TCP</a> <a href="/tags/blender%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">blender工具</a> <a href="/tags/blender%E6%BA%90%E7%A0%81/" style="font-size: 13.75px;">blender源码</a> <a href="/tags/lua/" style="font-size: 13px;">lua</a> <a href="/tags/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B/" style="font-size: 13.25px;">《Go语言高级编程》</a> <a href="/tags/%E3%80%8A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0%E3%80%8B/" style="font-size: 13px;">《垃圾回收的算法与实现》</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" style="font-size: 13.5px;">字符串算法</a> <a href="/tags/%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95/" style="font-size: 13px;">抽样算法</a> <a href="/tags/%E6%B4%97%E7%89%8C%E7%AE%97%E6%B3%95/" style="font-size: 13px;">洗牌算法</a> <a href="/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B9%8BTCP/" style="font-size: 13px;">问题排查之TCP</a>
-    </div>
-  </div>
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">7</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-      <ul class="recent-post-list list-unstyled no-thumbnail">
-        
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a>
-              </p>
-              <p class="item-title">
-                <a href="/2021/09/12/Subdivision02/" class="title">细分着色器02——Loop Subdivision</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-09-12T03:36:15.000Z" itemprop="datePublished">2021-09-12</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a>
-              </p>
-              <p class="item-title">
-                <a href="/2021/09/10/Subdivision01/" class="title">细分着色器01——OpenGL的细分着色</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-09-10T00:42:32.000Z" itemprop="datePublished">2021-09-10</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a>
-              </p>
-              <p class="item-title">
-                <a href="/2021/09/08/LearnRayTracing01/" class="title">LearnRayTracing01——并行处理像素点计算</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-09-08T05:42:48.000Z" itemprop="datePublished">2021-09-08</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a>
-              </p>
-              <p class="item-title">
-                <a href="/2021/09/07/RayMarchingAndSDF/" class="title">译文：Ray Marching and Signed Distance Functions</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-09-07T08:00:39.000Z" itemprop="datePublished">2021-09-07</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a>
-              </p>
-              <p class="item-title">
-                <a href="/2021/09/03/smallpt-classic-ray-tracing-for-c-plus/" class="title">smallpt：经典光线追踪实现（C++）</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-09-03T07:09:07.000Z" itemprop="datePublished">2021-09-03</time>
-              </p>
-            </div>
-          </li>
-          
-      </ul>
-    </div>
-  </div>
-  
-
-    
-  </div>
-</aside>
-
-  
-  
-<main class="main" role="main">
-  <div class="content">
-  <article id="post-Blender-source-code-study-02" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Blender源码学习（二）——一些重要的结构体
-    </h1>
-  
-
-      
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/04/30/Blender-source-code-study-02/" class="article-date">
-	  <time datetime="2021-04-30T02:35:03.000Z" itemprop="datePublished">2021-04-30</time>
-	</a>
-</span>
-        
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/blender/">blender</a>
-  </span>
-
-        
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/blender%E6%BA%90%E7%A0%81/" rel="tag">blender源码</a>
-  </span>
-
-
-        
-	<span class="article-read hidden-xs">
-	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
-	    <span id="busuanzi_container_page_pv">
-			<span id="busuanzi_value_page_pv">0</span>
-		</span>
-	</span>
-
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/30/Blender-source-code-study-02/#comments" class="article-comment-link">评论</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h1 id="bContext结构体"><a href="#bContext结构体" class="headerlink" title="bContext结构体"></a>bContext结构体</h1><p><strong>定义</strong></p>
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <h1 id="bContext结构体"><a href="#bContext结构体" class="headerlink" title="bContext结构体"></a>bContext结构体</h1><p><strong>定义</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;context.c</span><br><span class="line">struct bContext &#123;</span><br><span class="line">  int thread;</span><br><span class="line"></span><br><span class="line">  &#x2F;* windowmanager context *&#x2F;</span><br><span class="line">  struct &#123;</span><br><span class="line">    struct wmWindowManager *manager;</span><br><span class="line">    struct wmWindow *window;</span><br><span class="line">    struct WorkSpace *workspace;</span><br><span class="line">    struct bScreen *screen;</span><br><span class="line">    struct ScrArea *area;</span><br><span class="line">    struct ARegion *region;</span><br><span class="line">    struct ARegion *menu;</span><br><span class="line">    struct wmGizmoGroup *gizmo_group;</span><br><span class="line">    struct bContextStore *store;</span><br><span class="line"></span><br><span class="line">    &#x2F;* Operator poll. *&#x2F;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * Store the reason the poll function fails (static string, not allocated).</span><br><span class="line">     * For more advanced formatting use &#96;operator_poll_msg_dyn_params&#96;.</span><br><span class="line">     *&#x2F;</span><br><span class="line">    const char *operator_poll_msg;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * Store values to dynamically to create the string (called when a tool-tip is shown).</span><br><span class="line">     *&#x2F;</span><br><span class="line">    struct bContextPollMsgDyn_Params operator_poll_msg_dyn_params;</span><br><span class="line">  &#125; wm;</span><br><span class="line"></span><br><span class="line">  &#x2F;* data context *&#x2F;</span><br><span class="line">  struct &#123;</span><br><span class="line">    struct Main *main;</span><br><span class="line">    struct Scene *scene;</span><br><span class="line"></span><br><span class="line">    int recursion;</span><br><span class="line">    &#x2F;** True if python is initialized. *&#x2F;</span><br><span class="line">    bool py_init;</span><br><span class="line">    void *py_context;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * If we need to remove members, do so in a copy</span><br><span class="line">     * (keep this to check if the copy needs freeing).</span><br><span class="line">     *&#x2F;</span><br><span class="line">    void *py_context_orig;</span><br><span class="line">  &#125; data;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>bContext结构体是Blender程序的上下文（整个程序只有一个），包含窗口管理者上下文（windowmanager context）和数据上下文（data context）。</p>
 <p>bContext结构体中的对象通常使用<code>CTX_data_*</code>和<code>CTX_wm_*</code>函数中获取，并且其参数通常是延迟初始化。</p>
@@ -399,248 +88,89 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;BKE_global.h</span><br><span class="line">typedef struct Global &#123;</span><br><span class="line"></span><br><span class="line">  &#x2F;** Active pointers. *&#x2F;</span><br><span class="line">  struct Main *main;</span><br><span class="line"></span><br><span class="line">  &#x2F;** Strings: last saved *&#x2F;</span><br><span class="line">  char ima[1024], lib[1024]; &#x2F;* 1024 &#x3D; FILE_MAX *&#x2F;</span><br><span class="line"></span><br><span class="line">  &#x2F;** When set: &#96;G_MAIN-&gt;name&#96; contains valid relative base path. *&#x2F;</span><br><span class="line">  bool relbase_valid;</span><br><span class="line">  bool file_loaded;</span><br><span class="line">  bool save_over;</span><br><span class="line"></span><br><span class="line">  &#x2F;** Strings of recent opened files. *&#x2F;</span><br><span class="line">  struct ListBase recent_files;</span><br><span class="line"></span><br><span class="line">  &#x2F;** Has escape been pressed or Ctrl+C pressed in background mode, used for render quit. *&#x2F;</span><br><span class="line">  bool is_break;</span><br><span class="line"></span><br><span class="line">  bool background;</span><br><span class="line">  bool factory_startup;</span><br><span class="line"></span><br><span class="line">  short moving;</span><br><span class="line"></span><br><span class="line">  &#x2F;** To indicate render is busy, prevent render-window events etc. *&#x2F;</span><br><span class="line">  bool is_rendering;</span><br><span class="line"></span><br><span class="line">  &#x2F;**</span><br><span class="line">   * Debug value, can be set from the UI and python, used for testing nonstandard features.</span><br><span class="line">   * DO NOT abuse it with generic checks like &#96;if (G.debug_value &gt; 0)&#96;. Do not use it as bitflags.</span><br><span class="line">   * Only precise specific values should be checked for, to avoid unpredictable side-effects.</span><br><span class="line">   * Please document here the value(s) you are using (or a range of values reserved to some area).</span><br><span class="line">   *   * -16384 and below: Reserved for python (add-ons) usage.</span><br><span class="line">   *   *     -1: Disable faster motion paths computation (since 08&#x2F;2018).</span><br><span class="line">   *   * 1 - 30: EEVEE debug&#x2F;stats values (01&#x2F;2018).</span><br><span class="line">   *   *    101: Enable UI debug drawing of fullscreen area&#39;s corner widget (10&#x2F;2014).</span><br><span class="line">   *   *    666: Use quicker batch delete for outliners&#39; delete hierarchy (01&#x2F;2019).</span><br><span class="line">   *   *    777: Enable UI node panel&#39;s sockets polling (11&#x2F;2011).</span><br><span class="line">   *   *    799: Enable some mysterious new depsgraph behavior (05&#x2F;2015).</span><br><span class="line">   *   *   1112: Disable new Cloth internal springs handling (09&#x2F;2014).</span><br><span class="line">   *   *   1234: Disable new dyntopo code fixing skinny faces generation (04&#x2F;2015).</span><br><span class="line">   *   *   3001: Enable additional Fluid modifier (Mantaflow) options (02&#x2F;2020).</span><br><span class="line">   *   *   4000: Line Art state output and debugging logs (03&#x2F;2021).</span><br><span class="line">   *   * 16384 and above: Reserved for python (add-ons) usage.</span><br><span class="line">   *&#x2F;</span><br><span class="line">  short debug_value;</span><br><span class="line"></span><br><span class="line">  &#x2F;** Saved to the blend file as #FileGlobal.globalf,</span><br><span class="line">   * however this is now only used for runtime options. *&#x2F;</span><br><span class="line">  int f;</span><br><span class="line"></span><br><span class="line">  struct &#123;</span><br><span class="line">    &#x2F;** Logging vars (different loggers may use). *&#x2F;</span><br><span class="line">    int level;</span><br><span class="line">    &#x2F;** FILE handle or use stderr (we own this so close when done). *&#x2F;</span><br><span class="line">    void *file;</span><br><span class="line">  &#125; log;</span><br><span class="line"></span><br><span class="line">  &#x2F;** debug flag, #G_DEBUG, #G_DEBUG_PYTHON &amp; friends, set python or command line args *&#x2F;</span><br><span class="line">  int debug;</span><br><span class="line"></span><br><span class="line">  &#x2F;** This variable is written to &#x2F; read from #FileGlobal.fileflags *&#x2F;</span><br><span class="line">  int fileflags;</span><br><span class="line"></span><br><span class="line">  &#x2F;** Message to use when auto execution fails. *&#x2F;</span><br><span class="line">  char autoexec_fail[200];</span><br><span class="line">&#125; Global;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;blender.c</span><br><span class="line">Global G;</span><br></pre></td></tr></table></figure>
 <p>Global结构体主要是存放一些全局定义的变量、处于激活状态的节点（Active pointers）对象指针以及已经打开的文件链表（Strings of recent opened files）对象指针。</p>
 
-      
-    </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="https://www.chaguake.com/2021/04/30/Blender-source-code-study-02/" title="Blender源码学习（二）——一些重要的结构体" target="_blank" rel="external">https://www.chaguake.com/2021/04/30/Blender-source-code-study-02/</a>
-    </li>
-    
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                        
+
+<a href="/tags/blender源码/">#blender源码</a>
 
 
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/chaguake" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/chaguake" target="_blank"><span class="text-dark">茶瓜客</span><small class="ml-1x">码农 | 打工人</small></a></h3>
-        <div>你见过那位十点整的流浪光头吗？</div>
-      </div>
-    </figure>
-  </div>
-</div>
+                                            
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2021-04-30
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
 
 
-    </div>
-  </article>
-  
-    
-  <section id="comments">
-  	
-      <div id="lv-container" data-id="city" data-uid="MTAyMC81MjkyNy8yOTQwNA==">
-        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-      </div>    
-    
-  </section>
-
-
-  
-</div>
-
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-  
-  <ul class="pager pull-left">
-    
-    <li class="prev">
-      <a href="/2021/04/30/Blender-source-code-study-03/" title="Blender源码学习（三）——Blender工具窗口和控件实现的调用过程"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
-    
-    <li class="next">
-      <a href="/2021/04/29/Blender-source-code-study-01/" title="Blender源码学习（一）——blender项目，Blender main()入口"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
-  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
-    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
-  </div> -->
-  
-  
-  <div class="bar-right">
-    
-    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
-    
-  </div>
-  </div>
-</nav>
-  
-<!-- Modal -->
-<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content donate">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <div class="modal-body">
-        <div class="donate-box">
-          <div class="donate-head">
-            <p>感谢您的支持，我会继续努力的!</p>
-          </div>
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
-              <div class="donate-payimg">
-                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
-              </div>
-              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
-              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+                    </div>
+                </div>
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
-              <div class="donate-payimg">
-                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
-              </div>
-              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
-              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
-            </div>
-          </div>
-          <div class="donate-footer">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
-              <li role="presentation" class="active">
-                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
-              </li>
-              <li role="presentation" class="">
-                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+        </article>
+</section>
 
+<!-- Image viewer-->
 
-
-</main>
-
-  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-	
-	
-    <ul class="social-links">
-    	
-        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
-
-    <div class="copyright">
-    	
-        &copy; 2021 茶瓜客
-        
-        <div class="publishby">
-        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
-        </div>
-    </div>
-</footer>
-  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<script>
-window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-
-<script src="/js/plugin.min.js"></script>
-
-
-<script src="/js/application.js"></script>
-
-
-    <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(未命名)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-
-<script src="/js/insight.js"></script>
-
-
-
-
-
-
-   
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
-   
+    <!-- Custom picture view-->
+    <link href="/css/viewer.min.css" rel="stylesheet" />
+    <script
+      src="/js/viewer.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
     
-<script defer type="text/javascript">
-  (function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-
-    if (typeof LivereTower === 'function') { return; }
-
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-
-    e.parentNode.insertBefore(j, e);
-  })(document, 'script');
-</script>
-
-
-
-
-  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
-  <script>
-  //利用 FancyBox 实现点击图片放大
-  $(document).ready(function() {
-    $('article img').not('[hidden]').not('.panel-body img').each(function() {
-      var $image = $(this);
-      var imageCaption = $image.attr('alt');
-      var $imageWrapLink = $image.parent('a');
-      if ($imageWrapLink.length < 1) {
-        var src = this.getAttribute('src');
-        var idx = src.lastIndexOf('?');
-        if (idx != -1) {
-          src = src.substring(0, idx);
+    <script type="text/javascript">
+      // set image viewer
+      Viewer.setDefaults({
+        zoomRatio: [0.5],
+        navbar: false,
+        toolbar: false,
+        button: false,
+        title: [2, (image, imageData) => `${image.alt}`],
+        show: function() {
+          this.viewer.zoomTo(0.5);
         }
-        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
-      }
-      $imageWrapLink.attr('data-fancybox', 'images');
-      if (imageCaption) {
-        $imageWrapLink.attr('data-caption', imageCaption);
-      }
-    });
-    $().fancybox({
-      selector: '[data-fancybox="images"]',
-      hash: false,
-      loop: false,
-    });
-  });
-  </script>
+      });
+      var imageList = document.getElementsByTagName("img");
+      Array.prototype.forEach.call(imageList, element => {
+        var viewer = new Viewer(element);
+      });
+    </script>
 
+    
 
+<!-- TOC -->
 
+    <aside id="article-toc" role="navigation" class="fixed">
+        <div id="article-toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#bContext%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">bContext结构体</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Global"><span class="toc-text">Global</span></a></li></ol>
+        </div>
+    </aside>
 
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© zchen9 🙋 2015-" + new Date().getFullYear());
+</script>
+  
+    <!-- Google Analytics -->
+    
 
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
@@ -657,4 +187,5 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
+
 </html>
