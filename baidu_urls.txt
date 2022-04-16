@@ -1,5 +1,0 @@
-https://www.chaguake.com/2021/09/12/Subdivision02/
-https://www.chaguake.com/2021/09/10/Subdivision01/
-https://www.chaguake.com/2021/09/08/LearnRayTracing01/
-https://www.chaguake.com/2021/09/07/RayMarchingAndSDF/
-https://www.chaguake.com/2021/09/03/smallpt-classic-ray-tracing-for-c-plus/
