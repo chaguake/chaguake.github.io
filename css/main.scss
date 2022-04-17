@@ -3,18 +3,19 @@
 ---
 // Customization Variables
 
-$accent: #FF0F00;
+$accent: #492D22;
 
 $max-width: 740px;
 $med-width: 600px;
 $small-width: 480px;
 
 // Basic
+// Inconsolata
 
 body {
     margin: 0;
     font-family: "Inconsolata";
-    background-color: #FFFFDD;
+    background-color: #F3F5F6;
     min-height: 100%;
 }
 a {
@@ -31,7 +32,7 @@ hr {
 }
 code {
     background-color: #d8e7ff;
-    color: #002b72;
+    color: #002FA7;
 }
 
 // divs
