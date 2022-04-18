@@ -1,4 +1,4 @@
-title: 茶瓜客
+title: Wylm Ng
 author: 茶瓜客
 subtitle: 解衣又作茶瓜客，倚槛同看烟雨峰
 
@@ -22,6 +22,6 @@ navbar:
    link: "tags/index.html"
  - name: "Categories"
    link: "categories/index.html"
- - name: "关于"
+ - name: "About"
    link: "about/index.html"
 
