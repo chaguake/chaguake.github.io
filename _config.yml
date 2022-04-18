@@ -18,8 +18,10 @@ sass:
     sass_dir: css
 
 navbar:
- - name: "标签"
+ - name: "Tags"
    link: "tags/index.html"
+ - name: "Categories"
+   link: "categories/index.html"
  - name: "关于"
    link: "about/index.html"
 
