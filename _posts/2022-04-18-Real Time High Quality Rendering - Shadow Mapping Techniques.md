@@ -1,8 +1,10 @@
 ---
 layout: post
 title: Real Time High Quality Rendering - Shadow Mapping Techniques
-categories: 图形学
-tags: 实时渲染
+categories:
+- Graphics
+tags:
+- Real-Time Rendering
 ---
 
 > 实时渲染充斥着大量的近似与预计算。
