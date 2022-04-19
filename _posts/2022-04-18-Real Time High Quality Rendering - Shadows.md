@@ -97,7 +97,7 @@ tags: 实时渲染
 对于现实世界的阴影，可以得到：距离投射物越近，阴影越硬；距离投射物越远，阴影越软。
 
 <div align=center>
-<img src="https://img2020.cnblogs.com/blog/1409576/202108/1409576-20210820183829225-1047523015.png"/>
+<img src="/images/Observation.png"/>
 <p>图七 Observation</p>
 </div>
 
