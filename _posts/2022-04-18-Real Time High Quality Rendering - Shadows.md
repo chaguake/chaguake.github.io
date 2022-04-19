@@ -5,6 +5,7 @@ categories: 图形学
 tags: 实时渲染
 ---
 
+> 实时渲染充斥着大量的近似与预计算。
 
 经典阴影算法可以分为三类：Ray Casting、Shadow Mapping以及Shadow Volume。
 
@@ -60,7 +61,9 @@ tags: 实时渲染
 
 ### Second-depth shadow mapping
 
-基本思想：在生成阴影贴图时，记录像素点的第一和第二深度值，然后使用两者的平均值记录为该像素点的深度值。
+**基本思想**
+
+在生成阴影贴图时，记录像素点的第一和第二深度值，然后使用两者的平均值记录为该像素点的深度值。
 
 缺点：物体必须要有体积。
 
@@ -68,19 +71,105 @@ tags: 实时渲染
 
 ## Percentage Closer Filtering (PCF)
 
-// To do
+众所周知，PCF算法用于抗锯齿。
+
+**基本思想**
+
+查询当前像素点周围像素点的深度值，平均得到当前像素点的最终深度值。
+
+<div align=center>
+<img src="https://developer.nvidia.com/sites/all/modules/custom/gpugems/books/GPUGems3/elementLinks/08fig02.jpg"/>
+<p>图六 Soft Shadow Edges via Percentage-Closer Filtering, from gpu gems 3</p>
+</div>
+
+**实现步骤**
+
+* 第一步：对于每个像素点，分别查询其周围（5x5）像素点的深度值，分别与当前像素点的深度值比较，得到可见度值。
+
+* 第二步：对第一步得到的可见度值集合求和平均，得到的一个介于0到1之间的数值为当前像素点的可见度。
 
 *[实现]()*
 
 ## Percentage-Closer Soft Shadows (PCSS)
 
-// To do
+**Observation**
+
+对于现实世界的阴影，可以得到：距离投射物越近，阴影越硬；距离投射物越远，阴影越软。
+
+<div align=center>
+<img src="https://img2020.cnblogs.com/blog/1409576/202108/1409576-20210820183829225-1047523015.png"/>
+<p>图七 Observation</p>
+</div>
+
+阴影的软硬程度跟光源遮挡者与阴影接收者之间的距离有关。
+
+<div align=center>
+<img src="https://img2020.cnblogs.com/blog/1409576/202108/1409576-20210822014231685-63102615.png"/>
+<p>图八 From Reference [5]</p>
+</div>
+
+$$
+w_{Penumbra} = \frac{(d_{Receive} - d_{Blocker}) * w_{Light}}{d_{Blocker}}
+$$
+
+**实现步骤**
+
+* 第一步：计算阴影遮挡者的平均深度值。同样是采取范围采样的方式。
+
+* 第二步：根据阴影遮挡者的平均深度值决定过滤器大小。
+
+* 第三步：PCF。
 
 *[实现]()*
 
-## Variance Soft Shadow Mapping (VSSM)
+## Variance Soft Shadow Mapping (VSSM or VSM)
 
-// To do
+VSSM算法实现快速计算PCSS算法第一、三步的Sampling。
+
+在PCSS的第一步实现中，目的是为了获取某个像素附近范围内不在阴影中的像素点的平均深度值。
+
+在PCSS的第三步实现中，目的是为了获取某个像素附近范围内的平均可见度值。
+
+VSSM算法思想：将上面两个求值变成只需求得该像素的深度值在附近范围内像素点的“排名”。
+
+### 一个大胆假设——切比切夫不等式
+
+VSSM算法巧妙地使用了切比切夫不等式，只需计算该像素点附近范围内的深度平均值和方差，就可以计算出该像素点的可见度值。
+
+$$$
+P(x > t) \leqslant \frac{\sigma ^2}{\sigma ^2 + (t - \mu )^2} 
+$$$
+
+其中，$\sigma^2$ 为方差，$\mu$为均值。
+
+**均值求得方法**
+
+* MipMap。只能获取近似的均值，特别是当像素点的Filtering范围横跨几个Maipmap单位时，值偏差更大。
+
+* Summed Area Tables (SAT)。SAT是一个快速求得均值的算法。需要开辟一个与输入一样大小的空间（当然，可以存储在其他通道）。
+
+**方差求得方法**
+
+$$$
+V(X) = E(X^2) - E^2(X)
+$$$
+
+通过上面的公式，要求得方差，需要另外存储深度值平方的数值。
+
+### 另一个大胆假设
+
+求得均值和方差之后，还不能计算出某个像素附近范围内的平均深度值。
+
+$$$
+\frac{N_{1}}{N} z_{unocc} + \frac{N_{2}}{N} z_{occ} = z_{avg}
+$$$
+
+$z_{unocc}$与$z_{occ}$是未知的，VSSM算法中，假设所有不在阴影中的像素点深度值都等于当前像素点的深度值。
+
+<div align=center>
+<img src="https://img2020.cnblogs.com/blog/1409576/202108/1409576-20210825182045592-700679707.png"/>
+<p>图九 VSSM</p>
+</div>
 
 *[实现]()*
 
