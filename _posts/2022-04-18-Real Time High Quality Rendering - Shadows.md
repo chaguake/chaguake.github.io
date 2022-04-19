@@ -97,14 +97,14 @@ tags: 实时渲染
 对于现实世界的阴影，可以得到：距离投射物越近，阴影越硬；距离投射物越远，阴影越软。
 
 <div align=center>
-<img src="/images/Observation.png"/>
+<img src="/enclosures/Observation.png"/>
 <p>图七 Observation</p>
 </div>
 
 阴影的软硬程度跟光源遮挡者与阴影接收者之间的距离有关。
 
 <div align=center>
-<img src="https://img2020.cnblogs.com/blog/1409576/202108/1409576-20210822014231685-63102615.png"/>
+<img src="/enclosures/PCSS.png"/>
 <p>图八 From Reference [5]</p>
 </div>
 
@@ -167,7 +167,7 @@ $$$
 $z_{unocc}$与$z_{occ}$是未知的，VSSM算法中，假设所有不在阴影中的像素点深度值都等于当前像素点的深度值。
 
 <div align=center>
-<img src="https://img2020.cnblogs.com/blog/1409576/202108/1409576-20210825182045592-700679707.png"/>
+<img src="/enclosures/VSSM.png"/>
 <p>图九 VSSM</p>
 </div>
 
