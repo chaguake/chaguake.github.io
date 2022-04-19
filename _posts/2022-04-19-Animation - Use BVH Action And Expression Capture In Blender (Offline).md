@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Animation - Use BVH Action And Expression Capture In Blender
+title: Animation - Use BVH Action And Expression Capture In Blender (Offline)
 categories: 
 - Animation
 tags: 
