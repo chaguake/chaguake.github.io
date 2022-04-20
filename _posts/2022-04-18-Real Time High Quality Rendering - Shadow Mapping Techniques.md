@@ -144,6 +144,11 @@ float filterPCF(vec4 sc)
 }
 ```
 
+<div align=center>
+<img src="/enclosures/Shadow Mapping With PCF In Vulkan.JPG"/>
+<p>图 Shadow Mapping With PCF In Vulkan</p>
+</div>
+
 ## Percentage-Closer Soft Shadows (PCSS)
 
 **Observation**
