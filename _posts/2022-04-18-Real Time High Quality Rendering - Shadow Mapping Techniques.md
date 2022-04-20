@@ -19,26 +19,49 @@ tags:
 
 <div align=center>
 <img src="https://learnopengl.com/img/advanced-lighting/shadow_mapping_theory_spaces.png"/>
-<p>图一 shadow mapping theory spaces, from learnopengl</p>
+<p>图 shadow mapping theory spaces, from learnopengl</p>
 </div>
 
 * 第一步，从光源角度渲染场景，生成阴影贴图。对于点光源，应使用透视投影；对于定向光，应使用正交投影。
 * 第二步，从摄像机角度渲染场景，同时使用阴影贴图判断该像素点是否位于阴影中。
 
-*[实现]()*
+#### 实现
+
+以github上的[Vulkan](https://github.com/SaschaWillems/Vulkan)项目中的`examples/shadowmapping`为例。
+
+<div align=center>
+<img src="/enclosures/shadow mapping In Vulkan.JPG"/>
+<p>图 shadow mapping In Vulkan</p>
+</div>
+
+先看`shadowmapping.cpp`中的`buildCommandBuffers`函数，执行了两个render pass：
+
+**第一个render pass生成shadow map。**
+
+在`preparePipelines`函数中可以看到，`offscreen`渲染管线只需要vertex shader（offscreen.vert.spv）。
+
+**第二个render pass使用shadow map渲染场景。**
+
+scene.frag中`textureProj`函数查找阴影贴图时的坐标值`shadowCoord.st`是在scene.vert中生成的。
+
+```
+outShadowCoord = ( biasMat * ubo.lightSpace * ubo.model ) * vec4(inPos, 1.0);
+```
+
+需要将场景的坐标从世界坐标系转换到光源坐标系上。
 
 ### 存在问题——Self occlusion (Shadow Acne)
 
 <div align=center>
 <img src="https://learnopengl.com/img/advanced-lighting/shadow_mapping_shadows.png"/>
-<p>图二 Self occlusion (Shadow Acne), from learnopengl</p>
+<p>图 Self occlusion (Shadow Acne), from learnopengl</p>
 </div>
 
-由于阴影贴图的分辨率限制，在一个像素点内所覆盖的所有场景网格都指定一个深度值（如图二黄色斜面）。导致某些场景网格的实际深度比阴影贴图的记录深度要大（如图二黑色平面），从而误判断为阴影。
+由于阴影贴图的分辨率限制，在一个像素点内所覆盖的所有场景网格都指定一个深度值（如上图黄色斜面）。导致某些场景网格的实际深度比阴影贴图的记录深度要大（如上图黑色平面），从而误判断为阴影。
 
 <div align=center>
 <img src="https://learnopengl.com/img/advanced-lighting/shadow_mapping_acne_diagram.png"/>
-<p>图三 shadow mapping acne diagram, from learnopengl</p>
+<p>图 shadow mapping acne diagram, from learnopengl</p>
 </div>
 
 **解决方法：Adding bias**
@@ -47,19 +70,17 @@ tags:
 
 <div align=center>
 <img src="https://learnopengl.com/img/advanced-lighting/shadow_mapping_acne_bias.png"/>
-<p>图四 shadow mapping acne bias, from learnopengl</p>
+<p>图 shadow mapping acne bias, from learnopengl</p>
 </div>
 
 在一定程度上解决了Self occlusion的问题，但同时引入了新问题——Detached Shadow (Peter Panning)。
 
 <div align=center>
 <img src="https://learnopengl.com/img/advanced-lighting/shadow_mapping_peter_panning.png"/>
-<p>图五 shadow mapping peter panning, from learnopengl</p>
+<p>图 shadow mapping peter panning, from learnopengl</p>
 </div>
 
 只能动态调整bias值的大小来降低Detached Shadow的出现。比如bias值随着光线与投射面之间的夹角动态变化。
-
-*[实现]()*
 
 ### Second-depth shadow mapping
 
@@ -69,7 +90,9 @@ tags:
 
 缺点：物体必须要有体积。
 
-*[实现]()*
+#### 实现
+
+// To do
 
 ## Percentage Closer Filtering (PCF)
 
@@ -81,7 +104,7 @@ tags:
 
 <div align=center>
 <img src="https://developer.nvidia.com/sites/all/modules/custom/gpugems/books/GPUGems3/elementLinks/08fig02.jpg"/>
-<p>图六 Soft Shadow Edges via Percentage-Closer Filtering, from gpu gems 3</p>
+<p>图 Soft Shadow Edges via Percentage-Closer Filtering, from gpu gems 3</p>
 </div>
 
 **实现步骤**
@@ -90,7 +113,36 @@ tags:
 
 * 第二步：对第一步得到的可见度值集合求和平均，得到的一个介于0到1之间的数值为当前像素点的可见度。
 
-*[实现]()*
+#### 实现
+
+以github上的[Vulkan](https://github.com/SaschaWillems/Vulkan)项目中的`examples/shadowmapping`为例。
+
+简单地Vulkan示例源码解剖见上文。
+
+```
+float filterPCF(vec4 sc)
+{
+	ivec2 texDim = textureSize(shadowMap, 0);
+	float scale = 1.5;
+	float dx = scale * 1.0 / float(texDim.x);
+	float dy = scale * 1.0 / float(texDim.y);
+
+	float shadowFactor = 0.0;
+	int count = 0;
+	int range = 1;
+	
+	for (int x = -range; x <= range; x++)
+	{
+		for (int y = -range; y <= range; y++)
+		{
+			shadowFactor += textureProj(sc, vec2(dx*x, dy*y));
+			count++;
+		}
+	
+	}
+	return shadowFactor / count;
+}
+```
 
 ## Percentage-Closer Soft Shadows (PCSS)
 
@@ -100,14 +152,14 @@ tags:
 
 <div align=center>
 <img src="/enclosures/Observation.png"/>
-<p>图七 Observation</p>
+<p>图 Observation</p>
 </div>
 
 阴影的软硬程度跟光源遮挡者与阴影接收者之间的距离有关。
 
 <div align=center>
 <img src="/enclosures/PCSS.png"/>
-<p>图八 From Reference [5]</p>
+<p>图 From Reference [5]</p>
 </div>
 
 $$
@@ -122,7 +174,9 @@ $$
 
 * 第三步：PCF。
 
-*[实现]()*
+#### 实现
+
+// To do
 
 ## Variance Soft Shadow Mapping (VSSM or VSM)
 
@@ -170,16 +224,20 @@ $z_{unocc}$与$z_{occ}$是未知的，VSSM算法中，假设所有不在阴影�
 
 <div align=center>
 <img src="/enclosures/VSSM.png"/>
-<p>图九 VSSM</p>
+<p>图 VSSM</p>
 </div>
 
-*[实现]()*
+#### 实现
+
+// To do
 
 ## Moment Shadow Mapping (MSM)
 
 // To do
 
-*[实现]()*
+#### 实现
+
+// To do
 
 
 # 参考

@@ -18,10 +18,10 @@ sass:
     sass_dir: css
 
 navbar:
- - name: "Tags"
-   link: "tags/index.html"
  - name: "Categories"
    link: "categories/index.html"
+ - name: "Tags"
+   link: "tags/index.html"
  - name: "About"
    link: "about/index.html"
 
