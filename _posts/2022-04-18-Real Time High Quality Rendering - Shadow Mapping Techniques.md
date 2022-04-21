@@ -84,7 +84,7 @@ outShadowCoord = ( biasMat * ubo.lightSpace * ubo.model ) * vec4(inPos, 1.0);
 
 ### Second-depth shadow mapping
 
-**基本思想**
+#### 基本思想
 
 在生成阴影贴图时，记录像素点的第一和第二深度值，然后使用两者的平均值记录为该像素点的深度值。
 
@@ -98,7 +98,7 @@ outShadowCoord = ( biasMat * ubo.lightSpace * ubo.model ) * vec4(inPos, 1.0);
 
 众所周知，PCF算法用于抗锯齿。
 
-**基本思想**
+### 基本思想
 
 查询当前像素点周围像素点的深度值，平均得到当前像素点的最终深度值。
 
@@ -107,7 +107,7 @@ outShadowCoord = ( biasMat * ubo.lightSpace * ubo.model ) * vec4(inPos, 1.0);
 <p>图 Soft Shadow Edges via Percentage-Closer Filtering, from gpu gems 3</p>
 </div>
 
-**实现步骤**
+### 实现步骤
 
 * 第一步：对于每个像素点，分别查询其周围（5x5）像素点的深度值，分别与当前像素点的深度值比较，得到可见度值。
 
@@ -144,14 +144,52 @@ float filterPCF(vec4 sc)
 }
 ```
 
+上述代码很简单，对当前像素点周围3x3范围求均值。
+
 <div align=center>
 <img src="/enclosures/Shadow Mapping With PCF In Vulkan.JPG"/>
 <p>图 Shadow Mapping With PCF In Vulkan</p>
 </div>
 
+* 均匀圆盘分布采样（Uniform-Disk Sample）：圆范围内随机取一系列坐标作为采样点；看上去比较杂乱无章，采样效果的 noise 比较严重。
+
+* 泊松圆盘分布采样（Poisson-Disk Sample）：圆范围内随机取一系列坐标作为采样点，但是这些坐标还需要满足一定约束，即坐标与坐标之间至少有一定距离间隔。
+
+<div align=center>
+<img src="/enclosures/disk_sample.png"/>
+<p>图 disk sample</p>
+</div>
+
+可以加大范围，然后使用分布采样函数来提速。
+
+```
+float filterPCF2(vec4 sc)
+{
+	uniformDiskSamples(sc.xy);
+
+	ivec2 texDim = textureSize(shadowMap, 0);
+	float scale = 1.5;
+	float dx = 1.0 / float(texDim.x) * scale;
+	float dy = 1.0 / float(texDim.y) * scale;
+
+	float shadowFactor = 0.0;
+	  for( int i = 0; i < NUM_SAMPLES; i ++ ) {
+		shadowFactor += textureProj(sc, vec2(poissonDisk[i].x * dx, poissonDisk[i].y * dy));
+	  }
+
+  float shadow = shadowFactor / float(NUM_SAMPLES);
+  return shadow;
+}
+```
+
+<div align=center>
+<img src="/enclosures/Shadow Mapping With PCF In Vulkan 2.JPG"/>
+<p>图 Shadow Mapping With PCF In Vulkan</p>
+</div>
+
 ## Percentage-Closer Soft Shadows (PCSS)
 
-**Observation**
+### Observation
 
 对于现实世界的阴影，可以得到：距离投射物越近，阴影越硬；距离投射物越远，阴影越软。
 
@@ -171,7 +209,7 @@ $$
 w_{Penumbra} = \frac{(d_{Receive} - d_{Blocker}) * w_{Light}}{d_{Blocker}}
 $$
 
-**实现步骤**
+### 实现步骤
 
 * 第一步：计算阴影遮挡者的平均深度值。同样是采取范围采样的方式。
 
