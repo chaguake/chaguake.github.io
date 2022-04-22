@@ -49,7 +49,7 @@ BVH文件包含了骨骼关键帧的旋转位移信息。在Blender中可以直�
 
 **演示**
 
-<video controls height='100%' width='100%' src="/enclosures/Animation_Collage.MP4"></video>
+<video controls height='100%' width='100%' src="/enclosures/2022-04-19/Animation_Collage.MP4"></video>
 
 
 ## Others

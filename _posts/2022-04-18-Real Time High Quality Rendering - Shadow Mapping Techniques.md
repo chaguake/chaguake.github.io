@@ -30,7 +30,7 @@ tags:
 以github上的[Vulkan](https://github.com/SaschaWillems/Vulkan)项目中的`examples/shadowmapping`为例。
 
 <div align=center>
-<img src="/enclosures/shadow mapping In Vulkan.JPG"/>
+<img src="/enclosures/2022-04-18/shadow mapping In Vulkan.JPG"/>
 <p>图 shadow mapping In Vulkan</p>
 </div>
 
@@ -147,7 +147,7 @@ float filterPCF(vec4 sc)
 上述代码很简单，对当前像素点周围3x3范围求均值。
 
 <div align=center>
-<img src="/enclosures/Shadow Mapping With PCF In Vulkan.JPG"/>
+<img src="/enclosures/2022-04-18/Shadow Mapping With PCF In Vulkan.JPG"/>
 <p>图 Shadow Mapping With PCF In Vulkan</p>
 </div>
 
@@ -156,7 +156,7 @@ float filterPCF(vec4 sc)
 * 泊松圆盘分布采样（Poisson-Disk Sample）：圆范围内随机取一系列坐标作为采样点，但是这些坐标还需要满足一定约束，即坐标与坐标之间至少有一定距离间隔。
 
 <div align=center>
-<img src="/enclosures/disk_sample.png"/>
+<img src="/enclosures/2022-04-18/disk_sample.png"/>
 <p>图 disk sample</p>
 </div>
 
@@ -183,7 +183,7 @@ float filterPCF2(vec4 sc)
 ```
 
 <div align=center>
-<img src="/enclosures/Shadow Mapping With PCF In Vulkan 2.JPG"/>
+<img src="/enclosures/2022-04-18/Shadow Mapping With PCF In Vulkan 2.JPG"/>
 <p>图 Shadow Mapping With PCF In Vulkan</p>
 </div>
 
@@ -194,14 +194,14 @@ float filterPCF2(vec4 sc)
 对于现实世界的阴影，可以得到：距离投射物越近，阴影越硬；距离投射物越远，阴影越软。
 
 <div align=center>
-<img src="/enclosures/Observation.png"/>
+<img src="/enclosures/2022-04-18/Observation.png"/>
 <p>图 Observation</p>
 </div>
 
 阴影的软硬程度跟光源遮挡者与阴影接收者之间的距离有关。
 
 <div align=center>
-<img src="/enclosures/PCSS.png"/>
+<img src="/enclosures/2022-04-18/PCSS.png"/>
 <p>图 From Reference [5]</p>
 </div>
 
@@ -266,7 +266,7 @@ $$
 $z_{unocc}$与$z_{occ}$是未知的，VSSM算法中，假设所有不在阴影中的像素点深度值都等于当前像素点的深度值。
 
 <div align=center>
-<img src="/enclosures/VSSM.png"/>
+<img src="/enclosures/2022-04-18/VSSM.png"/>
 <p>图 VSSM</p>
 </div>
 
