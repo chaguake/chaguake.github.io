@@ -7,22 +7,22 @@ tags:
 - Vulkan Basic
 ---
 
-±¾ÎÄ°´ÕÕGithubÉÏ[Vulkan¿ªÔ´C++Ê¾Àı](https://github.com/SaschaWillems/Vulkan)µÄË³ĞòÑ§Ï°£¬¾ßÌå²¿Êğ±àÒë¿´¸ÃGithubÏîÄ¿µÄREADME.md¡£
+æœ¬æ–‡æŒ‰ç…§Githubä¸Š[Vulkanå¼€æºC++ç¤ºä¾‹](https://github.com/SaschaWillems/Vulkan)çš„é¡ºåºå­¦ä¹ ï¼Œå…·ä½“éƒ¨ç½²ç¼–è¯‘çœ‹è¯¥Githubé¡¹ç›®çš„README.mdã€‚
 
 ## Examples
 
-[Á´½Ó](https://github.com/SaschaWillems/Vulkan#examples)
+[é“¾æ¥](https://github.com/SaschaWillems/Vulkan#examples)
 
-### Ò»¡¢Basics
+### ä¸€ã€Basics
 
 #### 1 First triangle
 
 > Basic and verbose example for getting a colored triangle rendered to the screen using Vulkan. This is meant as a starting point for learning Vulkan from the ground up. A huge part of the code is boilerplate that is abstracted away in later examples.
 
-Ò»¸ö¼òµ¥µØÊä³öÈı½ÇĞÎÊ¾Àı£¬ÖØÒªµÄµØ·½ÊÇÒıÈëÒ»¸öÊ¾Àı´úÂë¿ò¼Ü¡£
+ä¸€ä¸ªç®€å•åœ°è¾“å‡ºä¸‰è§’å½¢ç¤ºä¾‹ï¼Œé‡è¦çš„åœ°æ–¹æ˜¯å¼•å…¥ä¸€ä¸ªç¤ºä¾‹ä»£ç æ¡†æ¶ã€‚
 
 
-##### 1.1 MainÈë¿Úº¯Êı
+##### 1.1 Mainå…¥å£å‡½æ•°
 
 ```
 VulkanExample *vulkanExample;
@@ -47,29 +47,29 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLin
 }
 ```
 
-`WinMain`º¯Êı´´½¨Ò»¸öVulkanExample¶ÔÏó£¬ÒÀ´Îµ÷ÓÃÁËÆä¼¸¸ö³ÉÔ±º¯Êı£¬Íê³ÉäÖÈ¾¹¤×÷¡£
+`WinMain`å‡½æ•°åˆ›å»ºä¸€ä¸ªVulkanExampleå¯¹è±¡ï¼Œä¾æ¬¡è°ƒç”¨äº†å…¶å‡ ä¸ªæˆå‘˜å‡½æ•°ï¼Œå®Œæˆæ¸²æŸ“å·¥ä½œã€‚
 
-##### 1.2 VulkanExampleBase::VulkanExampleBase¹¹Ôìº¯Êı
+##### 1.2 VulkanExampleBase::VulkanExampleBaseæ„é€ å‡½æ•°
 
-`enableValidation`²ÎÊıÎª`true`Ê±£¬»áÆô¶¯Console´°¿Ú£¬¾ßÌå¿´`vulkandebug.cpp`¡£
+`enableValidation`å‚æ•°ä¸º`true`æ—¶ï¼Œä¼šå¯åŠ¨Consoleçª—å£ï¼Œå…·ä½“çœ‹`vulkandebug.cpp`ã€‚
 
-¸Ãº¯ÊıÖ÷Òª×öÒ»Ğ©ÃüÁîĞĞ²ÎÊıµÄ½âÎö¹¤×÷¡£
+è¯¥å‡½æ•°ä¸»è¦åšä¸€äº›å‘½ä»¤è¡Œå‚æ•°çš„è§£æå·¥ä½œã€‚
 
-##### 1.3 VulkanExampleBase::initVulkanº¯Êı
+##### 1.3 VulkanExampleBase::initVulkanå‡½æ•°
 
-µ÷ÓÃ`vkCreateInstance`º¯Êı´´½¨`VkInstance`ÊµÀı¶ÔÏó¡£
+è°ƒç”¨`vkCreateInstance`å‡½æ•°åˆ›å»º`VkInstance`å®ä¾‹å¯¹è±¡ã€‚
 
-´´½¨`VkPhysicalDevice`ÎïÀíÉè±¸¶ÔÏóºÍ`vks::VulkanDevice`Âß¼­Éè±¸¶ÔÏó¡£
+åˆ›å»º`VkPhysicalDevice`ç‰©ç†è®¾å¤‡å¯¹è±¡å’Œ`vks::VulkanDevice`é€»è¾‘è®¾å¤‡å¯¹è±¡ã€‚
 
-´´½¨Éè±¸¶ÓÁĞ¡¢Á¬½Ó½»»»Á´ÒÔ¼°´´½¨ĞÅºÅÁ¿¡£
+åˆ›å»ºè®¾å¤‡é˜Ÿåˆ—ã€è¿æ¥äº¤æ¢é“¾ä»¥åŠåˆ›å»ºä¿¡å·é‡ã€‚
 
-##### 1.4 VulkanExampleÀàµÄÁ½¸ö¹Ø¼üº¯Êı
+##### 1.4 VulkanExampleç±»çš„ä¸¤ä¸ªå…³é”®å‡½æ•°
 
-* `prepare`º¯Êıµ÷ÓÃÁË`VulkanExampleBase::prepare`º¯Êı£¬²¢ÇÒ³õÊ¼»¯ÏîÄ¿³¡¾°×ÊÔ´£¬×¼±¸Buffers¡¢äÖÈ¾¹ÜÏß¡¢ÃèÊö·ûÒÔ¼°Command BuffersµÈµÈ¡£
+* `prepare`å‡½æ•°è°ƒç”¨äº†`VulkanExampleBase::prepare`å‡½æ•°ï¼Œå¹¶ä¸”åˆå§‹åŒ–é¡¹ç›®åœºæ™¯èµ„æºï¼Œå‡†å¤‡Buffersã€æ¸²æŸ“ç®¡çº¿ã€æè¿°ç¬¦ä»¥åŠCommand Buffersç­‰ç­‰ã€‚
 
-* `render`º¯Êı¸üĞÂ×´Ì¬Á´£¬Ìá½»äÖÈ¾ÃüÁî£¬³ÊÏÖ»­Ãæ¡£
+* `render`å‡½æ•°æ›´æ–°çŠ¶æ€é“¾ï¼Œæäº¤æ¸²æŸ“å‘½ä»¤ï¼Œå‘ˆç°ç”»é¢ã€‚
 
-##### 1.5 SemaphoresÓëFences
+##### 1.5 Semaphoresä¸Fences
 
 ```
 // Create the Vulkan synchronization primitives used in this example
@@ -134,17 +134,17 @@ void draw()
 }
 ```
 
-¼ûVulkan APIÎÄµµµÚÆßÕÂSynchronization and Cache Control¡£
+è§Vulkan APIæ–‡æ¡£ç¬¬ä¸ƒç« Synchronization and Cache Controlã€‚
 
-###### 1.5.1 VulkanÌá¹©ÁË5ÖÖÏÔÊ½Í¬²½»úÖÆ
+###### 1.5.1 Vulkanæä¾›äº†5ç§æ˜¾å¼åŒæ­¥æœºåˆ¶
 
 * Fences
 
 > Fences can be used to communicate to the host that execution of some task on the device has completed.
 
-Î§À¸£¨Fences£©ÓÃÓÚÓëÖ÷»úÍ¨ĞÅ£¬ËµÃ÷GPUÉè±¸µÄÈÎÎñÒÑ¾­Ö´ĞĞÍê³É¡£
+å›´æ ï¼ˆFencesï¼‰ç”¨äºä¸ä¸»æœºé€šä¿¡ï¼Œè¯´æ˜GPUè®¾å¤‡çš„ä»»åŠ¡å·²ç»æ‰§è¡Œå®Œæˆã€‚
 
-Ê¾ÀıÖĞÎªÃ¿Ò»¸öFrame Buffer´´½¨Ò»¸öfence£¬ÔÚ`draw`º¯ÊıÖĞµ÷ÓÃ¿ØÖÆäÖÈ¾Ë³Ğò¡£
+ç¤ºä¾‹ä¸­ä¸ºæ¯ä¸€ä¸ªFrame Bufferåˆ›å»ºä¸€ä¸ªfenceï¼Œåœ¨`draw`å‡½æ•°ä¸­è°ƒç”¨æ§åˆ¶æ¸²æŸ“é¡ºåºã€‚
 
 ```
 VK_CHECK_RESULT(vkWaitForFences(device, 1, &waitFences[currentBuffer], VK_TRUE, UINT64_MAX));
@@ -153,17 +153,17 @@ VK_CHECK_RESULT(vkResetFences(device, 1, &waitFences[currentBuffer]));
 VK_CHECK_RESULT(vkQueueSubmit(queue, 1, &submitInfo, waitFences[currentBuffer]));
 ```
 
-ÓÉÓÚÔÚ´´½¨`VkFence`¶ÔÏóÊ±£¬`VkFenceCreateInfo`½á¹¹ÌåµÄ`flags`×Ö¶ÎÉèÖÃÎª`VK_FENCE_CREATE_SIGNALED_BIT`£¬ËùÒÔµÚÒ»´ÎµÄDraw²»»á±»×èÈû¡£
+ç”±äºåœ¨åˆ›å»º`VkFence`å¯¹è±¡æ—¶ï¼Œ`VkFenceCreateInfo`ç»“æ„ä½“çš„`flags`å­—æ®µè®¾ç½®ä¸º`VK_FENCE_CREATE_SIGNALED_BIT`ï¼Œæ‰€ä»¥ç¬¬ä¸€æ¬¡çš„Drawä¸ä¼šè¢«é˜»å¡ã€‚
 
-`vkQueueSubmit`µÚËÄ¸ö²ÎÊıÊ¹ÓÃÁËFences£¬ÄÇÃ´ËüÈ·±£µ±Ç°Ìá½»µÄ¶ÓÁĞÖ´ĞĞÍêËùÓĞÃüÁîºó·¢³öĞÅºÅ¡£
+`vkQueueSubmit`ç¬¬å››ä¸ªå‚æ•°ä½¿ç”¨äº†Fencesï¼Œé‚£ä¹ˆå®ƒç¡®ä¿å½“å‰æäº¤çš„é˜Ÿåˆ—æ‰§è¡Œå®Œæ‰€æœ‰å‘½ä»¤åå‘å‡ºä¿¡å·ã€‚
 
 * Semaphores
 
 > Semaphores can be used to control resource access across multiple queues.
 
-ĞÅºÅÁ¿£¨Semaphores£©¿ÉÒÔÓÃÀ´¿ØÖÆ¿ç¶à¸ö¶ÓÁĞµÄ×ÊÔ´·ÃÎÊ¡£
+ä¿¡å·é‡ï¼ˆSemaphoresï¼‰å¯ä»¥ç”¨æ¥æ§åˆ¶è·¨å¤šä¸ªé˜Ÿåˆ—çš„èµ„æºè®¿é—®ã€‚
 
-Ê¾ÀıÖĞ´´½¨ÁËÁ½¸ö`VkSemaphore`¶ÔÏó£ºrenderCompleteSemaphoreÓëpresentCompleteSemaphore¡£
+ç¤ºä¾‹ä¸­åˆ›å»ºäº†ä¸¤ä¸ª`VkSemaphore`å¯¹è±¡ï¼šrenderCompleteSemaphoreä¸presentCompleteSemaphoreã€‚
 
 ```
 VK_CHECK_RESULT(swapChain.acquireNextImage(presentCompleteSemaphore, &currentBuffer));
@@ -181,29 +181,29 @@ VK_CHECK_RESULT(vkQueueSubmit(queue, 1, &submitInfo, waitFences[currentBuffer]))
 VkResult present = swapChain.queuePresent(queue, currentBuffer, renderCompleteSemaphore);
 ```
 
-*`VkSubmitInfo`µÄ`pWaitSemaphores`×Ö¶Î×¢ÊÍ±íÃ÷µ±Ìá½»ÃüÁî»º³å¿ªÊ¼Ö´ĞĞÊ±¾Í·¢³öĞÅºÅÁ¿¡£*
+*`VkSubmitInfo`çš„`pWaitSemaphores`å­—æ®µæ³¨é‡Šè¡¨æ˜å½“æäº¤å‘½ä»¤ç¼“å†²å¼€å§‹æ‰§è¡Œæ—¶å°±å‘å‡ºä¿¡å·é‡ã€‚*
 
 * Events
 
 > Events provide a fine-grained synchronization primitive which can be signaled either within a command buffer or by the host, and can be waited upon within a command buffer or queried on the host.
 
-ÊÂ¼ş£¨Events£©Ìá¹©ÁËÒ»¸öÏ¸Á£¶ÈµÄÍ¬²½Ô­Óï£¬Ëü¿ÉÒÔÔÚÃüÁî»º³åÇøÄÚ»òÓÉÖ÷»ú·¢³öĞÅºÅ£¬Ò²¿ÉÒÔÔÚÃüÁî»º³åÇøÖĞµÈ´ı»òÔÚÖ÷»úÉÏ½øĞĞ²éÑ¯¡£
+äº‹ä»¶ï¼ˆEventsï¼‰æä¾›äº†ä¸€ä¸ªç»†ç²’åº¦çš„åŒæ­¥åŸè¯­ï¼Œå®ƒå¯ä»¥åœ¨å‘½ä»¤ç¼“å†²åŒºå†…æˆ–ç”±ä¸»æœºå‘å‡ºä¿¡å·ï¼Œä¹Ÿå¯ä»¥åœ¨å‘½ä»¤ç¼“å†²åŒºä¸­ç­‰å¾…æˆ–åœ¨ä¸»æœºä¸Šè¿›è¡ŒæŸ¥è¯¢ã€‚
 
 * Pipeline Barriers
 
 > Pipeline barriers also provide synchronization control within a command buffer, but at a single point, rather than with separate signal and wait operations.
 
-¹ÜµÀÆÁÕÏ£¨Pipeline barriers£©Í¬ÑùÔÚÃüÁî»º³åÄÚÌá¹©Í¬²½¿ØÖÆ£¬µ«ÔÚµ¥¸öµãÉÏ£¬¶ø²»ÊÇµ¥¶ÀµÄĞÅºÅºÍµÈ´ı²Ù×÷¡£
+ç®¡é“å±éšœï¼ˆPipeline barriersï¼‰åŒæ ·åœ¨å‘½ä»¤ç¼“å†²å†…æä¾›åŒæ­¥æ§åˆ¶ï¼Œä½†åœ¨å•ä¸ªç‚¹ä¸Šï¼Œè€Œä¸æ˜¯å•ç‹¬çš„ä¿¡å·å’Œç­‰å¾…æ“ä½œã€‚
 
 * Render Passes
 
 > Render passes provide a useful synchronization framework for most rendering tasks, built upon the concepts in this chapter. Many cases that would otherwise need an application to use other synchronization primitives can be expressed more efficiently as part of a render pass.
 
-»ùÓÚ±¾ÕÂÖĞµÄ¸ÅÄî£¬äÖÈ¾¹ı³Ì£¨Render Passes£©Îª´ó¶àÊıäÖÈ¾ÈËÎïÌá¹©Ò»¸öÓĞÓÃµÄÍ¬²½¿ò¼Ü¡£Ğí¶àĞèÒªÓ¦ÓÃ³ÌĞòÊ¹ÓÃÆäËûÍ¬²½Ô­ÓïµÄÇé¿ö¿ÉÒÔ¸üÓĞĞ§µØ±íÊ¾ÎªäÖÈ¾´«µİµÄÒ»²¿·Ö¡£
+åŸºäºæœ¬ç« ä¸­çš„æ¦‚å¿µï¼Œæ¸²æŸ“è¿‡ç¨‹ï¼ˆRender Passesï¼‰ä¸ºå¤§å¤šæ•°æ¸²æŸ“äººç‰©æä¾›ä¸€ä¸ªæœ‰ç”¨çš„åŒæ­¥æ¡†æ¶ã€‚è®¸å¤šéœ€è¦åº”ç”¨ç¨‹åºä½¿ç”¨å…¶ä»–åŒæ­¥åŸè¯­çš„æƒ…å†µå¯ä»¥æ›´æœ‰æ•ˆåœ°è¡¨ç¤ºä¸ºæ¸²æŸ“ä¼ é€’çš„ä¸€éƒ¨åˆ†ã€‚
 
-##### 1.6 Vertex BufferÓëIndex Buffer
+##### 1.6 Vertex Bufferä¸Index Buffer
 
-Ê¾ÀıÑİÊ¾ÁËÁ½ÖÖÍø¸ñÊı¾İ´æ´¢·½Ê½£ºhost bufferºÍdevice buffer¡£
+ç¤ºä¾‹æ¼”ç¤ºäº†ä¸¤ç§ç½‘æ ¼æ•°æ®å­˜å‚¨æ–¹å¼ï¼šhost bufferå’Œdevice bufferã€‚
 
 ###### 1.6.1 host buffer
 
@@ -356,6 +356,6 @@ vkFreeMemory(device, stagingBuffers.indices.memory, nullptr);
 
 > Using pipeline state objects (pso) that bake state information (rasterization states, culling modes, etc.) along with the shaders into a single object, making it easy for an implementation to optimize usage (compared to OpenGL's dynamic state machine). Also demonstrates the use of pipeline derivatives.
 
-PipelinesÊ¾Àı·â×°ÁË`vkglTF::Model`ÀàºÍ`vks::VulkanDevice`Àà£¬´úÂë¼ò½àºÜ¶à¡£
+Pipelinesç¤ºä¾‹å°è£…äº†`vkglTF::Model`ç±»å’Œ`vks::VulkanDevice`ç±»ï¼Œä»£ç ç®€æ´å¾ˆå¤šã€‚
 
 // To do
