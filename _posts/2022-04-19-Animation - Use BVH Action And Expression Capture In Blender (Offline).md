@@ -10,7 +10,7 @@ tags:
 
 因为公司PM想搞虚拟数字人这块业务，然而团队还没组建，所以就被拉去搞了两个月动画，emo。
 
-## BVH Action
+## 一、BVH Action
 
 > BVH是BioVision等设备对人体运动进行捕获后产生文件格式的文件扩展名。
 
@@ -22,7 +22,7 @@ BVH文件包含了骨骼关键帧的旋转位移信息。在Blender中可以直�
 
 * 使用Blender 第三方插件实现动作重定向，例如：Auto-Rig-Pro。
 
-## Expression Capture
+## 二、Expression Capture
 
 表情捕捉做了相关调研，要么使用Iphone的深度摄像机，通过Faceit插件接入Blender；要么使用第三方软件工具解算视频表情，然后导入Blender，脚本驱动数据。
 
@@ -35,7 +35,7 @@ BVH文件包含了骨骼关键帧的旋转位移信息。在Blender中可以直�
 
 使用该软件完成表情视频录制、表情数据跟踪训练以及表情数据解算。
 
-## Mixed In Blender
+## 三、Mixed In Blender
 
 我个人总结了一套开发流程：
 
@@ -52,7 +52,7 @@ BVH文件包含了骨骼关键帧的旋转位移信息。在Blender中可以直�
 <video controls height='100%' width='100%' src="/enclosures/2022-04-19/Animation_Collage.MP4"></video>
 
 
-## Others
+## 四、Others
 
 * Blender的面部控制器一言难尽，但自己技术又菜，不会自己撸一套面部控制器。还是使用Maya会好些，毕竟Avatary更支持对接Maya。
 
