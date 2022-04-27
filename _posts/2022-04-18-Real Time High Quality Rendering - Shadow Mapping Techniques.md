@@ -15,7 +15,7 @@ tags:
 
 > A 2-Pass Algorithm.
 
-### 1 基本原理
+### 1.1 基本原理
 
 <div align=center>
 <img src="https://learnopengl.com/img/advanced-lighting/shadow_mapping_theory_spaces.png"/>
@@ -25,7 +25,7 @@ tags:
 * 第一步，从光源角度渲染场景，生成阴影贴图。对于点光源，应使用透视投影；对于定向光，应使用正交投影。
 * 第二步，从摄像机角度渲染场景，同时使用阴影贴图判断该像素点是否位于阴影中。
 
-#### 1.1 实现
+#### 1.1.1 实现
 
 以github上的[Vulkan](https://github.com/SaschaWillems/Vulkan)项目中的`examples/shadowmapping`为例。
 
@@ -50,7 +50,7 @@ outShadowCoord = ( biasMat * ubo.lightSpace * ubo.model ) * vec4(inPos, 1.0);
 
 需要将场景的坐标从世界坐标系转换到光源坐标系上。
 
-### 2 存在问题——Self occlusion (Shadow Acne)
+### 1.2 存在问题——Self occlusion (Shadow Acne)
 
 <div align=center>
 <img src="https://learnopengl.com/img/advanced-lighting/shadow_mapping_shadows.png"/>
@@ -82,15 +82,15 @@ outShadowCoord = ( biasMat * ubo.lightSpace * ubo.model ) * vec4(inPos, 1.0);
 
 只能动态调整bias值的大小来降低Detached Shadow的出现。比如bias值随着光线与投射面之间的夹角动态变化。
 
-### 3 Second-depth shadow mapping
+### 1.3 Second-depth shadow mapping
 
-#### 3.1 基本思想
+#### 1.3.1 基本思想
 
 在生成阴影贴图时，记录像素点的第一和第二深度值，然后使用两者的平均值记录为该像素点的深度值。
 
 缺点：物体必须要有体积。
 
-#### 3.2 实现
+#### 1.3.2 实现
 
 // To do
 
@@ -98,7 +98,7 @@ outShadowCoord = ( biasMat * ubo.lightSpace * ubo.model ) * vec4(inPos, 1.0);
 
 众所周知，PCF算法用于抗锯齿。
 
-### 1 基本思想
+### 2.1 基本思想
 
 查询当前像素点周围像素点的深度值，平均得到当前像素点的最终深度值。
 
@@ -107,13 +107,13 @@ outShadowCoord = ( biasMat * ubo.lightSpace * ubo.model ) * vec4(inPos, 1.0);
 <p>图 Soft Shadow Edges via Percentage-Closer Filtering, from gpu gems 3</p>
 </div>
 
-### 2 实现步骤
+### 2.2 实现步骤
 
 * 第一步：对于每个像素点，分别查询其周围（5x5）像素点的深度值，分别与当前像素点的深度值比较，得到可见度值。
 
 * 第二步：对第一步得到的可见度值集合求和平均，得到的一个介于0到1之间的数值为当前像素点的可见度。
 
-#### 2.1 实现
+#### 2.2.1 实现
 
 以github上的[Vulkan](https://github.com/SaschaWillems/Vulkan)项目中的`examples/shadowmapping`为例。
 
@@ -189,7 +189,7 @@ float filterPCF2(vec4 sc)
 
 ## 三、Percentage-Closer Soft Shadows (PCSS)
 
-### 1 Observation
+### 3.1 Observation
 
 对于现实世界的阴影，可以得到：距离投射物越近，阴影越硬；距离投射物越远，阴影越软。
 
@@ -209,7 +209,7 @@ $$
 w_{Penumbra} = \frac{(d_{Receive} - d_{Blocker}) * w_{Light}}{d_{Blocker}}
 $$
 
-### 2 实现步骤
+### 3.2 实现步骤
 
 * 第一步：计算阴影遮挡者的平均深度值。同样是采取范围采样的方式。
 
@@ -217,7 +217,7 @@ $$
 
 * 第三步：PCF。
 
-#### 2.1 实现
+#### 3.2.1 实现
 
 // To do
 
@@ -231,7 +231,7 @@ VSSM算法实现快速计算PCSS算法第一、三步的Sampling。
 
 VSSM算法思想：将上面两个求值变成只需求得该像素的深度值在附近范围内像素点的“排名”。
 
-### 1 一个大胆假设——切比切夫不等式
+### 4.1 一个大胆假设——切比切夫不等式
 
 VSSM算法巧妙地使用了切比切夫不等式，只需计算该像素点附近范围内的深度平均值和方差，就可以计算出该像素点的可见度值。
 
@@ -255,7 +255,7 @@ $$
 
 通过上面的公式，要求得方差，需要另外存储深度值平方的数值。
 
-### 2 另一个大胆假设
+### 4.2 另一个大胆假设
 
 求得均值和方差之后，还不能计算出某个像素附近范围内的平均深度值。
 
@@ -270,7 +270,7 @@ $z_{unocc}$与$z_{occ}$是未知的，VSSM算法中，假设所有不在阴影�
 <p>图 VSSM</p>
 </div>
 
-#### 2.1 实现
+#### 4.2.1 实现
 
 // To do
 
@@ -278,7 +278,7 @@ $z_{unocc}$与$z_{occ}$是未知的，VSSM算法中，假设所有不在阴影�
 
 // To do
 
-#### 1.1 实现
+#### 5.1.1 实现
 
 // To do
 

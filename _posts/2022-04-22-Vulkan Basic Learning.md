@@ -13,14 +13,14 @@ tags:
 
 ## 一、Basics
 
-### 1 First triangle
+### 1.1 First triangle
 
 > Basic and verbose example for getting a colored triangle rendered to the screen using Vulkan. This is meant as a starting point for learning Vulkan from the ground up. A huge part of the code is boilerplate that is abstracted away in later examples.
 
 一个简单地输出三角形示例，重要的地方是引入一个示例代码框架。
 
 
-#### 1.1 Main入口函数
+#### 1.1.1 Main入口函数
 
 ```
 VulkanExample *vulkanExample;
@@ -47,13 +47,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLin
 
 `WinMain`函数创建一个VulkanExample对象，依次调用了其几个成员函数，完成渲染工作。
 
-#### 1.2 VulkanExampleBase::VulkanExampleBase构造函数
+#### 1.1.2 VulkanExampleBase::VulkanExampleBase构造函数
 
 `enableValidation`参数为`true`时，会启动Console窗口，具体看`vulkandebug.cpp`。
 
 该函数主要做一些命令行参数的解析工作。
 
-#### 1.3 VulkanExampleBase::initVulkan函数
+#### 1.1.3 VulkanExampleBase::initVulkan函数
 
 调用`vkCreateInstance`函数创建`VkInstance`实例对象。
 
@@ -61,13 +61,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLin
 
 创建设备队列、连接交换链以及创建信号量。
 
-#### 1.4 VulkanExample类的两个关键函数
+#### 1.1.4 VulkanExample类的两个关键函数
 
 * `prepare`函数调用了`VulkanExampleBase::prepare`函数，并且初始化项目场景资源，准备Buffers、渲染管线、描述符以及Command Buffers等等。
 
 * `render`函数更新状态链，提交渲染命令，呈现画面。
 
-#### 1.5 Semaphores与Fences
+#### 1.1.5 Semaphores与Fences
 
 ```
 // Create the Vulkan synchronization primitives used in this example
@@ -134,7 +134,7 @@ void draw()
 
 见Vulkan API文档第七章Synchronization and Cache Control。
 
-##### 1.5.1 Vulkan提供了5种显式同步机制
+##### 1.1.5.1 Vulkan提供了5种显式同步机制
 
 * Fences
 
@@ -199,11 +199,11 @@ VkResult present = swapChain.queuePresent(queue, currentBuffer, renderCompleteSe
 
 基于本章中的概念，渲染过程（Render Passes）为大多数渲染人物提供一个有用的同步框架。许多需要应用程序使用其他同步原语的情况可以更有效地表示为渲染传递的一部分。
 
-#### 1.6 Vertex Buffer与Index Buffer
+#### 1.1.6 Vertex Buffer与Index Buffer
 
 示例演示了两种网格数据存储方式：host buffer和device buffer。
 
-##### 1.6.1 host buffer
+##### 1.1.6.1 host buffer
 
 ```
 // Create host-visible buffers only and use these for rendering. This is not advised and will usually result in lower rendering performance
@@ -244,7 +244,7 @@ vkUnmapMemory(device, indices.memory);
 VK_CHECK_RESULT(vkBindBufferMemory(device, indices.buffer, indices.memory, 0));
 ```
 
-##### 1.6.2 device buffer
+##### 1.1.6.2 device buffer
 
 ```
 // Static data like vertex and index buffer should be stored on the device memory
@@ -347,10 +347,10 @@ vkDestroyBuffer(device, stagingBuffers.indices.buffer, nullptr);
 vkFreeMemory(device, stagingBuffers.indices.memory, nullptr);
 ```
 
-#### 1.7
+#### 1.1.7
 
 
-### 2 Pipelines
+### 1.2 Pipelines
 
 > Using pipeline state objects (pso) that bake state information (rasterization states, culling modes, etc.) along with the shaders into a single object, making it easy for an implementation to optimize usage (compared to OpenGL's dynamic state machine). Also demonstrates the use of pipeline derivatives.
 
