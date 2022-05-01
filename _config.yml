@@ -1,27 +1,49 @@
-title: Chaguake
-author: Wylm Ng
-subtitle: 解衣又作茶瓜客，倚槛同看烟雨峰
+title: Moonwalk
+author: Abhinav Saxena
+url: https://www.abhinavsaxena.com/moonwalk/ # root address of the site
+description: > # description of the site (multiple lines allowed)
+  Moonwalk is a fast and elegant Jekyll theme with a clean dark mode. It comes with horizontal list (for navbar and footer), card list (for portfolio), and a generic vertical list. It is very easy to modify in case you want to build over it - please see _layouts/home.html to do that.
 
-url: "https://www.chaguake.com"
-baseurl: ""
+permalink: /:slug
 
-footer_only_homepage: true
-footer_url: "https://github.com/rahul-bothra"
-footer_text: "Theme by rahul-bothra"
+favicon: "./logo.png" # relative path to site's favicon
 
-profile-picture: assets/profile.png
-favicon_location: assets/favicon.ico
+twitter:
+    username: abhinav # update or delete this
+    card: summary_large_image
 
-permalink: /:year-:month-:day-:title/
+#theme: moonwalk # if you are using GitHub Pages, change it to remote_theme: abhinavs/moonwalk
+remote_theme: abhinavs/moonwalk
+
+theme_config:
+  appearance: "dark" # can be "light", "dark" or "auto"
+  back_home_text: "go back.." # customize text for homepage link in post layout
+  appearance_toggle: true # if appearance can be switched by user
+  date_format: "%Y-%m-%d" # customize how date is formatted
+  show_description: true # show blog description
+  show_navbar: true # show horizontal navbar
+  show_footer: true # show footer links in home page,add in _data/home.yml
+  show_copyright: true # show copyright notice in footer
+  # following keys are using to create home layout
+  show_projects: true # show projects as cards, add in _data/home.yml
+  show_blog: true # show blog posts added in _posts
+  show_old_projects: true # show old projects as cards, add in _data/home.yml
+  show_misc_list: false # show generic vertical list for misc details, add _data/home.yml
+  # options for "home" page
+  home:
+    title_projects: Portfolio
+    title_misc_list: Details
+    title_blog: Blog
+    title_old_projects: Old Projects
+
+soopr:
+  publish_token: "" # sign up at https://www.soopr.co to get your publish token and personalize share and reaction options
+
+highlighter: rouge
+
 sass:
-    style: compressed
-    sass_dir: css
+  style: :compressed
 
-navbar:
- - name: "Categories"
-   link: "categories/index.html"
- - name: "Tags"
-   link: "tags/index.html"
- - name: "About"
-   link: "about/index.html"
-
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
