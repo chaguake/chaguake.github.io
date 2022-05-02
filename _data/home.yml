@@ -1,5 +1,8 @@
 navbar_entries:
   - title: CHAGUAKE
+    url: 
+    
+  - title: BLOG
     url: blog
 
   - title: CATEGORIES
@@ -20,9 +23,6 @@ project_entries:
 old_project_entries:
 
 footer_entries:
-  - title: chaguake's homepage
-    url: https://www.chaguake.com
-
   - title: github
     url: https://github.com/chaguake
 
