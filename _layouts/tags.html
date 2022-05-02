@@ -3,13 +3,19 @@ layout: default
 permalink: /tags/
 ---
 
-<div class="dashed"></div>
-
 <header>
+	{% if site.theme_config.show_navbar == true %}
+	  {% include horizontal_list.html collection=site.data.home.navbar_entries %}
+	  <div class="dashed"></div>
+	{% endif %}
   <h1 align="center">Tags</h1>
 </header>
-<div class="dashed"></div>
-{% include tags_list.html %}
-<div class="dashed"></div>
 
-<a href="{{ "/" | relative_url }}">{{ site.theme_config.back_home_text }}</a>
+{% include tags_list.html %}
+
+{% if site.theme_config.show_footer == true %}
+  <footer>
+    <div class="dashed"></div>
+    {% include horizontal_list.html collection=site.data.home.footer_entries %}
+  </footer>
+{% endif %}
