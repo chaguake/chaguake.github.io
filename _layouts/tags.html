@@ -2,10 +2,14 @@
 layout: default
 permalink: /tags/
 ---
-<a href="{{ "/" | relative_url }}">{{ site.theme_config.back_home_text }}</a>
+
+<div class="dashed"></div>
 
 <header>
   <h1 align="center">Tags</h1>
 </header>
-
+<div class="dashed"></div>
 {% include tags_list.html %}
+<div class="dashed"></div>
+
+<a href="{{ "/" | relative_url }}">{{ site.theme_config.back_home_text }}</a>
