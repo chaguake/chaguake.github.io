@@ -2,7 +2,18 @@
 layout: default
 ---
 
-<a href="{{ "/" | relative_url }}">{{ site.theme_config.back_home_text }}</a>
-<h1 class="post-title">{{ page.title }}</h1>
-{% include date_and_social_share.html %}
-{{ content }}
+<div class="page-subtitle">
+    {% for tag in page.tags %}
+        {% if page.tags.first == tag %}
+            <b>[</b>
+        {% endif %}
+        <a href="{{ site.baseurl }}/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
+        {% if page.tags.last == tag %}
+            <b>]</b>
+        {% else %}
+            ,
+        {% endif %}
+    {% endfor %}
+</div>
+
+{{content}}
