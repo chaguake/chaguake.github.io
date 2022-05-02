@@ -1,5 +1,6 @@
 ---
 layout: post
+author: chaguake
 title: Vulkan Basic Learning
 categories: 
 - Vulkan

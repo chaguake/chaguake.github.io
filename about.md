@@ -1,9 +1,7 @@
 ---
-layout: default
+layout: about
 title: About Me
 ---
-
-<img class="profile-picture" src="{{site.baseurl}}/{{site.profile-picture}}">
 
 I'm Wylm Ng. I've worked as a C++ Software Engineer for 3 years, but since 2022's I am a Graphics Development Engineer. The reason for the change is that  The Computer Graphics is fascinating.
 

@@ -1,0 +1,30 @@
+navbar_entries:
+  - title: CHAGUAKE
+    url: blog
+
+  - title: CATEGORIES
+    url: categories
+    
+  - title: TAGS
+    url: tags
+    
+  - title: ABOUT
+    url: about
+
+project_entries:
+  - title: Digital Human Demo
+    url: digital-human-demo
+    desc: This project shows how to use digital human in works.
+    highlight: WIP
+
+old_project_entries:
+
+footer_entries:
+  - title: chaguake's homepage
+    url: https://www.chaguake.com
+
+  - title: github
+    url: https://github.com/chaguake
+
+  - title: feed
+    url: feed.xml

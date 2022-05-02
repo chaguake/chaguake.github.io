@@ -1,5 +1,6 @@
 ---
 layout: post
+author: chaguake
 title: Cycles Source Code - BVH2
 categories: 
 - Cycles

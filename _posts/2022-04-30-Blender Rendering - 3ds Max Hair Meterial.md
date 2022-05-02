@@ -1,5 +1,6 @@
 ---
 layout: post
+author: chaguake
 title: Blender Cycles Rendering - 3ds Max Hair Model
 categories: 
 - Blender

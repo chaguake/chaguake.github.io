@@ -1,5 +1,6 @@
 ---
 layout: post
+author: chaguake
 title: Graphics Algorithm - Bounding Volume Hierarchy (BVH)
 categories: 
 - Graphics Algorithm
