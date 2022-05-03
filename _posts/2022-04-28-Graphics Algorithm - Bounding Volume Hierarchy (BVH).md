@@ -11,7 +11,7 @@ tags:
 ## 一、Bounding Volume Hierarchy (BVH)
 
 <div align=center>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Example_of_bounding_volume_hierarchy.svg/500px-Example_of_bounding_volume_hierarchy.svg.png"/>
+<img src="/enclosures/2022-04-28/Example_of_bounding_volume_hierarchy.png"/>
 <p>An example of a bounding volume hierarchy using rectangles as bounding volumes</p>
 </div>
 
