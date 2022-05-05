@@ -13,6 +13,11 @@ project_entries:
     url: digital-human
     desc: A project about digital human.
     highlight: WIP
+    
+  - title: Physical Simulation
+    url: physical-simulation
+    desc: A project about physical simulation.
+    highlight: WIP
 
 achievements_entries:
 
