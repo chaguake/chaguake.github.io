@@ -32,9 +32,9 @@ layout: default
   {% include post_list.html %}
 {% endif %}
 
-{% if site.theme_config.show_old_projects == true %}
-  <h2>{{ site.theme_config.home.title_old_projects }}</h2>
-  {% include card_list.html collection=site.data.home.old_project_entries %}
+{% if site.theme_config.show_achievements == true %}
+  <h2>{{ site.theme_config.home.title_achievements }}</h2>
+  {% include card_list.html collection=site.data.home.achievements_entries %}
 {% endif %}
 
 
