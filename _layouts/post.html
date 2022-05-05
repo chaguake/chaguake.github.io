@@ -2,7 +2,7 @@
 layout: default
 ---
 <header>
-	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 	{% if site.theme_config.show_navbar == true %}
 		  {% include horizontal_list.html collection=site.data.home.navbar_entries %}
 		  <div class="dashed"></div>
@@ -11,12 +11,6 @@ layout: default
 </header>
 <br>
 {% include date_and_social_share.html %}
-
-<p align="right">
-<span id="busuanzi_container_page_pv">
-	view:<span id="busuanzi_value_page_pv"></span>
-</span>
-</p>
 
 {{ content }}
 
