@@ -32,7 +32,7 @@ theme_config:
   home:
     title_projects: Portfolio
     title_misc_list: Details
-    title_feature: Feature
+    title_feature: Selection
     title_achievements: Achievements
 
 soopr:
