@@ -6,6 +6,7 @@ description: > # description of the site (multiple lines allowed)
 permalink: /:slug
 
 favicon: "./logo.png" # relative path to site's favicon
+favicon_location: favicon.ico
 
 # twitter:
     # username: abhinav # update or delete this
