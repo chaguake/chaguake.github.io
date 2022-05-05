@@ -5,8 +5,8 @@ description: > # description of the site (multiple lines allowed)
     解衣又作茶瓜客，倚槛同看烟雨峰。
 permalink: /:slug
 
-favicon: "./logo.png" # relative path to site's favicon
-favicon_location: favicon.ico
+favicon: favicon.ico # relative path to site's favicon
+
 
 # twitter:
     # username: abhinav # update or delete this
