@@ -4,12 +4,6 @@ navbar_entries:
     
   - title: BLOG
     url: blog
-
-  - title: CATEGORIES
-    url: categories
-    
-  - title: TAGS
-    url: tags
     
   - title: ABOUT
     url: about
