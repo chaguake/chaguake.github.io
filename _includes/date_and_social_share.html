@@ -1,12 +1,12 @@
-<p class="post-date text-bold text-upcase">
+<p align="center" class="post-date text-bold text-upcase">
   {% if page.author %}
-    <span align="center" class="text-bold">{{ page.author }}</span> / 
+    <span class="text-bold">{{ page.author }}</span> / 
   {% endif %}
   {% if page.date %}
-    <span align="center">{{ page.date | date: "%B %Y"}}</span>
+    <span>{{ page.date | date: "%B %Y"}}</span>
   {% endif %}
-  <span align="right" id="busuanzi_container_page_pv">
-	viewed:<span id="busuanzi_value_page_pv"></span>
+  <span id="busuanzi_container_page_pv">
+	<i class="far fa-eye"></i><span id="busuanzi_value_page_pv"></span>
   </span>
 </p>
 
