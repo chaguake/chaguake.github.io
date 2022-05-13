@@ -2,10 +2,10 @@
   {% for item in include.collection %}
     <li>
       <a href="{{ item.url }}">
-        {{ if item.title == feed }}
+        {% if item.title == 'feed' %}
 			<i class="fa-solid fa-rss"></i>
 		{% endif %}
-		{{ if item.title == github }}
+		{% if item.title == 'github' %}
 			<i class="fa-brands fa-github"></i>
 		{% endif %}
       </a>
