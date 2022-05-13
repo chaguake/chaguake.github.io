@@ -2,6 +2,7 @@
 layout: post
 author: chaguake
 title: Real Time High Quality Rendering - Shadow Mapping Techniques
+selection: false
 categories:
 - Graphics
 tags:

@@ -2,6 +2,7 @@
 layout: post
 author: chaguake
 title: Vulkan Basic Learning
+selection: false
 categories: 
 - Vulkan
 tags: 
