@@ -3,7 +3,7 @@
     {% for item in include.collection %}
       <li class="post-list-item">
         <span class="home-date">
-          {{ item.date | date: site.theme_config.date_format }}»
+          {{ item.date | date: site.theme_config.date_format }}&nbsp;»
         </span>
         <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
       </li>
