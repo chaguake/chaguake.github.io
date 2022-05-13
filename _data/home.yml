@@ -18,6 +18,11 @@ project_entries:
     url: physical-simulation
     desc: A project about physical simulation.
     highlight: WIP
+    
+feature_entries:
+  - title: Animation - Use BVH Action And Expression Capture In Blender (Offline)
+    date: 2022-04-19
+    url: animation-use-bvh-action-and-expression-capture-in-blender-offline
 
 achievements_entries:
 
