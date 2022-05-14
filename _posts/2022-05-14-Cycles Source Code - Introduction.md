@@ -43,8 +43,8 @@ Cycles渲染器并不完全物理正确，是基于物理的着色。
 | src/scene/ | 场景图。 |
 | src/session/ | 渲染会话。 |
 | src/subd/ | 细分曲面。 |
-| src/test/ ||
-| src/util/ ||
+| src/test/ |      |
+| src/util/ |      |
 
 ## 三、Cycles Standalone
 
@@ -58,7 +58,7 @@ cycles [options] file.xml
 
 使用`Cycles --help`来获得可用选项的概览。
 
-使用*GUI*进行渲染时，可以按`H`获得可用快捷键的概览。可以暂停、取消或重新启动渲染，或尝试允许基本相机导航的交互模式。
+使用 *GUI* 进行渲染时，可以按`H`获得可用快捷键的概览。可以暂停、取消或重新启动渲染，或尝试允许基本相机导航的交互模式。
 
 ## 四、参考
 
