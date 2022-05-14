@@ -318,6 +318,25 @@ void BVHBuild::add_reference_object(BoundBox &root, BoundBox &center, Object *ob
 
 > BVH builder returns tree in a binary mode (with two children per inner node. Need to adopt that for a wider BVH implementations.
 
+```
+void BVH2::build(Progress &progress, Stats *)
+{
+	...
+	BVHNode *root = widen_children_nodes(bvh2_root);
+    if (root != bvh2_root) {
+      bvh2_root->deleteSubtree();
+    }
+
+    if (progress.get_cancel()) {
+    if (root != NULL) {
+      root->deleteSubtree();
+    }
+    return;
+  }
+	...
+}
+```
+
 意义不明。
 
 ### 1.3 pack triangles
