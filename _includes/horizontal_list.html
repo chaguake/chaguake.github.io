@@ -4,9 +4,10 @@
       <a href="{{ item.url }}">
         {% if item.title == 'feed' %}
 			<i class="fa-solid fa-rss"></i>
-		{% endif %}
-		{% if item.title == 'github' %}
+		{% elsif item.title == 'github' %}
 			<i class="fa-brands fa-github"></i>
+		{% else %}
+			{{ item.title }}
 		{% endif %}
       </a>
       &nbsp;
