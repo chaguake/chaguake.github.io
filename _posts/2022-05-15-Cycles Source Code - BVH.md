@@ -190,12 +190,41 @@ public:
 
 `BVH2`类`public`属性中，有两个成员函数和一个成员变量。
 
-`build`函数创建BVH结构。调用`BVHBuild::run`函数构建BVH节点，返回根节点对象。然后将树结构数据打包成数组结构数据，存储在`pack`变量。
+`build`函数创建BVH结构。调用`BVHBuild::run`函数构建BVH节点，返回BVH树的根节点对象。然后将树结构数据打包成数组结构数据，存储在`pack`变量。
 
 `refit`函数整修已有的BVH结构。
 
 `pack`变量存储了打包好的BVH结构数据。
 
+**BVHBuild::run函数**
+
+下面介绍`BVHBuild::run`函数主要的实现。
+
+```
+add_references(root);
+```
+
+`add_references`函数遍历每个对象，将每个对象的基元（triangles、curves、points或objects）填充（`references.push_back(BVHReference(bounds, j, object_index, primitive_type))`）到成员变量`references`集合中。并且返回`BVHRange(bounds, center, 0, references.size())`。
+
+```
+/* build recursively */
+BVHNode *rootnode;
+
+if (params.use_spatial_split) {
+    /* Perform multithreaded spatial split build. */
+    BVHSpatialStorage *local_storage = &spatial_storage.local();
+    rootnode = build_node(root, references, 0, local_storage);
+    task_pool.wait_work();
+}
+else {
+    /* Perform multithreaded binning build. */
+    BVHObjectBinning rootbin(root, (references.size()) ? &references[0] : NULL);
+    rootnode = build_node(rootbin, 0);
+    task_pool.wait_work();
+}
+```
+
+递归创建BVH树。
 
 ### 3.9 embree.h
 
