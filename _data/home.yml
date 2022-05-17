@@ -20,6 +20,10 @@ project_entries:
     highlight: WIP
     
 feature_entries:
+  - title: UE Content Examples - Animation Content Examples
+    date: 2022-05-13
+    url: ue-content-examples-animation-content-examples
+
   - title: Graphics Algorithm - Bounding Volume Hierarchy (BVH)
     date: 2022-04-28
     url: graphics-algorithm-bounding-volume-hierarchy-bvh

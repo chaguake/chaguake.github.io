@@ -302,6 +302,92 @@ tags:
 
 `3rdPersonPawn`角色蓝图类包含了角色和相机。
 
+### 2.2 替代衍生动画蓝图中的动画（播放或模拟）（Overriding Animations in Derived Animation Blueprints (Play or Simulate)）
+
+<div align=center>
+<img src="/enclosures/2022-05-13/Animation Map 2.2.png"/>
+<p>Animation Map 2.2</p>
+</div>
+
+> A prime usage case for this is if you have a character that performs a certain attack when a button is pressed but you want a different character to have the same general movement but perform a different motion when the attack button is pressed.
+
+具体看[这里](https://docs.unrealengine.com/4.27/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimBPOverride/)。
+
+子动画蓝图类只能更改动画序列，以覆盖父动画蓝图类的动画。
+
+### 2.3 蓝图控制的动画轨迹（游戏或模拟）（Blueprint-controlled anim trails (Play or Simulate)）
+
+<div align=center>
+<img src="/enclosures/2022-05-13/Animation Map 2.3.png"/>
+<p>Animation Map 2.3</p>
+</div>
+
+使用*效果->粒子->拖尾*节点完成动画轨迹效果。
+
+### 2.4 链接动画层（Linked Animation Layers）
+
+<div align=center>
+<img src="/enclosures/2022-05-13/Animation Map 2.4.png"/>
+<p>Animation Map 2.4</p>
+</div>
+
+在未触发事件时，角色动画由右边*动画类*中的`LinkedAnimBlueprintExample`动画蓝图播放动画。触发事件后，调用*关联动画类图层*，使用`LinkedAnimBlueprintExampleOverride`动画蓝图播放动画。
+
+### 2.5 惯性混合（Inertial Blending）
+
+<div align=center>
+<img src="/enclosures/2022-05-13/Animation Map 2.5.png"/>
+<p>Animation Map 2.5</p>
+</div>
+
+惯性混合是传统动画淡入淡出的高性能替代方案，可生成后期处理的自然过渡。激活惯性混合后将不再计算源姿势。相反，传统混合在过渡期间会计算源姿势和目标姿势，将其组合成混合姿势。动画图表必须包含`惯性化`节点方可使用惯性混合。
+
+具体看[这里](https://docs.unrealengine.com/4.27/zh-CN/AnimatingObjects/SkeletalMeshAnimation/NodeReference/Blend/)。
+
+### 3.1 运行时重定向（游戏或模拟）（Runtime Retargeting (Play or Simulate)）
+
+<div align=center>
+<img src="/enclosures/2022-05-13/Animation Map 3.1.png"/>
+<p>Animation Map 3.1</p>
+</div>
+
+应该是更改场景中蓝图实例的骨骼网格体。这三个骨骼网格体都使用同一副骨骼`M_MALE_Base_Skeleton`。
+
+### 3.2 道具重定向（Hand IK）（Prop retargeting）
+
+<div align=center>
+<img src="/enclosures/2022-05-13/Animation Map 3.2.png"/>
+<p>Animation Map 3.2</p>
+</div>
+
+橙色的大小两个角色模型，并没有使用`Hand IK`，可以看到左手有明显的穿模。
+
+<div align=center>
+<img src="/enclosures/2022-05-13/Animation Map 3.2.1.png"/>
+<p>Animation Map 3.2.1</p>
+</div>
+
+*手部IK重定向*节点处理IK骨骼链的重定向。基于`HandFKWeight`（偏向任意一侧）移动IK骨骼链匹配FK手部骨骼（0 偏向左手，1 偏向右手， 0.5 均衡权重）。
+
+### 3.3 重定向 + 世界交互（Retargeting + World Interaction）
+
+<div align=center>
+<img src="/enclosures/2022-05-13/Animation Map 3.3.png"/>
+<p>Animation Map 3.3</p>
+</div>
+
+中间橙色角色模型左手并没能触碰到前方柱子，右边蓝色角色模型使用IK重定向之后，动作与原绿色角色模型一致。
+
+<div align=center>
+<img src="/enclosures/2022-05-13/Animation Map 3.3.1.png"/>
+<p>Animation Map 3.3.1</p>
+</div>
+
+相对于示例3.2，多了两个*变换（修改）骨骼*，以及*手部IK重定向*的`Alpha`通道动态设置。
+
+两个*变换（修改）骨骼*节点分别接收`Spine Scale`和`Scaling Counter`变量，分别控制`Spine_01`和`ik_hand_root`骨骼的缩放值。
+
+*手部IK重定向*的`Alpha`通道同样由两个变量控制，从而决定是否启动这个功能。
 
 
 ## 二、参考
