@@ -139,23 +139,23 @@ tags:
 
 ### 1.6 曲线驱动动画（变形目标）（Curve Driven Animation (Morphtarget)）
 
+> An animation that has a Curve Float Track added which blends between two morph targets (e.g. the result is an Actor who's nose increases in size then returns to normal).
+
 <div align=center>
 <img src="/enclosures/2022-05-13/Animation Map 1.6.png"/>
 <p>Animation Map 1.6</p>
 </div>
 
-> An animation that has a Curve Float Track added which blends between two morph targets (e.g. the result is an Actor who's nose increases in size then returns to normal).
-
 可将*变形目标*作为*骨骼网格体*的一部分导入，也可独立导入（独立于给定的网格体）。导入文件格式为FBX，其实就是Blend Shape。
 
 ### 1.7 曲线驱动动画（骨骼缩放）（Curve Driven Animation (Bone Scale)）
+
+> How to modify a bone of a SkeletalMeshActor during an animation inside the AnimBlueprint with a Curve Float Track (e.g. an Actor's head blends between a small/large head).
 
 <div align=center>
 <img src="/enclosures/2022-05-13/Animation Map 1.7.png"/>
 <p>Animation Map 1.7</p>
 </div>
-
-> How to modify a bone of a SkeletalMeshActor during an animation inside the AnimBlueprint with a Curve Float Track (e.g. an Actor's head blends between a small/large head).
 
 同样使用了动画序列的曲线编辑器。
 
@@ -168,12 +168,12 @@ tags:
 
 ### 1.8 逆向运动（IK）（Inverse Kinetics (IK)）
 
+> Setting up Inverse Kinetics (IK) inside the Blueprint of an Actor for both foot IK and hand IK (e.g. an Actor who adjusts their feet along stairs and a Character who's hands deform when hitting a wall).
+
 <div align=center>
 <img src="/enclosures/2022-05-13/Animation Map 1.8.png"/>
 <p>Animation Map 1.8</p>
 </div>
-
-> Setting up Inverse Kinetics (IK) inside the Blueprint of an Actor for both foot IK and hand IK (e.g. an Actor who adjusts their feet along stairs and a Character who's hands deform when hitting a wall).
 
 左边的模型没有使用IK，右脚出现明显穿模。
 
@@ -250,12 +250,12 @@ tags:
 
 ### 1.9 根运动（ Root Motion）
 
+> Enabling Root Motion Transformation and how it impacts collision when animating a Character (e.g. a Character without Root Motion Transformation loses their collision and walks through a box, while a Character with Root Motion Transformation enabled, keeps collision and moves around the box).
+
 <div align=center>
 <img src="/enclosures/2022-05-13/Animation Map 1.9.png"/>
 <p>Animation Map 1.9</p>
 </div>
-
-> Enabling Root Motion Transformation and how it impacts collision when animating a Character (e.g. a Character without Root Motion Transformation loses their collision and walks through a box, while a Character with Root Motion Transformation enabled, keeps collision and moves around the box).
 
 根运动（Root Motion）是基于骨架根骨骼动画的角色运动。角色的根应该在运动中保持固定，并应用到角色的胶囊体中。
 
@@ -286,12 +286,12 @@ tags:
 
 ### 2.1 可操作角色动画蓝图（Playable Character Animation Blueprint）
 
+> A third person controllable Character employing an Locomotion BlendSpace and an AimOffset (e.g. a playable version of the Owen Character is provided here).
+
 <div align=center>
 <img src="/enclosures/2022-05-13/Animation Map 2.1.png"/>
 <p>Animation Map 2.1</p>
 </div>
-
-> A third person controllable Character employing an Locomotion BlendSpace and an AimOffset (e.g. a playable version of the Owen Character is provided here).
 
 具体看[这里](https://docs.unrealengine.com/4.27/zh-CN/AnimatingObjects/SkeletalMeshAnimation/CharacterSetupOverview/)。
 
@@ -304,12 +304,12 @@ tags:
 
 ### 2.2 替代衍生动画蓝图中的动画（播放或模拟）（Overriding Animations in Derived Animation Blueprints (Play or Simulate)）
 
+> A prime usage case for this is if you have a character that performs a certain attack when a button is pressed but you want a different character to have the same general movement but perform a different motion when the attack button is pressed.
+
 <div align=center>
 <img src="/enclosures/2022-05-13/Animation Map 2.2.png"/>
 <p>Animation Map 2.2</p>
 </div>
-
-> A prime usage case for this is if you have a character that performs a certain attack when a button is pressed but you want a different character to have the same general movement but perform a different motion when the attack button is pressed.
 
 具体看[这里](https://docs.unrealengine.com/4.27/zh-CN/AnimatingObjects/SkeletalMeshAnimation/AnimHowTo/AnimBPOverride/)。
 
