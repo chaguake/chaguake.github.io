@@ -19,6 +19,11 @@ project_entries:
     desc: A project about physical simulation.
     highlight: WIP
     
+  - title: Imitation Show
+    url: imitation-show
+    desc: A project about imitation show.
+    highlight: WIP
+    
 feature_entries:
   - title: Cycles Source Code - BVH
     date: 2022-05-15
