@@ -110,9 +110,9 @@ tags:
 
 ## 三、参考
 
-* [布料内容示例 | 虚幻引擎文档](https://docs.unrealengine.com/4.27/zh-CN/Resources/ContentExamples/Cloth/)
+* [布料内容示例 \| 虚幻引擎文档](https://docs.unrealengine.com/4.27/zh-CN/Resources/ContentExamples/Cloth/)
 
-* [布料工具 | 虚幻引擎文档](https://docs.unrealengine.com/4.27/zh-CN/InteractiveExperiences/Physics/Cloth/Overview/)
+* [布料工具 \| 虚幻引擎文档](https://docs.unrealengine.com/4.27/zh-CN/InteractiveExperiences/Physics/Cloth/Overview/)
 
 
 
