@@ -26,7 +26,7 @@ var varies;
 UPROPERTY变量是在目标变量上方添加`UPROPERTY()`宏。
 
 <div align=center>
-<img src="/enclosures/2022-06-18/UPROPERTY变量访问权限属性.PNG"/>
+<img src="/enclosures/2022-06-18/UPROPERTY变量访问权限属性.png"/>
 <p>UPROPERTY变量访问权限属性</p>
 </div>
 
