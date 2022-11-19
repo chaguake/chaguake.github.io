@@ -50,6 +50,9 @@ achievements_entries:
 footer_entries:
   - title: github
     url: https://github.com/chaguake
+    
+  - title: shadertoy
+    url: https://www.shadertoy.com/user/wylm
 
   - title: feed
     url: feed.xml
