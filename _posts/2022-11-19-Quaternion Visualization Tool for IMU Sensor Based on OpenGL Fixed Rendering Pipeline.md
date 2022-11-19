@@ -29,10 +29,10 @@ $$
 四元数可以用来表示物体在三维空间的旋转运动，表示绕着某个旋转轴$v$旋转一定角度$θ$。
 
 $$
-w = \cos(\frac{\theta}{2})
-x = v_x\sin(\frac{\theta}{2})
-y = v_y\sin(\frac{\theta}{2})
-z = v_z\sin(\frac{\theta}{2})
+w = \cos(\frac{\theta}{2}) \\
+x = v_x\sin(\frac{\theta}{2}) \\
+y = v_y\sin(\frac{\theta}{2}) \\
+z = v_z\sin(\frac{\theta}{2}) \\
 $$
 
 三、OpenGL和freeglut
