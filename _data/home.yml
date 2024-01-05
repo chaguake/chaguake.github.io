@@ -25,6 +25,10 @@ project_entries:
     highlight: WIP
     
 feature_entries:
+  - title: [V2.0]FACEGOOD Audio2Face
+    date: 2024-01-05
+    url: [V2.0]facegood-audio2face
+    
   - title: FACEGOOD Audio2Face And UE4 Project Sample
     date: 2022-06-15
     url: facegood-audio2face-and-ue4-project-sample
