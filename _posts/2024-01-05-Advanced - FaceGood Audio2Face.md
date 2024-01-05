@@ -1,7 +1,7 @@
 ---
 layout: post
 author: chaguake
-title: [V2.0] FACEGOOD Audio2Face
+title: Advanced - FACEGOOD Audio2Face
 categories: 
 - Unreal Engine
 tags: 
